@@ -1,4 +1,4 @@
-#New Welcome Config.yml
+#RandomWelcomeRewards Config.yml
 
 #Main plugin settings
 settings:
@@ -48,6 +48,7 @@ messages:
     - "&bIts over &a<newplayer>&b, I have the high ground!!"
     - "&bHello &a<newplayer>&b, I generally do not like soda at all, but I would drink some Dr. Pepper."
     - "&bWelcome &a<newplayer>&b to the server that all of us will never grow up to adulthood."
+    - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
 
   menu:
     - ''
