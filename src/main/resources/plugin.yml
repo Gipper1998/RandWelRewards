@@ -1,4 +1,4 @@
-name: RandWelRewards
+name: RandomWelcomeRewards
 version: '${project.version}'
 main: me.gipper1998.randomwelcomerewards.RandomWelcomeRewards
 api-version: 1.18
