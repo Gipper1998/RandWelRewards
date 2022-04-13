@@ -1,0 +1,59 @@
+#New Welcome Config.yml
+
+#Main plugin settings
+settings:
+   # How much time a player has to welcome the new player.
+  newTime: 10
+   # What you want players to type to trigger the plugin.
+  triggeredNewWelcomeTexts:
+    - "welcome"
+    - "wel"
+    - "welcm"
+
+# Rewards when welcoming a new player. It will give all the rewards available.
+# Use <player> to target the player welcoming the new player if commands is enabled.
+newWelcomeRewards:
+  vault:
+    enable: true
+    reward: 100
+  commands:
+    enable: true
+    rewardCommands:
+      - "give <player> diamond 1"
+
+# Messages that can be configurable here. Use "<prefix>" to note where the prefix should go.
+messages:
+  prefix: '&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r'
+  startup: '<prefix> &aStarting Up.'
+  shutdown: '<prefix> Shutting down.'
+  no-reload: '<prefix> &cYou do not have permission to reload.'
+  has-reload: '<prefix> &aReloaded.'
+  no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
+  dne: '<prefix> &cThat command does not exist here :(.'
+  welcomedPlayer: '<prefix> &dYou welcomed a new player, here is your rewards!'
+  vaultMoney: '&a$<money> has been added for welcoming a new player!!'
+
+  # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
+  welcomeMessages:
+    - "&bWhy hello &a<newplayer>&b, I was expecting you >:D."
+    - "&bGreetings &a<newplayer>&b, we have cookies, but none are for you."
+    - "&bOh no my, worst night, &a<newplayer>&b, I must run before you take my soul!!!!"
+    - "&bHello &a<newplayer>&b, Gipper1998 made this plugin for absolutely no reason :D, but I did get money out it."
+    - "&bOh hey &a<newplayer>&b, just remember copying from other people is ok, as long as you source it."
+    - "&bWelcome &a<newplayer>&b to the server that never stops caring about how many push ups we can do."
+    - "&a<newplayer>&b found us, we got to hide before we are all doooooooooomed!!!"
+    - "&bWhy hello &a<newplayer>&b, if you must know I am incredibly attracted to the Owner of this server :D."
+    - "&bWelcome &a<newplayer>&b to the server that may get raided in the near distant future."
+    - "&bGreetings &a<newplayer>&b, I will someday take over the world, and you will work for me, FOREVER >:D."
+    - "&bIts over &a<newplayer>&b, I have the high ground!!"
+    - "&bHello &a<newplayer>&b, I generally do not like soda at all, but I would drink some Dr. Pepper."
+    - "&bWelcome &a<newplayer>&b to the server that all of us will never grow up to adulthood."
+
+  menu:
+    - ''
+    - '&bNewWelRewards Commands'
+    - '------------------------'
+    - '/newWelcomeRewards reload'
+    - '/newWelcomeRewards info'
+    - '+-----------------------'
+    - ''

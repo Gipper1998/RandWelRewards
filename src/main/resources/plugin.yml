@@ -1,0 +1,15 @@
+name: RandWelRewards
+version: '${project.version}'
+main: me.gipper1998.randomwelcomerewards.RandomWelcomeRewards
+api-version: 1.18
+depend: [ Vault ]
+authors: [ gipper1998, Ranull ]
+description: Generates a random welcome message by the player. This is based off of Ranull version of welcoming a new player, but adds extra features and vault support.
+commands:
+  randomwelcomerewards:
+    description: Command for all uses
+    aliases: [randwelrewards]
+permissions:
+  randwelrewards.reload:
+    description: Reload the plugin
+    default: false;
