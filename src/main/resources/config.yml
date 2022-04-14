@@ -2,17 +2,42 @@
 
 #Main plugin settings
 settings:
-   # How much time a player has to welcome the new player.
+  # Enable or disable players to Welcome and/or Welcome Back Players.
+  enableNewWelcome: true
+  enableReturnWelcome: true
+
+   # How much time a player has to welcome the new player (in seconds).
   newTime: 10
+
+  # How much time will they be considered an returning player to trigger the awards (from 0 - 59 in minutes).
+  returnTimeNeed: 5
+
+  #How much time a player has to welcome back the player (in seconds).
+  returnTime: 10
+
    # What you want players to type to trigger the plugin.
   triggeredNewWelcomeTexts:
     - "welcome"
     - "wel"
     - "welcm"
 
+    # What you want players to type to trigger the plugin.
+  triggeredReturnWelcomeTexts:
+    - "wb"
+    - "welcome back"
+    -
 # Rewards when welcoming a new player. It will give all the rewards available.
 # Use <player> to target the player welcoming the new player if commands is enabled.
 newWelcomeRewards:
+  vault:
+    enable: true
+    reward: 100
+  commands:
+    enable: true
+    rewardCommands:
+      - "give <player> diamond 1"
+
+returnWelcomeRewards:
   vault:
     enable: true
     reward: 100
@@ -30,11 +55,11 @@ messages:
   has-reload: '<prefix> &aReloaded.'
   no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
   dne: '<prefix> &cThat command does not exist here :(.'
-  welcomedPlayer: '<prefix> &dYou welcomed a new player, here is your rewards!'
-  vaultMoney: '&a$<money> has been added for welcoming a new player!!'
+  commandReward: '<prefix> &dYou welcomed a player, here is your rewards!'
+  vaultMoney: '&a$<money> has been added for welcoming a player!!'
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
-  welcomeMessages:
+  newWelcomeMessages:
     - "&bWhy hello &a<newplayer>&b, I was expecting you >:D."
     - "&bGreetings &a<newplayer>&b, we have cookies, but none are for you."
     - "&bOh no my, worst night, &a<newplayer>&b, I must run before you take my soul!!!!"
@@ -50,11 +75,19 @@ messages:
     - "&bWelcome &a<newplayer>&b to the server that all of us will never grow up to adulthood."
     - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
 
+  # These messages will come from the player, just specify the new player with "<returnplayer>"" and you should be good :D.
+  returnWelcomeMessages:
+    - "&bWelcome back &a<returnplayer>&b, we totally didn't miss you at all."
+    - "&bGreat, not you again &a<returnplayer>&b, I thought we got rid of ya."
+    - "&bHey &a<returnplayer>&b, we were just talking about you :D."
+    - "&bHello there &a<returnplayer>&b, how's your day :D."
+    - "&bGreetings &a<returnplayer>&b, the weather is nice isn't it."
+
+  # Basic menu of the plugin (if you really want to customize it, go ahead, otherwise this is all I'm putting in here.
   menu:
     - ''
     - '&bNewWelRewards Commands'
     - '------------------------'
     - '/newWelcomeRewards reload'
-    - '/newWelcomeRewards info'
     - '+-----------------------'
     - ''

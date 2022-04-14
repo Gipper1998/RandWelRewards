@@ -2,7 +2,9 @@ package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
 import me.gipper1998.randomwelcomerewards.listeners.OnNewJoin;
+import me.gipper1998.randomwelcomerewards.listeners.OnReturnJoin;
 import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
+import me.gipper1998.randomwelcomerewards.managers.WelcomeReturnPlayer;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -26,8 +28,10 @@ public class RandomWelcomeRewards extends JavaPlugin {
             consoleMessage("<prefix> &cVault was not found, make sure vaultRewards is disabled in the config.");
         this.players = new HashMap();
         WelcomePlayer wp = new WelcomePlayer(this);
+        WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
         this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
+        this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
         consoleMessage(this.getConfig().getString("messages.startup"));
     }
 

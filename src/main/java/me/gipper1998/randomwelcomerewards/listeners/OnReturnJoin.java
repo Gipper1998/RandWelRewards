@@ -2,13 +2,8 @@ package me.gipper1998.randomwelcomerewards.listeners;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import me.gipper1998.randomwelcomerewards.managers.NewPlayer;
-import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Random;
-
+import me.gipper1998.randomwelcomerewards.managers.ReturnPlayer;
+import me.gipper1998.randomwelcomerewards.managers.WelcomeReturnPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -18,38 +13,40 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-public class OnNewJoin implements Listener {
-    private RandomWelcomeRewards main;
-    private WelcomePlayer wp;
+import java.util.*;
+
+public class OnReturnJoin implements Listener {
+    RandomWelcomeRewards main;
+    WelcomeReturnPlayer wrp;
+    ReturnPlayer rp;
     private Random rand;
     private List<String> messages;
 
-    public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
+    public OnReturnJoin(RandomWelcomeRewards main, WelcomeReturnPlayer rp){
         this.main = main;
-        this.wp =wp;
-        rand = new Random();
+        this.wrp = wrp;
     }
 
     @EventHandler
     public void onPlayerChat (AsyncPlayerChatEvent event){
-        if (main.getConfig().getBoolean("settings.enableNewWelcome")) {
+        if (main.getConfig().getBoolean("settings.enableReturnWelcome")) {
             if (!event.isCancelled()) {
-                if (wp.messageContains(event.getMessage())) {
+                if (wrp.messageContains(event.getMessage())) {
                     Player player = event.getPlayer();
                     String message = event.getMessage();
-                    Iterator var3 = wp.getNewPlayers().entrySet().iterator();
+                    Iterator var3 = wrp.getReturnPlayers().entrySet().iterator();
                     while (true) {
                         while (var3.hasNext()) {
-                            Entry<Player, NewPlayer> entry = (Entry) var3.next();
+                            Map.Entry<Player, NewPlayer> entry = (Map.Entry) var3.next();
                             NewPlayer newPlayer = (NewPlayer) entry.getValue();
-                            Integer timeoutTime = this.main.getConfig().getInt("settings.newTime") * 1000;
+                            Integer timeoutTime = this.main.getConfig().getInt("settings.returnTime") * 1000;
                             if (System.currentTimeMillis() - newPlayer.getJoinTime() > (long) timeoutTime) {
-                                wp.removeNew(newPlayer.getPlayer());
+                                wrp.removeNew(newPlayer.getPlayer());
                             } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                                 newPlayer.addWelcomePlayer(player);
                                 this.messages = main.getConfig().getStringList("messages.welcomeMessages");
                                 int messageSelect = this.rand.nextInt(messages.size());
-                                String Text = messages.get(messageSelect).replaceAll("<returnplayer>", newPlayer.getPlayer().getName());
+                                String Text = messages.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
                                     message = "";
@@ -70,8 +67,10 @@ public class OnNewJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent player){
-        if (!player.getPlayer().hasPlayedBefore())
-            wp.addNew(player.getPlayer());
+        if (player.getPlayer().hasPlayedBefore()) {
+            if (rp.checkPlayTime(player.getPlayer()))
+                wrp.addNew(player.getPlayer());
+        }
     }
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
