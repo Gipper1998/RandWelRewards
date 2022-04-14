@@ -40,9 +40,9 @@ newWelcomeRewards:
 returnWelcomeRewards:
   vault:
     enable: true
-    reward: 100
+    reward: 10
   commands:
-    enable: true
+    enable: false
     rewardCommands:
       - "give <player> diamond 1"
 
