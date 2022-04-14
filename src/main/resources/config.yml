@@ -9,7 +9,7 @@ settings:
    # How much time a player has to welcome the new player (in seconds).
   newTime: 10
 
-  # How much time will they be considered an returning player to trigger the awards (from 0 - 59 in minutes).
+  # How much time will they be considered an returning player to trigger the awards (in minutes).
   returnTimeNeed: 30
 
   #How much time a player has to welcome back the player (in seconds).
@@ -25,7 +25,7 @@ settings:
   triggeredReturnWelcomeTexts:
     - "wb"
     - "welcome back"
-    -
+    - "welback"
 # Rewards when welcoming a new player. It will give all the rewards available.
 # Use <player> to target the player welcoming the new player if commands is enabled.
 newWelcomeRewards:
@@ -85,7 +85,10 @@ messages:
 
   # Basic menu of the plugin (if you really want to customize it, go ahead, otherwise this is all I'm putting in here.
   menu:
+    - ''
     - '&a-----------------------------'
     - '&b&nNewWelRewards Commands'
-    - '&d/newWelcomeRewards reload'
-    - '&a+-----------------------'
+    - ''
+    - '&d/&enewWelcomeRewards reload'
+    - '&a-----------------------------'
+    - ''

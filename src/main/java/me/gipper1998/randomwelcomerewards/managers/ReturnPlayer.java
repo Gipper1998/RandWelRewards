@@ -1,9 +1,6 @@
 package me.gipper1998.randomwelcomerewards.managers;
 
-import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 

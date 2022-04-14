@@ -3,12 +3,10 @@ package me.gipper1998.randomwelcomerewards.listeners;
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import me.gipper1998.randomwelcomerewards.managers.NewPlayer;
 import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;

@@ -1,7 +1,6 @@
 package me.gipper1998.randomwelcomerewards.listeners;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import me.gipper1998.randomwelcomerewards.managers.NewPlayer;
 import me.gipper1998.randomwelcomerewards.managers.ReturnPlayer;
 import me.gipper1998.randomwelcomerewards.managers.WelcomeReturnPlayer;
 import org.bukkit.ChatColor;
@@ -13,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-
 import java.util.*;
 
 public class OnReturnJoin implements Listener {
@@ -81,7 +79,7 @@ public class OnReturnJoin implements Listener {
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
         if (main.vaultEnabled) {
-            if (main.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
+            if (main.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
                 int money = main.getConfig().getInt("returnWelcomeRewards.vault.reward");
                 main.deposit(player, money);
                 main.vaultChat(main.getConfig().getString("messages.vaultMoney"), player, money);
@@ -92,7 +90,7 @@ public class OnReturnJoin implements Listener {
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {
-        if (main.getConfig().getBoolean("newWelcomeRewards.commands.enable") == true) {
+        if (main.getConfig().getBoolean("returnWelcomeRewards.commands.enable") == true) {
             List<String> rewardCommands = this.main.getConfig().getStringList("returnWelcomeRewards.commands.rewardCommands");
             ConsoleCommandSender console = this.main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
