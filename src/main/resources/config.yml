@@ -10,7 +10,7 @@ settings:
   newTime: 10
 
   # How much time will they be considered an returning player to trigger the awards (from 0 - 59 in minutes).
-  returnTimeNeed: 5
+  returnTimeNeed: 30
 
   #How much time a player has to welcome back the player (in seconds).
   returnTime: 10
