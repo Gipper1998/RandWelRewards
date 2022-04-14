@@ -82,7 +82,7 @@ public class OnReturnJoin implements Listener {
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
         if (main.vaultEnabled) {
             if (main.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
-                int money = main.getConfig().getInt("newWelcomeRewards.vault.reward");
+                int money = main.getConfig().getInt("returnWelcomeRewards.vault.reward");
                 main.deposit(player, money);
                 main.vaultChat(main.getConfig().getString("messages.vaultMoney"), player, money);
             }
@@ -93,7 +93,7 @@ public class OnReturnJoin implements Listener {
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {
         if (main.getConfig().getBoolean("newWelcomeRewards.commands.enable") == true) {
-            List<String> rewardCommands = this.main.getConfig().getStringList("newWelcomeRewards.commands.rewardCommands");
+            List<String> rewardCommands = this.main.getConfig().getStringList("returnWelcomeRewards.commands.rewardCommands");
             ConsoleCommandSender console = this.main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
             while (var9.hasNext()) {
