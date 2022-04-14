@@ -62,6 +62,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void consoleMessage (String message){
         if (message != "") {
+            if (message.contains("\n"))
+                message = message.replaceAll("\n", "");
             String prefix = this.getConfig().getString("messages.prefix");
             message = message.replaceAll("<prefix>", prefix);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
@@ -70,6 +72,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void chatMessage(String message, Player player){
         if (message != "") {
+            if (message.contains("\n"))
+                message = message.replaceAll("\n", "");
             String prefix = this.getConfig().getString("messages.prefix");
             message = message.replaceAll("<prefix>", prefix);
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
@@ -78,6 +82,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void vaultChat(String message, Player player, int money){
         if (message != "") {
+            if (message.contains("\n"))
+                message = message.replaceAll("\n", "");
             String prefix = this.getConfig().getString("messages.prefix");
             String cash = Integer.toString(money);
             message = message.replaceAll("<money>", cash);
