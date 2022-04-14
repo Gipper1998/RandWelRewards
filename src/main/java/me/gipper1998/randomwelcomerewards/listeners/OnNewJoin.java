@@ -26,7 +26,7 @@ public class OnNewJoin implements Listener {
 
     public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
         this.main = main;
-        this.wp =wp;
+        this.wp = wp;
         rand = new Random();
     }
 
@@ -47,14 +47,13 @@ public class OnNewJoin implements Listener {
                                 wp.removeNew(newPlayer.getPlayer());
                             } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                                 newPlayer.addWelcomePlayer(player);
-                                this.messages = main.getConfig().getStringList("messages.welcomeMessages");
+                                this.messages = main.getConfig().getStringList("messages.newWelcomeMessages");
                                 int messageSelect = this.rand.nextInt(messages.size());
-                                String Text = messages.get(messageSelect).replaceAll("<returnplayer>", newPlayer.getPlayer().getName());
+                                String Text = messages.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
                                     message = "";
                                     message = Text;
-                                    main.chatMessage(main.getConfig().getString("messages.welcomedPlayer"), player);
                                     vaultRewards(player, event);
                                     commandRewards(player, event);
                                 }

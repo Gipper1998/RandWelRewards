@@ -8,20 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReturnPlayer {
-    RandomWelcomeRewards main;
     public ReturnPlayer(Player player) {
         this.player = player;
         this.joinTime = System.currentTimeMillis();
     }
 
-    public Boolean checkPlayTime(Player player) {
-        long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
-        long minutes = ticks / 20 / 60;
-        long hours = minutes / 60;
-        if (minutes > main.getConfig().getInt("settings.returnTimeNeed"))
-            return true;
-        return false;
-    }
     private Long joinTime;
     private Player player;
     private List<Player> welcomePlayers = new ArrayList();

@@ -5,6 +5,7 @@ import me.gipper1998.randomwelcomerewards.managers.NewPlayer;
 import me.gipper1998.randomwelcomerewards.managers.ReturnPlayer;
 import me.gipper1998.randomwelcomerewards.managers.WelcomeReturnPlayer;
 import org.bukkit.ChatColor;
+import org.bukkit.Statistic;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,13 +19,13 @@ import java.util.*;
 public class OnReturnJoin implements Listener {
     RandomWelcomeRewards main;
     WelcomeReturnPlayer wrp;
-    ReturnPlayer rp;
     private Random rand;
     private List<String> messages;
 
-    public OnReturnJoin(RandomWelcomeRewards main, WelcomeReturnPlayer rp){
+    public OnReturnJoin(RandomWelcomeRewards main, WelcomeReturnPlayer wrp){
         this.main = main;
         this.wrp = wrp;
+        this.rand = new Random();
     }
 
     @EventHandler
@@ -37,21 +38,20 @@ public class OnReturnJoin implements Listener {
                     Iterator var3 = wrp.getReturnPlayers().entrySet().iterator();
                     while (true) {
                         while (var3.hasNext()) {
-                            Map.Entry<Player, NewPlayer> entry = (Map.Entry) var3.next();
-                            NewPlayer newPlayer = (NewPlayer) entry.getValue();
+                            Map.Entry<Player, ReturnPlayer> entry = (Map.Entry) var3.next();
+                            ReturnPlayer returnPlayer = (ReturnPlayer) entry.getValue();
                             Integer timeoutTime = this.main.getConfig().getInt("settings.returnTime") * 1000;
-                            if (System.currentTimeMillis() - newPlayer.getJoinTime() > (long) timeoutTime) {
-                                wrp.removeNew(newPlayer.getPlayer());
-                            } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
-                                newPlayer.addWelcomePlayer(player);
-                                this.messages = main.getConfig().getStringList("messages.welcomeMessages");
+                            if (System.currentTimeMillis() - returnPlayer.getJoinTime() > (long) timeoutTime) {
+                                wrp.removeNew(returnPlayer.getPlayer());
+                            } else if (!returnPlayer.getPlayer().equals(player) && !returnPlayer.hasPlayer(player)) {
+                                returnPlayer.addWelcomePlayer(player);
+                                this.messages = main.getConfig().getStringList("messages.returnWelcomeMessages");
                                 int messageSelect = this.rand.nextInt(messages.size());
-                                String Text = messages.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
+                                String Text = messages.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
                                     message = "";
                                     message = Text;
-                                    main.chatMessage(main.getConfig().getString("messages.welcomedPlayer"), player);
                                     vaultRewards(player, event);
                                     commandRewards(player, event);
                                 }
@@ -67,10 +67,16 @@ public class OnReturnJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent player){
-        if (player.getPlayer().hasPlayedBefore()) {
-            if (rp.checkPlayTime(player.getPlayer()))
-                wrp.addNew(player.getPlayer());
-        }
+        if (player.getPlayer().hasPlayedBefore() && checkPlayTime(player.getPlayer()))
+            wrp.addNew(player.getPlayer());
+    }
+
+    public Boolean checkPlayTime(Player player) {
+        long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+        long minutes = ticks / 20 / 60;
+        if (minutes >= main.getConfig().getInt("settings.returnTimeNeed"))
+            return true;
+        return false;
     }
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
