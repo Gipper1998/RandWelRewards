@@ -33,10 +33,18 @@ public class Commands implements TabExecutor {
             if (args.length == 0) {
                 List<String> menus = main.getConfig().getStringList("messages.menu");
                 for (int i = 0; i < menus.size(); i++) {
-                    if (commandSender instanceof ConsoleCommandSender)
-                        main.consoleMessage(menus.get(i));
-                    else
-                        main.chatMessage(menus.get(i), (Player) commandSender);
+                    if (commandSender instanceof ConsoleCommandSender) {
+                        if (menus.get(i) == "")
+                            commandSender.sendMessage("");
+                        else
+                            main.consoleMessage(menus.get(i));
+                    }
+                    else {
+                        if (menus.get(i) == "")
+                            commandSender.sendMessage("");
+                        else
+                            main.chatMessage(menus.get(i), (Player) commandSender);
+                    }
                 }
                 return true;
             }
