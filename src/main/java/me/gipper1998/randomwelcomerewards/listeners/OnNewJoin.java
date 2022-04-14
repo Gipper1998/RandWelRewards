@@ -20,30 +20,30 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 public class OnNewJoin implements Listener {
     private RandomWelcomeRewards main;
-    private WelcomePlayer manager;
+    private WelcomePlayer wp;
     private Random rand;
     private List<String> messages;
 
-    public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer manager){
+    public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
         this.main = main;
-        this.manager = manager;
+        this.wp =wp;
         rand = new Random();
     }
 
     @EventHandler
     public void onPlayerChat (AsyncPlayerChatEvent event){
         if (!event.isCancelled()) {
-            if (this.manager.messageContains(event.getMessage())) {
+            if (wp.messageContains(event.getMessage())) {
                 Player player = event.getPlayer();
                 String message = event.getMessage();
-                Iterator var3 = this.manager.getNewPlayers().entrySet().iterator();
+                Iterator var3 = wp.getNewPlayers().entrySet().iterator();
                 while(true) {
                     while(var3.hasNext()) {
                         Entry<Player, NewPlayer> entry = (Entry)var3.next();
                         NewPlayer newPlayer = (NewPlayer)entry.getValue();
                         Integer timeoutTime = this.main.getConfig().getInt("settings.newTime") * 1000;
                         if (System.currentTimeMillis() - newPlayer.getJoinTime() > (long)timeoutTime) {
-                            this.manager.removeNew(newPlayer.getPlayer());
+                            wp.removeNew(newPlayer.getPlayer());
                         } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                             newPlayer.addWelcomePlayer(player);
                             this.messages = main.getConfig().getStringList("messages.welcomeMessages");
@@ -69,7 +69,7 @@ public class OnNewJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent player){
         if (!player.getPlayer().hasPlayedBefore())
-            this.manager.addNew(player.getPlayer());
+            wp.addNew(player.getPlayer());
     }
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
