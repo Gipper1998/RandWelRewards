@@ -49,10 +49,10 @@ returnWelcomeRewards:
 # Messages that can be configurable here. Use "<prefix>" to note where the prefix should go.
 messages:
   prefix: '&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r'
-  startup: '<prefix> &aStarting Up.'
-  shutdown: '<prefix> Shutting down.'
+  startup: '<prefix> &aGood to go!'
+  shutdown: '<prefix> &cShutting down.'
   no-reload: '<prefix> &cYou do not have permission to reload.'
-  has-reload: '<prefix> &aReloaded.'
+  has-reload: '<prefix> &aConfig Reloaded.'
   no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
   dne: '<prefix> &cThat command does not exist here :(.'
   commandReward: '<prefix> &dYou welcomed a player, here is your rewards!'
