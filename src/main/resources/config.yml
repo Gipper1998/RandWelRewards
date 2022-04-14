@@ -85,9 +85,7 @@ messages:
 
   # Basic menu of the plugin (if you really want to customize it, go ahead, otherwise this is all I'm putting in here.
   menu:
-    - '\n'
-    - '&bNewWelRewards Commands'
-    - '------------------------'
-    - '/newWelcomeRewards reload'
-    - '+-----------------------'
-    - '\n'
+    - '&a-----------------------------'
+    - '&b&nNewWelRewards Commands'
+    - '&d/newWelcomeRewards reload'
+    - '&a+-----------------------'
