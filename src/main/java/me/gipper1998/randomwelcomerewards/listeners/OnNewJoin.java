@@ -54,6 +54,7 @@ public class OnNewJoin implements Listener {
                                     message = Text;
                                     vaultRewards(player, event);
                                     commandRewards(player, event);
+                                    main.addWelcomePoint(player, true);
                                 }
                             }
                             event.setMessage(ChatColor.translateAlternateColorCodes('&', message));

@@ -10,47 +10,51 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DataManager {
-    private RandomWelcomeRewards main;
-    private FileConfiguration dataConfig = null;
-    private File dataFile = null;
 
-    public DataManager(RandomWelcomeRewards main){
+    private final RandomWelcomeRewards main;
+    private FileConfiguration dataConfig = null;
+    private File dataConfigFile = null;
+    private final String name = "data.yml";
+
+    public DataManager(RandomWelcomeRewards main) {
         this.main = main;
         saveDefaultDataConfig();
     }
 
-    public void reloadDataConfig(){
-        if (this.dataFile == null)
-            this.dataFile = new File(this.main.getDataFolder(), "data.yml");
-        this.dataConfig = YamlConfiguration.loadConfiguration(this.dataFile);
-        InputStream defaultStream = this.main.getResource("data.yml");
-        if (defaultStream != null){
-            YamlConfiguration dataConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
-            this.dataConfig.setDefaults(dataConfig);
+    public void reloadDataConfig() {
+        if (this.dataConfigFile == null)
+            this.dataConfigFile = new File(this.main.getDataFolder(), name);
+        this.dataConfig = YamlConfiguration
+                .loadConfiguration(this.dataConfigFile);
+        InputStream defConfigStream = this.main.getResource(name);
+        if (defConfigStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration
+                    .loadConfiguration(new InputStreamReader(defConfigStream));
+            this.dataConfig.setDefaults(defConfig);
         }
     }
 
-    public FileConfiguration getDataConfig(){
+    public FileConfiguration getDataConfig() {
         if (this.dataConfig == null)
             reloadDataConfig();
         return this.dataConfig;
     }
 
-    public void saveDataConfig(){
-        if (this.dataConfig == null || this.dataConfig == null)
+    public void saveDataConfig() {
+        if ((this.dataConfig == null) || (this.dataConfigFile == null))
             return;
         try {
-            this.getDataConfig().save(this.dataFile);
-        } catch (IOException e){
-            main.consoleMessage("<prefix> &cCould not save config " + this.dataFile + ": " + e);
+            getDataConfig().save(this.dataConfigFile);
+        } catch (IOException e) {
+            main.consoleMessage("<prefix> &cCould not load " + name + " folder.");
         }
     }
 
-    public void saveDefaultDataConfig(){
-        if (this.dataConfig == null)
-            this.dataFile = new File(this.main.getDataFolder(), "data.yml");
-        if (!this.dataFile.exists()){
-            this.main.saveResource("data.yml", false);
-        }
+    public void saveDefaultDataConfig() {
+        if (this.dataConfigFile == null)
+            this.dataConfigFile = new File(this.main.getDataFolder(), name);
+        if (!this.dataConfigFile.exists())
+            this.main.saveResource(name, false);
     }
+
 }
