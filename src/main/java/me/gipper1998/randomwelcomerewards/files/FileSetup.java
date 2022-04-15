@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.data;
+package me.gipper1998.randomwelcomerewards.files;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class DataManager {
+public class FileSetup {
 
     private final RandomWelcomeRewards main;
     private FileConfiguration dataConfig = null;
     private File dataConfigFile = null;
     private String name;
 
-    public DataManager(RandomWelcomeRewards main, String name) {
+    public FileSetup(RandomWelcomeRewards main, String name) {
         this.main = main;
         this.name = name;
         saveDefaultConfig();

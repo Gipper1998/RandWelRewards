@@ -1,7 +1,7 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.data.DataManager;
+import me.gipper1998.randomwelcomerewards.files.FileSetup;
 import me.gipper1998.randomwelcomerewards.listeners.OnNewJoin;
 import me.gipper1998.randomwelcomerewards.listeners.OnReturnJoin;
 import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
@@ -22,8 +22,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public boolean vaultEnabled = false;
     public Economy economy;
     public Chat chat = null;
-    public DataManager data;
-    public DataManager messages;
+    public FileSetup data;
+    public FileSetup messages;
 
     @Override
     public void onEnable() {
@@ -31,8 +31,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
         if (!registerVault())
             consoleMessage("<prefix> &cVault was not found, make sure vaultRewards is disabled in the config.");
         this.players = new HashMap();
-        this.data = new DataManager(this, "data.yml");
-        this.messages = new DataManager(this, "messages.yml");
+        this.data = new FileSetup(this, "data.yml");
+        this.messages = new FileSetup(this, "messages.yml");
         WelcomePlayer wp = new WelcomePlayer(this);
         WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
@@ -43,7 +43,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        consoleMessage(this.getConfig().getString("messages.shutdown"));
+        consoleMessage(messages.getConfig().getString("messages.shutdown"));
         Bukkit.getPluginManager().disablePlugin(this);
     }
 
