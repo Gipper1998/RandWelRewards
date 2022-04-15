@@ -97,12 +97,16 @@ public class RandomWelcomeRewards extends JavaPlugin {
         int returnWelcome = 0;
         if (this.data.getDataConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && this.data.getDataConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")){
             newWelcome = this.data.getDataConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-            newWelcome = this.data.getDataConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+            returnWelcome = this.data.getDataConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
         }
-        if (!firstWelcome)
+        if (!firstWelcome) {
+            data.getDataConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome));
             data.getDataConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome + 1));
-        else
+        }
+        else {
             data.getDataConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome + 1));
+            data.getDataConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome));
+        }
         data.saveDataConfig();
     }
 }
