@@ -20,7 +20,7 @@ public class OnNewJoin implements Listener {
     private RandomWelcomeRewards main;
     private WelcomePlayer wp;
     private Random rand;
-    private List<String> messages;
+    private List<String> messageList;
 
     public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
         this.main = main;
@@ -45,9 +45,9 @@ public class OnNewJoin implements Listener {
                                 wp.removeNew(newPlayer.getPlayer());
                             } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                                 newPlayer.addWelcomePlayer(player);
-                                this.messages = main.getConfig().getStringList("messages.newWelcomeMessages");
-                                int messageSelect = this.rand.nextInt(messages.size());
-                                String Text = messages.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
+                                this.messageList = main.messages.getConfig().getStringList("messages.newWelcomeMessages");
+                                int messageSelect = this.rand.nextInt(messageList.size());
+                                String Text = messageList.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
                                     message = "";
@@ -77,7 +77,7 @@ public class OnNewJoin implements Listener {
             if (main.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
                 int money = main.getConfig().getInt("newWelcomeRewards.vault.reward");
                 main.deposit(player, money);
-                main.vaultChat(main.getConfig().getString("messages.vaultMoney"), player, money);
+                main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }
         else
@@ -100,7 +100,7 @@ public class OnNewJoin implements Listener {
                     });
                 }
             }
-            main.chatMessage(main.getConfig().getString("messages.commandReward"), player);
+            main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
         }
     }
 }

@@ -14,14 +14,15 @@ public class DataManager {
     private final RandomWelcomeRewards main;
     private FileConfiguration dataConfig = null;
     private File dataConfigFile = null;
-    private final String name = "data.yml";
+    private String name;
 
-    public DataManager(RandomWelcomeRewards main) {
+    public DataManager(RandomWelcomeRewards main, String name) {
         this.main = main;
-        saveDefaultDataConfig();
+        this.name = name;
+        saveDefaultConfig();
     }
 
-    public void reloadDataConfig() {
+    public void reloadConfig() {
         if (this.dataConfigFile == null)
             this.dataConfigFile = new File(this.main.getDataFolder(), name);
         this.dataConfig = YamlConfiguration
@@ -34,23 +35,23 @@ public class DataManager {
         }
     }
 
-    public FileConfiguration getDataConfig() {
+    public FileConfiguration getConfig() {
         if (this.dataConfig == null)
-            reloadDataConfig();
+            reloadConfig();
         return this.dataConfig;
     }
 
-    public void saveDataConfig() {
+    public void saveConfig() {
         if ((this.dataConfig == null) || (this.dataConfigFile == null))
             return;
         try {
-            getDataConfig().save(this.dataConfigFile);
+            getConfig().save(this.dataConfigFile);
         } catch (IOException e) {
             main.consoleMessage("<prefix> &cCould not load " + name + " folder.");
         }
     }
 
-    public void saveDefaultDataConfig() {
+    public void saveDefaultConfig() {
         if (this.dataConfigFile == null)
             this.dataConfigFile = new File(this.main.getDataFolder(), name);
         if (!this.dataConfigFile.exists())

@@ -18,7 +18,7 @@ public class OnReturnJoin implements Listener {
     RandomWelcomeRewards main;
     WelcomeReturnPlayer wrp;
     private Random rand;
-    private List<String> messages;
+    private List<String> messageList;
 
     public OnReturnJoin(RandomWelcomeRewards main, WelcomeReturnPlayer wrp){
         this.main = main;
@@ -43,9 +43,9 @@ public class OnReturnJoin implements Listener {
                                 wrp.removeNew(returnPlayer.getPlayer());
                             } else if (!returnPlayer.getPlayer().equals(player) && !returnPlayer.hasPlayer(player)) {
                                 returnPlayer.addWelcomePlayer(player);
-                                this.messages = main.getConfig().getStringList("messages.returnWelcomeMessages");
-                                int messageSelect = this.rand.nextInt(messages.size());
-                                String Text = messages.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());
+                                this.messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
+                                int messageSelect = this.rand.nextInt(messageList.size());
+                                String Text = messageList.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
                                     message = "";
@@ -83,7 +83,7 @@ public class OnReturnJoin implements Listener {
             if (main.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
                 int money = main.getConfig().getInt("returnWelcomeRewards.vault.reward");
                 main.deposit(player, money);
-                main.vaultChat(main.getConfig().getString("messages.vaultMoney"), player, money);
+                main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }
         else
@@ -106,7 +106,7 @@ public class OnReturnJoin implements Listener {
                     });
                 }
             }
-            main.chatMessage(main.getConfig().getString("messages.commandReward"), player);
+            main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
         }
     }
 }

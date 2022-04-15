@@ -19,19 +19,49 @@ public class Commands implements TabExecutor {
         if (args.length != 0 && (args[0].equalsIgnoreCase("reload"))) {
             if (commandSender.hasPermission("randwelrewards.reload") || (commandSender instanceof ConsoleCommandSender) || commandSender.isOp()) {
                 main.reloadConfig();
+                main.messages.reloadConfig();
+                main.data.reloadConfig();
                 if (commandSender instanceof ConsoleCommandSender)
-                    main.consoleMessage(main.getConfig().getString("messages.has-reload"));
+                    main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
                 else
-                    main.chatMessage(main.getConfig().getString("messages.has-reload"), (Player) commandSender);
+                    main.chatMessage(main.messages.getConfig().getString("messages.has-reload"), (Player) commandSender);
                 return true;
             } else {
-                main.chatMessage(main.getConfig().getString("messages.no-reload"), (Player) commandSender);
+                main.chatMessage(main.messages.getConfig().getString("messages.no-reload"), (Player) commandSender);
                 return true;
             }
         }
+        else if (args.length != 0 && args[0].equalsIgnoreCase("stats")){
+            if (commandSender instanceof ConsoleCommandSender) {
+                main.consoleMessage("<prefix> &cOnly players can perform this command.");
+                return false;
+            }
+            else {
+                Player player = (Player) commandSender;
+                int newWelcome = 0;
+                int returnWelcome = 0;
+                if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
+                    newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
+                    returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+                }
+                List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
+                for (int i = 0; i < scoreSheet.size(); i++){
+                    if (scoreSheet.get(i) == "")
+                        player.sendMessage("");
+                    else {
+                        String message = scoreSheet.get(i);
+                        message = message.replaceAll("<player>", player.getDisplayName());
+                        message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
+                        message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
+                        main.chatMessage(message, player);
+                    }
+                }
+            }
+            return true;
+        }
         else {
             if (args.length == 0) {
-                List<String> menus = main.getConfig().getStringList("messages.menu");
+                List<String> menus = main.messages.getConfig().getStringList("messages.menu");
                 for (int i = 0; i < menus.size(); i++) {
                     if (commandSender instanceof ConsoleCommandSender) {
                         if (menus.get(i) == "")
@@ -49,7 +79,7 @@ public class Commands implements TabExecutor {
                 return true;
             }
             else
-                main.chatMessage(main.getConfig().getString("messages.dne"), (Player) commandSender);
+                main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
         }
         return false;
     }
@@ -59,6 +89,7 @@ public class Commands implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (arguments.isEmpty()) {
             arguments.add("reload");
+            arguments.add("stats");
         }
         List<String> result = new ArrayList<String>();
         if (args.length == 1){

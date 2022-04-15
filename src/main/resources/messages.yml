@@ -1,0 +1,56 @@
+# Messages that can be configurable here. Use "<prefix>" to note where the prefix should go.
+messages:
+  prefix: '&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r'
+  startup: '<prefix> &aGood to go!'
+  shutdown: '<prefix> &cShutting down.'
+  no-reload: '<prefix> &cYou do not have permission to reload.'
+  has-reload: '<prefix> &aConfig Reloaded.'
+  no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
+  dne: '<prefix> &cThat command does not exist here :(.'
+  commandReward: '<prefix> &dYou welcomed a player, here is your rewards!'
+  vaultMoney: '&a$<money> has been added for welcoming a player!!'
+
+  # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
+  newWelcomeMessages:
+    - "&bWhy hello &a<newplayer>&b, I was expecting you >:D."
+    - "&bGreetings &a<newplayer>&b, we have cookies, but none are for you."
+    - "&bOh no my, worst night, &a<newplayer>&b, I must run before you take my soul!!!!"
+    - "&bHello &a<newplayer>&b, Gipper1998 made this plugin for absolutely no reason :D, but I did get money out it."
+    - "&bOh hey &a<newplayer>&b, just remember copying from other people is ok, as long as you source it."
+    - "&bWelcome &a<newplayer>&b to the server that never stops caring about how many push ups we can do."
+    - "&a<newplayer>&b found us, we got to hide before we are all doooooooooomed!!!"
+    - "&bWhy hello &a<newplayer>&b, if you must know I am incredibly attracted to the Owner of this server :D."
+    - "&bWelcome &a<newplayer>&b to the server that may get raided in the near distant future."
+    - "&bGreetings &a<newplayer>&b, I will someday take over the world, and you will work for me, FOREVER >:D."
+    - "&bIts over &a<newplayer>&b, I have the high ground!!"
+    - "&bHello &a<newplayer>&b, I generally do not like soda at all, but I would drink some Dr. Pepper."
+    - "&bWelcome &a<newplayer>&b to the server that all of us will never grow up to adulthood."
+    - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
+
+  # These messages will come from the player, just specify the new player with "<returnplayer>"" and you should be good :D.
+  returnWelcomeMessages:
+    - "&bWelcome back &a<returnplayer>&b, we totally didn't miss you at all."
+    - "&bGreat, not you again &a<returnplayer>&b, I thought we got rid of ya."
+    - "&bHey &a<returnplayer>&b, we were just talking about you :D."
+    - "&bHello there &a<returnplayer>&b, how's your day :D."
+    - "&bGreetings &a<returnplayer>&b, the weather is nice isn't it."
+
+  # Basic menu of the plugin (if you really want to customize it, go ahead, otherwise this is all I'm putting in here.
+  commandMenu:
+    - ""
+    - "&a-----------------------------"
+    - "&b&nNewWelRewards Commands"
+    - ""
+    - "&d/&enewWelcomeRewards reload"
+    - "&d/&enewWelcomeRewards stats"
+    - "&a-----------------------------"
+    - ""
+
+  scoreSheet:
+    - ""
+    - "---------------------------"
+    - "<player> Stats"
+    - "New Welcomes: <newwelcomes>"
+    - "Return Welcomes: <returnwelcomes>"
+    - "---------------------------"
+    - ""
