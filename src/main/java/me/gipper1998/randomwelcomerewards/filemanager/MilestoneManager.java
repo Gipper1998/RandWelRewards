@@ -77,8 +77,12 @@ public class MilestoneManager {
                 main.chatMessage(message, player);
             }
             if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".money")){
-                int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
-                main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                if (main.vaultEnabled) {
+                    int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
+                    main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                }
+                else
+                    main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
             }
             if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
                 List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
@@ -107,8 +111,12 @@ public class MilestoneManager {
                 main.chatMessage(message, player);
             }
             if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".money")){
-                int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes." + score + ".money");
-                main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                if (main.vaultEnabled) {
+                    int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes." + score + ".money");
+                    main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                }
+                else
+                    main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
             }
             if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")){
                 List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
