@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.managers;
+package me.gipper1998.randomwelcomerewards.utils;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.entity.Player;

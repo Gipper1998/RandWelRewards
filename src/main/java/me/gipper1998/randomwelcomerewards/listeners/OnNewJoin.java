@@ -1,8 +1,9 @@
 package me.gipper1998.randomwelcomerewards.listeners;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import me.gipper1998.randomwelcomerewards.managers.NewPlayer;
-import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
+import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
+import me.gipper1998.randomwelcomerewards.utils.NewPlayer;
+import me.gipper1998.randomwelcomerewards.utils.WelcomePlayer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -89,18 +90,20 @@ public class OnNewJoin implements Listener {
             List<String> rewardCommands = this.main.getConfig().getStringList("newWelcomeRewards.commands.rewardCommands");
             ConsoleCommandSender console = this.main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
-            while (var9.hasNext()) {
-                String command = (String) var9.next();
-                command = command.replace("<player>", player.getName());
-                ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                this.main.getServer().getPluginManager().callEvent(commandEvent);
-                if (!event.isCancelled()) {
-                    this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                        return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
-                    });
+            if (rewardCommands.size() != 0) {
+                while (var9.hasNext()) {
+                    String command = (String) var9.next();
+                    command = command.replace("<player>", player.getName());
+                    ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
+                    this.main.getServer().getPluginManager().callEvent(commandEvent);
+                    if (!event.isCancelled()) {
+                        this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
+                            return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                        });
+                    }
                 }
+                main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
             }
-            main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
         }
     }
 }

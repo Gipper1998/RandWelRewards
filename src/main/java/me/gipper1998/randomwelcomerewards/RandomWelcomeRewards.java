@@ -1,11 +1,13 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.files.FileSetup;
+import me.gipper1998.randomwelcomerewards.filemanager.DataManager;
+import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
+import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
 import me.gipper1998.randomwelcomerewards.listeners.OnNewJoin;
 import me.gipper1998.randomwelcomerewards.listeners.OnReturnJoin;
-import me.gipper1998.randomwelcomerewards.managers.WelcomePlayer;
-import me.gipper1998.randomwelcomerewards.managers.WelcomeReturnPlayer;
+import me.gipper1998.randomwelcomerewards.utils.WelcomePlayer;
+import me.gipper1998.randomwelcomerewards.utils.WelcomeReturnPlayer;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -24,6 +26,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public Chat chat = null;
     public FileSetup data;
     public FileSetup messages;
+    public FileSetup milestones;
+    public DataManager dataManager;
+    public MilestoneManager milestoneManager;
 
     @Override
     public void onEnable() {
@@ -33,6 +38,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.players = new HashMap();
         this.data = new FileSetup(this, "data.yml");
         this.messages = new FileSetup(this, "messages.yml");
+        this.milestones = new FileSetup(this, "milestones.yml");
+        this.dataManager = new DataManager(this);
+        this.milestoneManager = new MilestoneManager(this);
         WelcomePlayer wp = new WelcomePlayer(this);
         WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
@@ -94,22 +102,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void deposit(Player player, int money){ economy.depositPlayer(player, money); }
 
-    public void addWelcomePoint(Player player, boolean firstWelcome){
-        int newWelcome = 0;
-        int returnWelcome = 0;
-        if (data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")){
-            newWelcome = data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-            returnWelcome = data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
-        }
-        if (!firstWelcome) {
-            data.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome));
-            data.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome + 1));
-        }
-        else {
-            data.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome + 1));
-            data.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome));
-        }
-        data.saveConfig();
+    public void addWelcomePoint(Player player, boolean firstWelcome) {
+        dataManager.addWelcomePoint(player, firstWelcome);
     }
 }
 

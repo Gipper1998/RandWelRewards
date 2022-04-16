@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.files;
+package me.gipper1998.randomwelcomerewards.filemanager;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.configuration.file.FileConfiguration;

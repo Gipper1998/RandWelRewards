@@ -1,0 +1,20 @@
+# This is for any milestones if a player has achieved, feel free to add
+# as many milestones as you want, you just need the following conditions.
+enableNewWelcomeMilestones: true
+enableReturnWelcomeMilestones: true
+
+
+milestoneForNewWelcomes:
+  5:
+    money: 100
+    commands:
+      - "give <player> diamond 1"
+    message: "<prefix> &aCongrats on welcoming 5 new players, heres some extra bonuses!!!"
+  10:
+    money: 200
+
+milestoneForReturnWelcomes:
+  15:
+    money: 1
+    commands:
+      - "give <player> dirt 1"

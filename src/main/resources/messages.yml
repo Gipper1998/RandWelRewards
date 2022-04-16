@@ -8,7 +8,7 @@ messages:
   no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
   dne: '<prefix> &cThat command does not exist here :(.'
   commandReward: '<prefix> &dYou welcomed a player, here is your rewards!'
-  vaultMoney: '&a$<money> has been added for welcoming a player!!'
+  vaultMoney: '&a$<money> has been added to your account!'
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   newWelcomeMessages:
