@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReturnPlayer {
+    private Long joinTime;
+    private Player player;
+    private List<Player> welcomePlayers = new ArrayList();
+
     public ReturnPlayer(Player player) {
         this.player = player;
         this.joinTime = System.currentTimeMillis();
     }
 
-    private Long joinTime;
-    private Player player;
-    private List<Player> welcomePlayers = new ArrayList();
     public Player getPlayer(){
         return this.player;
     }

@@ -13,6 +13,7 @@ public class NewPlayer {
         this.player = player;
         this.joinTime = System.currentTimeMillis();
     }
+
     public Player getPlayer(){
         return this.player;
     }
