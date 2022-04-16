@@ -21,6 +21,7 @@ public class Commands implements TabExecutor {
                 main.reloadConfig();
                 main.messages.reloadConfig();
                 main.data.reloadConfig();
+                main.milestones.reloadConfig();
                 if (commandSender instanceof ConsoleCommandSender)
                     main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
                 else

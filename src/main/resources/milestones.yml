@@ -14,6 +14,11 @@ milestoneForNewWelcomes:
     money: 200
 
 milestoneForReturnWelcomes:
+  5:
+    money: 1
+    commands:
+      - "give <player> dirt 1"
+    message: "<prefix> &aCongrats on welcoming back 5 new players, heres some extra bonuses!!!"
   15:
     money: 1
     commands:

@@ -76,11 +76,11 @@ public class MilestoneManager {
                 main.chatMessage(message, player);
             }
             if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".money")){
-                int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes" + score + "money");
+                int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
             if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
-                List<String> rewardCommands = this.main.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
+                List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
                 ConsoleCommandSender console = this.main.getServer().getConsoleSender();
                 Iterator var9 = rewardCommands.iterator();
                 if (rewardCommands.size() != 0) {
@@ -105,11 +105,11 @@ public class MilestoneManager {
                 main.chatMessage(message, player);
             }
             if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".money")){
-                int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes" + score + "money");
+                int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes." + score + ".money");
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
             if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")){
-                List<String> rewardCommands = this.main.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
+                List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
                 ConsoleCommandSender console = this.main.getServer().getConsoleSender();
                 Iterator var9 = rewardCommands.iterator();
                 while (var9.hasNext()) {
