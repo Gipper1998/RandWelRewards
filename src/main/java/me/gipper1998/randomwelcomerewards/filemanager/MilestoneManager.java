@@ -17,13 +17,15 @@ public class MilestoneManager {
     private ConfigurationSection newWelcomeMilestonesSection;
     private ArrayList<Integer> returnWelcomeMilestones = new ArrayList<>();
     private ConfigurationSection returnWelcomeMilestonesSection;
-    boolean enableNew = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
-    boolean enableReturn = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
+    private boolean enableNew;
+    private boolean enableReturn;
 
     public MilestoneManager(RandomWelcomeRewards main){
         this.main = main;
         newWelcomeMilestonesLoader();
         returnWelcomeMilestonesLoader();
+        enableNew = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
+        enableReturn = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
     }
 
     private void newWelcomeMilestonesLoader(){

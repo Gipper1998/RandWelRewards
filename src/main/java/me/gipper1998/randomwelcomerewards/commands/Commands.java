@@ -1,6 +1,7 @@
 package me.gipper1998.randomwelcomerewards.commands;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
+import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Commands implements TabExecutor {
                     returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
                 }
                 List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
-                for (int i = 0; i < scoreSheet.size(); i++){
+                for (int i = 0; i < scoreSheet.size(); i++) {
                     if (scoreSheet.get(i) == "")
                         player.sendMessage("");
                     else {
