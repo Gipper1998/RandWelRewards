@@ -17,6 +17,8 @@ public class MilestoneManager {
     private ConfigurationSection newWelcomeMilestonesSection;
     private ArrayList<Integer> returnWelcomeMilestones = new ArrayList<>();
     private ConfigurationSection returnWelcomeMilestonesSection;
+    boolean enableNew = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
+    boolean enableReturn = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
 
     public MilestoneManager(RandomWelcomeRewards main){
         this.main = main;
@@ -25,8 +27,7 @@ public class MilestoneManager {
     }
 
     private void newWelcomeMilestonesLoader(){
-        boolean enable = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
-        if (enable) {
+        if (enableNew) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");
             if (newWelcomeMilestonesSection == null)
                 main.consoleMessage("<preifx> &cNo milestones for the newWelcome section even though its enabled for some reason?");
@@ -43,8 +44,7 @@ public class MilestoneManager {
     }
 
     private void returnWelcomeMilestonesLoader(){
-        boolean enable = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
-        if (enable) {
+        if (enableReturn) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
             if (returnWelcomeMilestonesSection == null)
                 main.consoleMessage("<preifx> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
@@ -69,26 +69,61 @@ public class MilestoneManager {
     }
 
     public void checkNewWelcomeMilestone(Player player){
-        int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-        boolean reward = isNewWelcomeMilestone(score);
-        if (reward){
-            if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".message")){
-                String message = main.milestones.getConfig().getString("milestoneForNewWelcomes." + score + ".message");
-                main.chatMessage(message, player);
-            }
-            if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".money")){
-                if (main.vaultEnabled) {
-                    int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
-                    main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+        if (enableNew) {
+            int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
+            boolean reward = isNewWelcomeMilestone(score);
+            if (reward) {
+                if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".message")) {
+                    String message = main.milestones.getConfig().getString("milestoneForNewWelcomes." + score + ".message");
+                    main.chatMessage(message, player);
                 }
-                else
-                    main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
+                if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".money")) {
+                    if (main.vaultEnabled) {
+                        int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
+                        main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                    } else
+                        main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
+                }
+                if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
+                    List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
+                    ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+                    Iterator var9 = rewardCommands.iterator();
+                    if (rewardCommands.size() != 0) {
+                        while (var9.hasNext()) {
+                            String command = (String) var9.next();
+                            command = command.replace("<player>", player.getName());
+                            ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
+                            this.main.getServer().getPluginManager().callEvent(commandEvent);
+                            this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
+                                return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                            });
+                        }
+                    }
+                }
             }
-            if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
-                List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
-                ConsoleCommandSender console = this.main.getServer().getConsoleSender();
-                Iterator var9 = rewardCommands.iterator();
-                if (rewardCommands.size() != 0) {
+        }
+    }
+
+    public void checkReturnWelcomeMilestone(Player player) {
+        if (enableReturn) {
+            int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+            boolean reward = isNewWelcomeMilestone(score);
+            if (reward) {
+                if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")) {
+                    String message = main.milestones.getConfig().getString("milestoneForReturnWelcomes." + score + ".message");
+                    main.chatMessage(message, player);
+                }
+                if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".money")) {
+                    if (main.vaultEnabled) {
+                        int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes." + score + ".money");
+                        main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
+                    } else
+                        main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
+                }
+                if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")) {
+                    List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
+                    ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+                    Iterator var9 = rewardCommands.iterator();
                     while (var9.hasNext()) {
                         String command = (String) var9.next();
                         command = command.replace("<player>", player.getName());
@@ -98,38 +133,6 @@ public class MilestoneManager {
                             return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
                         });
                     }
-                }
-            }
-        }
-    }
-    public void checkReturnWelcomeMilestone(Player player){
-        int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
-        boolean reward = isNewWelcomeMilestone(score);
-        if (reward){
-            if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")){
-                String message = main.milestones.getConfig().getString("milestoneForReturnWelcomes." + score + ".message");
-                main.chatMessage(message, player);
-            }
-            if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".money")){
-                if (main.vaultEnabled) {
-                    int money = main.milestones.getConfig().getInt("milestoneForReturnWelcomes." + score + ".money");
-                    main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
-                }
-                else
-                    main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
-            }
-            if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")){
-                List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
-                ConsoleCommandSender console = this.main.getServer().getConsoleSender();
-                Iterator var9 = rewardCommands.iterator();
-                while (var9.hasNext()) {
-                    String command = (String) var9.next();
-                    command = command.replace("<player>", player.getName());
-                    ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                    this.main.getServer().getPluginManager().callEvent(commandEvent);
-                    this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                        return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
-                    });
                 }
             }
         }
