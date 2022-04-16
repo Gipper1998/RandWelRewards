@@ -1,16 +1,21 @@
-# Messages that can be configurable here. Use "<prefix>" to note where the prefix should go.
+# RandomWelcomeRewards Messages.yml File.
+
+# Messages that can be configurable are right here, they can also be color coded using the & symbol.
 messages:
-  prefix: '&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r'
-  startup: '<prefix> &aGood to go!'
-  shutdown: '<prefix> &cShutting down.'
-  no-reload: '<prefix> &cYou do not have permission to reload.'
-  has-reload: '<prefix> &aConfig Reloaded.'
-  no-vault: '<prefix> &cNo vault reward given, possibly you don not have vault installed.'
-  dne: '<prefix> &cThat command does not exist here :(.'
-  commandReward: '<prefix> &dYou welcomed a player, here is your rewards!'
-  vaultMoney: '&a$<money> has been added to your account!'
+  # This is the main prefix of the plugin, change it however you like.
+  prefix: "&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r"
+  # For most of the messages, use <prefix> to put the prefix wherever you want.
+  startup: "<prefix> &aGood to go!"
+  shutdown: "<prefix> &cShutting down."
+  no-reload: "<prefix> &cYou do not have permission to reload."
+  has-reload: "<prefix> &aPlugin Reloaded."
+  no-vault: "<prefix> &cNo vault reward given, possibly you don not have vault installed."
+  dne: "<prefix> &cThat command does not exist here :(."
+  commandReward: "<prefix> &dYou welcomed a player, here is your rewards!"
+  vaultMoney: "&a$<money> has been added to your account!"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
+  # Note: putting <prefix> will not work here.
   newWelcomeMessages:
     - "&bWhy hello &a<newplayer>&b, I was expecting you >:D."
     - "&bGreetings &a<newplayer>&b, we have cookies, but none are for you."
@@ -28,6 +33,7 @@ messages:
     - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
 
   # These messages will come from the player, just specify the new player with "<returnplayer>"" and you should be good :D.
+  # Note: putting <prefix> will not work here.
   returnWelcomeMessages:
     - "&bWelcome back &a<returnplayer>&b, we totally didn't miss you at all."
     - "&bGreat, not you again &a<returnplayer>&b, I thought we got rid of ya."
@@ -35,22 +41,21 @@ messages:
     - "&bHello there &a<returnplayer>&b, how's your day :D."
     - "&bGreetings &a<returnplayer>&b, the weather is nice isn't it."
 
-  # Basic menu of the plugin (if you really want to customize it, go ahead, otherwise this is all I'm putting in here.
-  commandMenu:
-    - ""
-    - "&a-----------------------------"
-    - "&b&nNewWelRewards Commands"
-    - ""
-    - "&d/&enewWelcomeRewards reload"
-    - "&d/&enewWelcomeRewards stats"
-    - "&a-----------------------------"
-    - ""
-
+  # A player can track their score right here.
   scoreSheet:
     - ""
-    - "---------------------------"
-    - "<player> Stats"
-    - "New Welcomes: <newwelcomes>"
-    - "Return Welcomes: <returnwelcomes>"
-    - "---------------------------"
+    - "<player> &d&lWelcome &b&lStats"
+    - "&e-------------------------"
+    - "&bNew Welcomes&6:     &9<newwelcomes>"
+    - "&bReturn Welcomes&6: &9<returnwelcomes>"
+    - ""
+
+  # This is just what the plugin can do for now, best not to modify this unless you want to change the colors.
+  menu:
+    - ""
+    - "&e---------------------------------"
+    - "<prefix>-&c&lMenu"
+    - "&3/&brandomwelcomerewards &9reload"
+    - "&3/&brandomwelcomerewards &9stats"
+    - "&e---------------------------------"
     - ""

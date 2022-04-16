@@ -25,7 +25,7 @@ public class MilestoneManager {
     }
 
     private void newWelcomeMilestonesLoader(){
-        boolean enable = main.milestones.getConfig().getBoolean("enableNewWelcomeMilestones");
+        boolean enable = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
         if (enable) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");
             if (newWelcomeMilestonesSection == null)
@@ -43,7 +43,7 @@ public class MilestoneManager {
     }
 
     private void returnWelcomeMilestonesLoader(){
-        boolean enable = main.milestones.getConfig().getBoolean("enableReturnWelcomeMilestones");
+        boolean enable = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
         if (enable) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
             if (returnWelcomeMilestonesSection == null)
@@ -68,7 +68,8 @@ public class MilestoneManager {
         return returnWelcomeMilestones.contains(score);
     }
 
-    public void checkNewWelcomeMilestone(Player player, int score){
+    public void checkNewWelcomeMilestone(Player player){
+        int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
         boolean reward = isNewWelcomeMilestone(score);
         if (reward){
             if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".message")){
@@ -97,7 +98,8 @@ public class MilestoneManager {
             }
         }
     }
-    public void checkReturnWelcomeMilestone(Player player, int score){
+    public void checkReturnWelcomeMilestone(Player player){
+        int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
         boolean reward = isNewWelcomeMilestone(score);
         if (reward){
             if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")){

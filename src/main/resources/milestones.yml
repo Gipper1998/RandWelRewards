@@ -1,8 +1,16 @@
-# This is for any milestones if a player has achieved, feel free to add
-# as many milestones as you want, you just need the following conditions.
-enableNewWelcomeMilestones: true
-enableReturnWelcomeMilestones: true
+# RandomWelcomeRewards milestones.yml File.
 
+# Make milestones for players if they reach a certain number. All can be configurable and added on.
+
+
+
+# To add a new reward for a certain amount, you need these conditions:
+# 5: (the number of times the player has welcomed a new or returning player).
+#   money: 100 (If you have vault, have money deposited to their account, if you don't want to use vault, this line can be removed).
+#   commands:  (If you want to use commands, use the following example below, note that the only placeholder availble is "<player>", if you don't want to use commands, this line can be removed).
+#     - "give <player> diamond 1"
+#   message: (Type in a message here, you can use the "prefix" placeholder here, this just send a private message to the player, this line can also be removed if you don't want to use it).
+# And that is it, you can add as many milestones as you want as long as you follow the example above.
 
 milestoneForNewWelcomes:
   5:
@@ -14,12 +22,12 @@ milestoneForNewWelcomes:
     money: 200
 
 milestoneForReturnWelcomes:
-  5:
+  10:
     money: 1
     commands:
       - "give <player> dirt 1"
     message: "<prefix> &aCongrats on welcoming back 5 new players, heres some extra bonuses!!!"
-  15:
+  25:
     money: 1
     commands:
       - "give <player> dirt 1"
