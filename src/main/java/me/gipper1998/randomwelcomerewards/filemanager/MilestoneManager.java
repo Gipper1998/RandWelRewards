@@ -109,7 +109,7 @@ public class MilestoneManager {
     public void checkReturnWelcomeMilestone(Player player) {
         if (enableReturn) {
             int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
-            boolean reward = isNewWelcomeMilestone(score);
+            boolean reward = isReturnWelcomeMilestone(score);
             if (reward) {
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")) {
                     String message = main.milestones.getConfig().getString("milestoneForReturnWelcomes." + score + ".message");
