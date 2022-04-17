@@ -2,7 +2,6 @@ package me.gipper1998.randomwelcomerewards.commands;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class Commands implements TabExecutor {
                         main.chatMessage(main.messages.getConfig().getString("messages.has-reload"), (Player) commandSender);
                     return true;
                 } else {
-                    main.chatMessage(main.messages.getConfig().getString("messages.no-reload"), (Player) commandSender);
+                    main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
                     return true;
                 }
             }
@@ -82,7 +81,11 @@ public class Commands implements TabExecutor {
             }
         }
         else if (args.length == 2){
-            if (args[0].equalsIgnoreCase("stats") && commandSender.hasPermission("randwelrewards.stats.others")){
+            if (args[0].equalsIgnoreCase("stats")){
+                if (!(commandSender.hasPermission("randwelrewards.stats.others"))){
+                    main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                    return false;
+                }
                 Player player = Bukkit.getPlayerExact(args[1]);
                 if (player == null) {
                     main.chatMessage(main.messages.getConfig().getString("messages.offline-player"), (Player) commandSender);

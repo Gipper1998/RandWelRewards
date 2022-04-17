@@ -7,7 +7,7 @@ messages:
   # For most of the messages, use <prefix> to put the prefix wherever you want.
   startup: "<prefix> &aGood to go!"
   shutdown: "<prefix> &cShutting down."
-  no-reload: "<prefix> &cYou do not have permission to reload."
+  no-perms: "<prefix> &cYou do not have permission to use this command."
   has-reload: "<prefix> &aPlugin Reloaded."
   no-vault: "<prefix> &cNo vault reward given, possibly you don not have vault installed."
   dne: "<prefix> &cThat command does not exist here :(."
