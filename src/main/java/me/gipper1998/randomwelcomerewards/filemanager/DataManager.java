@@ -10,14 +10,14 @@ public class DataManager {
         this.main = main;
     }
 
-    public void addWelcomePoint(Player player, boolean firstWelcome) {
+    public void addWelcomePoint(Player player, boolean newPlayer) {
         int newWelcome = 0;
         int returnWelcome = 0;
         if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
             newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
             returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
         }
-        if (!firstWelcome) {
+        if (!newPlayer) {
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome));
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome + 1));
             main.milestoneManager.checkReturnWelcomeMilestone(player);

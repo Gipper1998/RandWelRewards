@@ -102,8 +102,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void deposit(Player player, int money){ economy.depositPlayer(player, money); }
 
-    public void addWelcomePoint(Player player, boolean firstWelcome) {
-        dataManager.addWelcomePoint(player, firstWelcome);
+    public void addWelcomePoint(Player player, boolean newPlayer) {
+        dataManager.addWelcomePoint(player, newPlayer);
     }
 }
 
