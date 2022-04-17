@@ -10,9 +10,12 @@ commands:
     description: Command for all uses
     aliases: [randwelrewards]
 permissions:
-  randomwelcomerewards.reload:
-    description: Reload the plugin
-    default: false;
   randomwelcomerewards.stats:
     description: Gives the players current record
     default: true;
+  randomwelcomerewards.reload:
+    description: Reload the plugin
+    default: false;
+  randomwelcomerewards.stats.others:
+    description: See other players records if they are online
+    default: false

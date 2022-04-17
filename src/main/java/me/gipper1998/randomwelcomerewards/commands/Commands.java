@@ -36,7 +36,7 @@ public class Commands implements TabExecutor {
         }
         else if (args.length == 1){
             if (args[0].equalsIgnoreCase("reload")) {
-                if (commandSender.hasPermission("randwelrewards.reload") || (commandSender instanceof ConsoleCommandSender) || commandSender.isOp()) {
+                if (commandSender.hasPermission("randomwelcomerewards.reload") || (commandSender instanceof ConsoleCommandSender) || commandSender.isOp()) {
                     main.reloadConfig();
                     main.messages.reloadConfig();
                     main.data.reloadConfig();
@@ -81,32 +81,33 @@ public class Commands implements TabExecutor {
             }
         }
         else if (args.length == 2){
-            if (args[0].equalsIgnoreCase("stats")){
-                if (!(commandSender.hasPermission("randwelrewards.stats.others"))){
-                    main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
-                    return false;
-                }
-                Player player = Bukkit.getPlayerExact(args[1]);
-                if (player == null) {
-                    main.chatMessage(main.messages.getConfig().getString("messages.offline-player"), (Player) commandSender);
-                    return false;
-                }
-                int newWelcome = 0;
-                int returnWelcome = 0;
-                if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
-                    newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-                    returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
-                }
-                List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
-                for (int i = 0; i < scoreSheet.size(); i++) {
-                    if (scoreSheet.get(i) == "")
-                        commandSender.sendMessage("");
-                    else {
-                        String message = scoreSheet.get(i);
-                        message = message.replaceAll("<player>", player.getName());
-                        message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
-                        message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
-                        main.chatMessage(message, (Player)commandSender);
+            if (args[0].equalsIgnoreCase("stats")) {
+                if (commandSender.hasPermission("randomwelcomerewards.stats.others") || commandSender.isOp() || commandSender instanceof ConsoleCommandSender) {
+                    Player player = Bukkit.getPlayerExact(args[1]);
+                    if (player == null) {
+                        main.chatMessage(main.messages.getConfig().getString("messages.offline-player"), (Player) commandSender);
+                        return false;
+                    }
+                    int newWelcome = 0;
+                    int returnWelcome = 0;
+                    if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
+                        newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
+                        returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+                    }
+                    List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
+                    for (int i = 0; i < scoreSheet.size(); i++) {
+                        if (scoreSheet.get(i) == "")
+                            commandSender.sendMessage("");
+                        else {
+                            String message = scoreSheet.get(i);
+                            message = message.replaceAll("<player>", player.getName());
+                            message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
+                            message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
+                            if (commandSender instanceof ConsoleCommandSender)
+                                main.consoleMessage(message);
+                            else
+                                main.chatMessage(message, (Player) commandSender);
+                        }
                     }
                 }
             }

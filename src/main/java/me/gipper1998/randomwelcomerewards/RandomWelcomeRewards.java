@@ -46,6 +46,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
         this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
         this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
+        if (vaultEnabled)
+            consoleMessage("<prefix> &aVault found and hooked :D.");
         consoleMessage(messages.getConfig().getString("messages.startup"));
     }
 
