@@ -6,7 +6,7 @@
 #   money: 100 (If you have vault, have money deposited to their account, if you don't want to use vault, this line can be removed).
 #   commands:  (If you want to use commands, use the following example below, note that the only placeholder availble is "<player>", if you don't want to use commands, this line can be removed).
 #     - "give <player> diamond 1"
-#   message: (Type in a message here, you can use the "prefix" placeholder here, this just send a private message to the player, this line can also be removed if you don't want to use it).
+#   message: (Type in a message here, you can use the "<prefix>" placeholder here, this just send a private message to the player, this line can also be removed if you don't want to use it).
 # And that is it, you can add as many milestones as you want as long as you follow the example above.
 
 milestoneForNewWelcomes:

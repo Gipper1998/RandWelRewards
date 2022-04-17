@@ -22,7 +22,7 @@ settings:
   # How much time will it take to be considered a returning player (in minutes).
   returnTimeNeed: 30
 
-  #How much time a player has to welcome back a returning player (in seconds).
+  # How much time a player has to welcome back a returning player (in seconds).
   returnTime: 10
 
    # What you want players to type to trigger the plugin.
