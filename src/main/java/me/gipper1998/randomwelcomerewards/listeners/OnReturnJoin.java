@@ -42,7 +42,7 @@ public class OnReturnJoin implements Listener {
                             if (System.currentTimeMillis() - returnPlayer.getJoinTime() > (long) timeoutTime) {
                                 wrp.removeNew(returnPlayer.getPlayer());
                             } else if (!returnPlayer.getPlayer().equals(player) && !returnPlayer.hasPlayer(player)) {
-                                returnPlayer.addWelcomePlayer(player);
+                                returnPlayer.addReturnPlayer(player);
                                 this.messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
                                 int messageSelect = this.rand.nextInt(messageList.size());
                                 String Text = messageList.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());

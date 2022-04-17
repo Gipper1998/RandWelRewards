@@ -15,7 +15,7 @@ messages:
   vaultMoney: "&a$<money> has been added to your account!"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
-  # Note: putting <prefix> will not work here.
+  # Note: putting <prefix> here will not work here.
   newWelcomeMessages:
     - "&bWhy hello &a<newplayer>&b, I was expecting you >:D."
     - "&bGreetings &a<newplayer>&b, we have cookies, but none are for you."
@@ -33,7 +33,7 @@ messages:
     - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
 
   # These messages will come from the player, just specify the new player with "<returnplayer>"" and you should be good :D.
-  # Note: putting <prefix> will not work here.
+  # Note: putting <prefix> here will not work here.
   returnWelcomeMessages:
     - "&bWelcome back &a<returnplayer>&b, we totally didn't miss you at all."
     - "&bGreat, not you again &a<returnplayer>&b, I thought we got rid of ya."
