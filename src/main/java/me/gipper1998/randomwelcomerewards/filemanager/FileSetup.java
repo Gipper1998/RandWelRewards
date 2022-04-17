@@ -25,12 +25,10 @@ public class FileSetup {
     public void reloadConfig() {
         if (this.dataConfigFile == null)
             this.dataConfigFile = new File(this.main.getDataFolder(), name);
-        this.dataConfig = YamlConfiguration
-                .loadConfiguration(this.dataConfigFile);
+        this.dataConfig = YamlConfiguration.loadConfiguration(this.dataConfigFile);
         InputStream defConfigStream = this.main.getResource(name);
         if (defConfigStream != null) {
-            YamlConfiguration defConfig = YamlConfiguration
-                    .loadConfiguration(new InputStreamReader(defConfigStream));
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
             this.dataConfig.setDefaults(defConfig);
         }
     }
