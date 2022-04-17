@@ -17,7 +17,7 @@ public class Commands implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command cmd, String s, String[] args) {
-        if (args.length != 0 && (args[0].equalsIgnoreCase("reload"))) {
+        if (args[0].equalsIgnoreCase("reload")) {
             if (commandSender.hasPermission("randwelrewards.reload") || (commandSender instanceof ConsoleCommandSender) || commandSender.isOp()) {
                 main.reloadConfig();
                 main.messages.reloadConfig();
@@ -33,7 +33,7 @@ public class Commands implements TabExecutor {
                 return true;
             }
         }
-        else if (args.length != 0 && args[0].equalsIgnoreCase("stats")){
+        if (args[0].equalsIgnoreCase("stats")){
             if (commandSender instanceof ConsoleCommandSender) {
                 main.consoleMessage("<prefix> &cOnly players can perform this command.");
                 return false;
@@ -52,7 +52,7 @@ public class Commands implements TabExecutor {
                         player.sendMessage("");
                     else {
                         String message = scoreSheet.get(i);
-                        message = message.replaceAll("<player>", player.getDisplayName());
+                        message = message.replaceAll("<player>", player.getName());
                         message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
                         message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
                         main.chatMessage(message, player);
@@ -61,7 +61,7 @@ public class Commands implements TabExecutor {
             }
             return true;
         }
-        else {
+        if (args[0].equalsIgnoreCase("")) {
             if (args.length == 0) {
                 List<String> menus = main.messages.getConfig().getStringList("messages.menu");
                 for (int i = 0; i < menus.size(); i++) {
