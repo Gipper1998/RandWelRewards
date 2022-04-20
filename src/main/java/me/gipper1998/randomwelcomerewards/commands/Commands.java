@@ -39,7 +39,7 @@ public class Commands implements TabExecutor {
         }
         else if (args.length == 1){
             if (args[0].equalsIgnoreCase("reload")) {
-                if (commandSender.hasPermission("randomwelcomerewards.reload") || (commandSender instanceof ConsoleCommandSender) || commandSender.isOp()) {
+                if (hasPermission(commandSender,"randomwelcomerewards.reload)")) {
                     main.reloadConfig();
                     main.messages.reloadConfig();
                     main.data.reloadConfig();
@@ -85,7 +85,7 @@ public class Commands implements TabExecutor {
         }
         else if (args.length == 2){
             if (args[0].equalsIgnoreCase("stats")) {
-                if (commandSender.hasPermission("randomwelcomerewards.stats.others") || commandSender.isOp() || commandSender instanceof ConsoleCommandSender) {
+                if (hasPermission(commandSender,"randomwelcomerewards.stats.others)")) {
                     Player player = Bukkit.getPlayerExact(args[1]);
                     if (player == null) {
                         main.chatMessage(main.messages.getConfig().getString("messages.offline-player"), (Player) commandSender);
@@ -116,7 +116,7 @@ public class Commands implements TabExecutor {
             }
             if (args[0].equalsIgnoreCase("leaderboards")) {
                 if (args[1].equalsIgnoreCase("newWelcomes")) {
-                    if (commandSender.hasPermission("randomwelcomerewards.leaderboards.newwelcomes") || commandSender.isOp() || commandSender instanceof ConsoleCommandSender) {
+                    if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.newwelcomes)")) {
                         List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topNewWelcomeBoard");
                         List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomNewWelcomeBoard");
                         for (int i = 0; i < topMessageList.size(); i++) {
@@ -146,9 +146,11 @@ public class Commands implements TabExecutor {
                             }
                         }
                     }
+                    else
+                        main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
                 }
                 if (args[1].equalsIgnoreCase("returnWelcomes")){
-                    if (commandSender.hasPermission("randomwelcomerewards.leaderboards.returnwelcomes") || commandSender.isOp() || commandSender instanceof ConsoleCommandSender) {
+                    if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.returnwelcomes)")){
                         List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topReturnWelcomeBoard");
                         List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomReturnWelcomeBoard");
                         for (int i = 0; i < topMessageList.size(); i++) {
@@ -178,6 +180,8 @@ public class Commands implements TabExecutor {
                             }
                         }
                     }
+                    else
+                        main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
                 }
             }
         }
@@ -187,31 +191,43 @@ public class Commands implements TabExecutor {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String label, String[] args) {
         if (args.length == 1){
             List<String> firstArguments = new ArrayList<>();
-            firstArguments.add("reload");
+            if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.reload"))
+                firstArguments.add("reload");
+            if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)") || hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
+                firstArguments.add("leaderboards");
             firstArguments.add("stats");
-            firstArguments.add("leaderboards");
             return firstArguments;
         }
         else if (args.length == 2){
             if (args[0].equalsIgnoreCase("stats")){
-                List<String> playerNames = new ArrayList<>();
-                Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
-                Bukkit.getServer().getOnlinePlayers().toArray(players);
-                for (int i = 0; i < players.length; i++)
-                    playerNames.add(players[i].getName());
+                if (hasPermission(commandSender, "randomwelcomerewards.stats.others")) {
+                    List<String> playerNames = new ArrayList<>();
+                    Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
+                    Bukkit.getServer().getOnlinePlayers().toArray(players);
+                    for (int i = 0; i < players.length; i++)
+                        playerNames.add(players[i].getName());
+                }
             }
             else if (args[0].equalsIgnoreCase("leaderboards")){
                 List<String> secondArguments = new ArrayList<>();
-                secondArguments.add("newwelcomes");
-                secondArguments.add("returnwelcomes");
+                if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
+                    secondArguments.add("newwelcomes");
+                if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)"))
+                    secondArguments.add("returnwelcomes");
                 return secondArguments;
             }
             else
                 return null;
         }
         return null;
+    }
+
+    boolean hasPermission(CommandSender commandSender, String permission){
+        if ((commandSender.hasPermission(permission) || commandSender.isOp() || commandSender instanceof ConsoleCommandSender))
+            return true;
+        return false;
     }
 }
