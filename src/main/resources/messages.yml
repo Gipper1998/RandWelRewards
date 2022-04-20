@@ -51,12 +51,34 @@ messages:
     - "&bReturn Welcomes&6: &9<returnwelcomes>"
     - ""
 
+  # Custommize the leaderboards for newWelcomes and returnWelcomes here.
+  leaderboards:
+    topNewWelcomeBoard:
+      - ""
+      - "&bNewWelcomes &aTopScore"
+      - "&f------------------------"
+    topReturnWelcomeBoard:
+      - ""
+      - "&bReturnWelcomes &aTopScore"
+      - "&f------------------------"
+    bottomNewWelcomeBoard:
+      - "&f------------------------"
+      - ""
+    bottomReturnWelcomeBoard:
+      - "&f------------------------"
+      - ""
+
+  # This part is where you can customize the placeholders, use <position> for position, <name> for the players name, and <score> for their respective points
+  # This is used for both sections.
+    positionTile: "<position>. <name> <score>"
+
   # This is just what the plugin can do for now, best not to modify this unless you want to change the colors.
   menu:
     - ""
-    - "&e---------------------------------"
+    - "&e----------------------------------------"
     - "<prefix>-&c&lMenu"
     - "&3/&brandomwelcomerewards &9reload"
     - "&3/&brandomwelcomerewards &9stats"
-    - "&e---------------------------------"
+    - "&3/&brandomwelcomerewards &9leaderboards"
+    - "&e----------------------------------------"
     - ""

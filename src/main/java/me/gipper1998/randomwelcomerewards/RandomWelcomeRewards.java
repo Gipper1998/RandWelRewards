@@ -1,7 +1,7 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.filemanager.DataManager;
+import me.gipper1998.randomwelcomerewards.data.DataManager;
 import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
 import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
 import me.gipper1998.randomwelcomerewards.listeners.OnNewJoin;

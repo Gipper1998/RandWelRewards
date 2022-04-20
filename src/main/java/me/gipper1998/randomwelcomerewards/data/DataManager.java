@@ -1,7 +1,9 @@
-package me.gipper1998.randomwelcomerewards.filemanager;
+package me.gipper1998.randomwelcomerewards.data;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class DataManager {
     RandomWelcomeRewards main;
@@ -28,4 +30,15 @@ public class DataManager {
         }
         main.data.saveConfig();
     }
+
+    public int getNewWelcomes(UUID uuid){
+        int newWelcome = main.data.getConfig().getInt("players." + uuid.toString() + ".NewWelcomes");
+        return newWelcome;
+    }
+
+    public int getReturnWelcomes(UUID uuid){
+        int returnWelcome = main.data.getConfig().getInt("players." + uuid.toString() + ".ReturnWelcomes");
+        return returnWelcome;
+    }
 }
+
