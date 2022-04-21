@@ -2,16 +2,14 @@ package me.gipper1998.randomwelcomerewards.commands;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import me.gipper1998.randomwelcomerewards.data.Leaderboard;
-import me.gipper1998.randomwelcomerewards.data.PlayerData;
-import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.command.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+
+import java.util.*;
 
 
 public class Commands implements TabExecutor {
@@ -63,7 +61,7 @@ public class Commands implements TabExecutor {
             if (args[0].equalsIgnoreCase("stats")){
                 if (commandSender instanceof ConsoleCommandSender) {
                     main.consoleMessage("<prefix> &cOnly players can perform this command.");
-                    return false;
+                    return true;
                 }
                 else {
                     Player player = (Player) commandSender;
@@ -93,6 +91,7 @@ public class Commands implements TabExecutor {
                     main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
                 else
                     main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
+                return true;
             }
         }
         else if (args.length == 2){
@@ -205,10 +204,10 @@ public class Commands implements TabExecutor {
                     main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
                 else
                     main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
+                return true;
             }
         }
-        else
-            main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
+        main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
         return false;
     }
 

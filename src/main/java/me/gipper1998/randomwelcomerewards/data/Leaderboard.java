@@ -63,7 +63,7 @@ public class Leaderboard {
     private boolean setNewWelcomeBoardData(){
         newWelcomeBoardData = main.data.getConfig().getConfigurationSection("players");
         if (newWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c setting the data for newWelcomes didn't work correctly, check to see if anythings in data.yml");
+            main.consoleMessage("<prefix>&c Getting the data for newWelcomes didn't work correctly, check to see if anythings in data.yml");
             return false;
         }
         Set<String> keys = newWelcomeBoardData.getKeys(false);
@@ -87,7 +87,7 @@ public class Leaderboard {
     private boolean setReturnWelcomeBoardData(){
         returnWelcomeBoardData = main.data.getConfig().getConfigurationSection("players");
         if (returnWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c setting the data for returnWelcomes didn't work correctly, check to see if anythings in data.yml");
+            main.consoleMessage("<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in data.yml");
             return false;
         }
         Set<String> keys = returnWelcomeBoardData.getKeys(false);

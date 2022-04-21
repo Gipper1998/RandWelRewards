@@ -56,7 +56,7 @@ public class MilestoneManager {
         if (enableReturn) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
             if (returnWelcomeMilestonesSection == null)
-                main.consoleMessage("<prefixx> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
+                main.consoleMessage("<prefix> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
             Set<String> keys = returnWelcomeMilestonesSection.getKeys(false);
             for (String key : keys) {
                 try {
