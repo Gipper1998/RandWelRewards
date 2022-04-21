@@ -2,11 +2,15 @@ package me.gipper1998.randomwelcomerewards.commands;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import me.gipper1998.randomwelcomerewards.data.Leaderboard;
+import me.gipper1998.randomwelcomerewards.data.PlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 
 public class Commands implements TabExecutor {
@@ -86,16 +90,16 @@ public class Commands implements TabExecutor {
         else if (args.length == 2){
             if (args[0].equalsIgnoreCase("stats")) {
                 if (hasPermission(commandSender,"randomwelcomerewards.stats.others)")) {
-                    Player player = Bukkit.getPlayerExact(args[1]);
-                    if (player == null) {
-                        main.chatMessage(main.messages.getConfig().getString("messages.offline-player"), (Player) commandSender);
+                    UUID uuid = main.dataManager.findPlayer(args[1]);
+                    if (uuid == null){
+                        main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
                         return false;
                     }
                     int newWelcome = 0;
                     int returnWelcome = 0;
-                    if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
-                        newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-                        returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+                    if (main.data.getConfig().contains("players." + uuid + ".NewWelcomes") && main.data.getConfig().contains("players." + uuid + ".ReturnWelcomes")) {
+                        newWelcome = main.data.getConfig().getInt("players." + uuid + ".NewWelcomes");
+                        returnWelcome = main.data.getConfig().getInt("players." + uuid + ".ReturnWelcomes");
                     }
                     List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
                     for (int i = 0; i < scoreSheet.size(); i++) {
@@ -103,7 +107,7 @@ public class Commands implements TabExecutor {
                             commandSender.sendMessage("");
                         else {
                             String message = scoreSheet.get(i);
-                            message = message.replaceAll("<player>", player.getName());
+                            message = message.replaceAll("<player>", Bukkit.getOfflinePlayer(uuid).getName());
                             message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
                             message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
                             if (commandSender instanceof ConsoleCommandSender)
@@ -225,7 +229,7 @@ public class Commands implements TabExecutor {
         return null;
     }
 
-    boolean hasPermission(CommandSender commandSender, String permission){
+    private boolean hasPermission(CommandSender commandSender, String permission){
         if ((commandSender.hasPermission(permission) || commandSender.isOp() || commandSender instanceof ConsoleCommandSender))
             return true;
         return false;

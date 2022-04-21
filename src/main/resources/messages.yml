@@ -11,7 +11,7 @@ messages:
   has-reload: "<prefix> &aPlugin Reloaded."
   no-vault: "<prefix> &cNo vault reward given, possibly you don not have vault installed."
   dne: "<prefix> &cThat command does not exist here :(."
-  offline-player: "<prefix> &cThe player is not online."
+  no-player: "<prefix> &cThe player did not welcome another player :(."
   commandReward: "<prefix> &dYou welcomed a player, here is your rewards!"
   vaultMoney: "&a$<money> has been added to your account!"
 

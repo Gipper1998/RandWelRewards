@@ -1,8 +1,13 @@
 package me.gipper1998.randomwelcomerewards.data;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
 
 public class DataManager {
@@ -39,6 +44,27 @@ public class DataManager {
     public int getReturnWelcomes(UUID uuid){
         int returnWelcome = main.data.getConfig().getInt("players." + uuid.toString() + ".ReturnWelcomes");
         return returnWelcome;
+    }
+
+    public UUID findPlayer(String playerName){
+        ConfigurationSection playerDataBoard = main.data.getConfig().getConfigurationSection("players");
+        if (playerDataBoard == null) {
+            main.consoleMessage("<preifx> &cNo milestones for the newWelcome section even though its enabled for some reason?");
+                return null;
+        }
+        Set<String> keys = playerDataBoard.getKeys(false);
+        for (String key : keys) {
+            UUID uuid = UUID.fromString(key);
+            String player = Bukkit.getOfflinePlayer(uuid).getName();
+            try {
+                if (player == playerName)
+                    return uuid;
+            }
+            catch (NumberFormatException e){
+                return null;
+            }
+        }
+        return null;
     }
 }
 
