@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,16 +49,17 @@ public class DataManager {
 
     public UUID findPlayer(String playerName){
         ConfigurationSection playerDataBoard = main.data.getConfig().getConfigurationSection("players");
+        List<UUID> uuids = new ArrayList<>();
         if (playerDataBoard == null) {
             main.consoleMessage("<preifx> &cNo milestones for the newWelcome section even though its enabled for some reason?");
                 return null;
         }
         Set<String> keys = playerDataBoard.getKeys(false);
         for (String key : keys) {
-            UUID uuid = UUID.fromString(key);
-            String player = Bukkit.getOfflinePlayer(uuid).getName();
             try {
-                if (player == playerName)
+                UUID uuid = UUID.fromString(key);
+                String tempName = Bukkit.getOfflinePlayer(uuid).getName();
+                if (tempName.equalsIgnoreCase(playerName))
                     return uuid;
             }
             catch (NumberFormatException e){

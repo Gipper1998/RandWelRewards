@@ -32,7 +32,7 @@ public class MilestoneManager {
         if (enableNew) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");
             if (newWelcomeMilestonesSection == null)
-                main.consoleMessage("<preifx> &cNo milestones for the newWelcome section even though its enabled for some reason?");
+                main.consoleMessage("<prefix> &cNo milestones for the newWelcome section even though its enabled for some reason?");
             Set<String> keys = newWelcomeMilestonesSection.getKeys(false);
             for (String key : keys) {
                 try {
@@ -49,7 +49,7 @@ public class MilestoneManager {
         if (enableReturn) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
             if (returnWelcomeMilestonesSection == null)
-                main.consoleMessage("<preifx> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
+                main.consoleMessage("<prefixx> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
             Set<String> keys = returnWelcomeMilestonesSection.getKeys(false);
             for (String key : keys) {
                 try {
