@@ -86,6 +86,12 @@ public class Commands implements TabExecutor {
                 }
                 return true;
             }
+            if (args[0].equalsIgnoreCase("leaderboards")){
+                if (commandSender instanceof Player)
+                    main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
+                else
+                    main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
+            }
         }
         else if (args.length == 2){
             if (args[0].equalsIgnoreCase("stats")) {
@@ -193,11 +199,10 @@ public class Commands implements TabExecutor {
                         return false;
                     }
                 }
+                if (commandSender instanceof Player)
+                    main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
                 else
-                    if (commandSender instanceof Player)
-                        main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
-                    else
-                        main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
+                    main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
             }
         }
         else
