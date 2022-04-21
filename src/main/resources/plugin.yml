@@ -12,10 +12,10 @@ commands:
 permissions:
   randomwelcomerewards.reload:
     description: Reload the plugin
-    default: false;
+    default: false
   randomwelcomerewards.stats:
     description: Gives the players current record
-    default: true;
+    default: true
   randomwelcomerewards.stats.others:
     description: See other players records if they are online
     default: false
