@@ -58,6 +58,7 @@ public class OnNewJoin implements Listener {
                                     main.addWelcomePoint(player, true);
                                 }
                             }
+                            main.milestoneManager.checkNewWelcomeMilestone(player);
                             event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
                         }
                         return;

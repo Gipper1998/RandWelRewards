@@ -3,6 +3,7 @@ package me.gipper1998.randomwelcomerewards.commands;
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import me.gipper1998.randomwelcomerewards.data.Leaderboard;
 import me.gipper1998.randomwelcomerewards.data.PlayerData;
+import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.*;
@@ -48,6 +49,7 @@ public class Commands implements TabExecutor {
                     main.messages.reloadConfig();
                     main.data.reloadConfig();
                     main.milestones.reloadConfig();
+                    main.milestoneManager.reloadMilestones();
                     if (commandSender instanceof ConsoleCommandSender)
                         main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
                     else

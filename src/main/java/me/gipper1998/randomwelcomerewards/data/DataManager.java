@@ -28,11 +28,9 @@ public class DataManager {
         if (!newPlayer) {
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome));
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome + 1));
-            main.milestoneManager.checkReturnWelcomeMilestone(player);
         } else {
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome + 1));
             main.data.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome));
-            main.milestoneManager.checkNewWelcomeMilestone(player);
         }
         main.data.saveConfig();
     }

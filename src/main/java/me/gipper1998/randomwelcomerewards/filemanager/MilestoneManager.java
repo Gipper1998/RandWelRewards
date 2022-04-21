@@ -28,6 +28,13 @@ public class MilestoneManager {
         enableReturn = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
     }
 
+    public void reloadMilestones(){
+        newWelcomeMilestones.clear();
+        returnWelcomeMilestones.clear();
+        newWelcomeMilestonesLoader();
+        returnWelcomeMilestonesLoader();
+    }
+
     private void newWelcomeMilestonesLoader(){
         if (enableNew) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");

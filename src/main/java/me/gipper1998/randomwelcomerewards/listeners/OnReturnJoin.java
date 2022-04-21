@@ -56,6 +56,7 @@ public class OnReturnJoin implements Listener {
                                 }
                             }
                             event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
+                            main.milestoneManager.checkReturnWelcomeMilestone(player);
                         }
                         return;
                     }
