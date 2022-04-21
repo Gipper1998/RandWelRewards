@@ -149,11 +149,14 @@ public class Commands implements TabExecutor {
                                     main.chatMessage(message, (Player) commandSender);
                             }
                         }
+                        return true;
                     }
-                    else
+                    else {
                         main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                        return false;
+                    }
                 }
-                if (args[1].equalsIgnoreCase("returnWelcomes")){
+                else if (args[1].equalsIgnoreCase("returnWelcomes")){
                     if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.returnwelcomes)")){
                         List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topReturnWelcomeBoard");
                         List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomReturnWelcomeBoard");
@@ -183,10 +186,18 @@ public class Commands implements TabExecutor {
                                     main.chatMessage(message, (Player) commandSender);
                             }
                         }
+                        return true;
                     }
-                    else
+                    else {
                         main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                        return false;
+                    }
                 }
+                else
+                    if (commandSender instanceof Player)
+                        main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
+                    else
+                        main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
             }
         }
         else
