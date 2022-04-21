@@ -32,9 +32,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        if (!registerVault())
-            consoleMessage("<prefix> &cVault was not found, make sure vaultRewards is disabled in the config.");
         this.players = new HashMap();
         this.data = new FileSetup(this, "data.yml");
         this.messages = new FileSetup(this, "messages.yml");
@@ -46,6 +43,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
         this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
         this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
+        saveDefaultConfig();
+        if (!registerVault())
+            consoleMessage("<prefix> &cVault was not found, make sure rewards that uses vault is removed or disabled.");
         if (vaultEnabled)
             consoleMessage("<prefix> &aVault found and hooked :D.");
         consoleMessage(messages.getConfig().getString("messages.startup"));
