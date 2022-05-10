@@ -98,17 +98,17 @@ public class MilestoneManager {
                         main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
                 }
                 if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
-                    List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
-                    ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+                    List<String> rewardCommands = main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
+                    ConsoleCommandSender console = main.getServer().getConsoleSender();
                     Iterator var9 = rewardCommands.iterator();
                     if (rewardCommands.size() != 0) {
                         while (var9.hasNext()) {
                             String command = (String) var9.next();
                             command = command.replace("<player>", player.getName());
                             ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                            this.main.getServer().getPluginManager().callEvent(commandEvent);
-                            this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                                return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                            main.getServer().getPluginManager().callEvent(commandEvent);
+                            main.getServer().getScheduler().callSyncMethod(this.main, () -> {
+                                return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
                             });
                         }
                     }
@@ -134,16 +134,16 @@ public class MilestoneManager {
                         main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
                 }
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")) {
-                    List<String> rewardCommands = this.main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
-                    ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+                    List<String> rewardCommands = main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");
+                    ConsoleCommandSender console = main.getServer().getConsoleSender();
                     Iterator var9 = rewardCommands.iterator();
                     while (var9.hasNext()) {
                         String command = (String) var9.next();
                         command = command.replace("<player>", player.getName());
                         ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                        this.main.getServer().getPluginManager().callEvent(commandEvent);
-                        this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                            return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                        main.getServer().getPluginManager().callEvent(commandEvent);
+                        main.getServer().getScheduler().callSyncMethod(this.main, () -> {
+                            return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
                         });
                     }
                 }
