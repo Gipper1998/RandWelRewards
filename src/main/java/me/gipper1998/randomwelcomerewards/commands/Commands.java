@@ -99,7 +99,7 @@ public class Commands implements TabExecutor {
         else if (args.length == 2){
             if (args[0].equalsIgnoreCase("stats")) {
                 if (hasPermission(commandSender,"randomwelcomerewards.stats.others)")) {
-                    UUID uuid = main.dataManager.findPlayer(args[1]);
+                    UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
                         main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
                         return false;

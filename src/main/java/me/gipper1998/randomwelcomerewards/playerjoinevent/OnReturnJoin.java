@@ -54,7 +54,7 @@ public class OnReturnJoin implements Listener {
                                     message = Text;
                                     vaultRewards(player, event);
                                     commandRewards(player, event);
-                                    main.addWelcomePoint(player, false);
+                                    main.playerDataManager.addWelcomePoint(player, false);
                                 }
                             }
                             event.setMessage(ChatColor.translateAlternateColorCodes('&', message));

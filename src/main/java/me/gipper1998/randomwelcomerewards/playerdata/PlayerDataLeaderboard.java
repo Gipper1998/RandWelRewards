@@ -74,7 +74,7 @@ public class PlayerDataLeaderboard {
         for (String key : keys) {
             try {
                 UUID uuid = UUID.fromString(key);
-                PlayerData temp = new PlayerData(main, uuid,main.dataManager);
+                PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
                 newWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
                 main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");
@@ -98,7 +98,7 @@ public class PlayerDataLeaderboard {
         for (String key : keys) {
             try {
                 UUID uuid = UUID.fromString(key);
-                PlayerData temp = new PlayerData(main, uuid,main.dataManager);
+                PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
                 returnWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
                 main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");

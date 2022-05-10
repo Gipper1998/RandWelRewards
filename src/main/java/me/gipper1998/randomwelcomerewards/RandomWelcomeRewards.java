@@ -29,7 +29,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public FileSetup messages;
     public FileSetup milestones;
     public FileSetup config;
-    public PlayerDataManager dataManager;
+    public PlayerDataManager playerDataManager;
     public MilestoneManager milestoneManager;
 
     @Override
@@ -56,7 +56,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.messages = new FileSetup(this, "messages.yml");
         this.milestones = new FileSetup(this, "milestones.yml");
         this.config = new FileSetup(this, "config.yml");
-        this.dataManager = new PlayerDataManager(this);
+        this.playerDataManager = new PlayerDataManager(this);
         this.milestoneManager = new MilestoneManager(this);
         config.saveDefaultConfig();
         playerData.saveDefaultConfig();
@@ -118,9 +118,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     public void deposit(Player player, int money){ economy.depositPlayer(player, money); }
 
-    public void addWelcomePoint(Player player, boolean newPlayer) {
-        dataManager.addWelcomePoint(player, newPlayer);
-    }
 }
 
 

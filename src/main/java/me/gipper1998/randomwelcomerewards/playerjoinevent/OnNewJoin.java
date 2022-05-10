@@ -2,6 +2,7 @@ package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
+import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -25,7 +26,7 @@ public class OnNewJoin implements Listener {
     public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
         this.main = main;
         this.wp = wp;
-        rand = new Random();
+        this.rand = new Random();
     }
 
     @EventHandler
@@ -54,7 +55,7 @@ public class OnNewJoin implements Listener {
                                     message = Text;
                                     vaultRewards(player, event);
                                     commandRewards(player, event);
-                                    main.addWelcomePoint(player, true);
+                                    main.playerDataManager.addWelcomePoint(player, true);
                                 }
                             }
                             main.milestoneManager.checkNewWelcomeMilestone(player);
