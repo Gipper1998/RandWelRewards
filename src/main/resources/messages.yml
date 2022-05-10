@@ -48,7 +48,7 @@ messages:
     - ""
     - "<player> &d&lWelcome &b&lStats"
     - "&e-------------------------"
-    - "&bNew Welcomes&6:    &9<newwelcomes>"
+    - "&bNew Welcomes&6:     &9<newwelcomes>"
     - "&bReturn Welcomes&6: &9<returnwelcomes>"
     - ""
 
