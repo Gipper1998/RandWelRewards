@@ -41,6 +41,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
             consoleMessage("<prefix> &cVault was not found, make sure rewards that uses vault is removed or disabled.");
         else
             consoleMessage("<prefix> &aVault found and hooked :D.");
+        registerPlayerEvents();
         consoleMessage(messages.getConfig().getString("messages.startup"));
     }
 
