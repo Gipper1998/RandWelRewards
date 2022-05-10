@@ -22,7 +22,6 @@ import java.util.List;
 public class RandomWelcomeRewards extends JavaPlugin {
     public HashMap<String, List<String>> players;
     public boolean vaultEnabled = false;
-    private boolean holoEnabled = false;
     public Economy economy;
     public Chat chat = null;
     public FileSetup playerData;
