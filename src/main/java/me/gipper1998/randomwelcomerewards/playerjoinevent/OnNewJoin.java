@@ -2,10 +2,6 @@ package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -14,6 +10,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerCommandEvent;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Random;
 
 public class OnNewJoin implements Listener {
     private RandomWelcomeRewards main;

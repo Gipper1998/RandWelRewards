@@ -9,7 +9,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 public class Commands implements TabExecutor {
@@ -124,6 +126,7 @@ public class Commands implements TabExecutor {
                         }
                     }
                 }
+                return true;
             }
             if (args[0].equalsIgnoreCase("leaderboards")) {
                 if (args[1].equalsIgnoreCase("newWelcomes")) {

@@ -4,7 +4,11 @@ import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
+
 
 public class PlayerDataLeaderboard {
     RandomWelcomeRewards main;
@@ -85,7 +89,6 @@ public class PlayerDataLeaderboard {
     }
 
     private boolean setReturnWelcomeBoardData(){
-        main.playerData.reloadConfig();
         returnWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (returnWelcomeBoardData == null) {
             main.consoleMessage("<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in playerData.yml");

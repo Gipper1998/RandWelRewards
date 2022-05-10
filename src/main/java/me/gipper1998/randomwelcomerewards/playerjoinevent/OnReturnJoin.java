@@ -10,11 +10,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import java.util.*;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class OnReturnJoin implements Listener {
-    RandomWelcomeRewards main;
-    WelcomeReturnPlayer wrp;
+    private RandomWelcomeRewards main;
+    private WelcomeReturnPlayer wrp;
     private Random rand;
     private List<String> messageList;
 
