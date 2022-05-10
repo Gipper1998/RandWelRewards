@@ -1,8 +1,6 @@
-package me.gipper1998.randomwelcomerewards.listeners;
+package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import me.gipper1998.randomwelcomerewards.utils.ReturnPlayer;
-import me.gipper1998.randomwelcomerewards.utils.WelcomeReturnPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.command.ConsoleCommandSender;
@@ -28,7 +26,7 @@ public class OnReturnJoin implements Listener {
 
     @EventHandler
     public void onPlayerChat (AsyncPlayerChatEvent event){
-        if (main.getConfig().getBoolean("settings.enableReturnWelcome")) {
+        if (main.config.getConfig().getBoolean("settings.enableReturnWelcome")) {
             if (!event.isCancelled()) {
                 if (wrp.messageContains(event.getMessage())) {
                     Player player = event.getPlayer();
@@ -38,13 +36,13 @@ public class OnReturnJoin implements Listener {
                         while (var3.hasNext()) {
                             Map.Entry<Player, ReturnPlayer> entry = (Map.Entry) var3.next();
                             ReturnPlayer returnPlayer = (ReturnPlayer) entry.getValue();
-                            Integer timeoutTime = this.main.getConfig().getInt("settings.returnTime") * 1000;
+                            Integer timeoutTime = main.config.getConfig().getInt("settings.returnTime") * 1000;
                             if (System.currentTimeMillis() - returnPlayer.getJoinTime() > (long) timeoutTime) {
                                 wrp.removeNew(returnPlayer.getPlayer());
                             } else if (!returnPlayer.getPlayer().equals(player) && !returnPlayer.hasPlayer(player)) {
                                 returnPlayer.addReturnPlayer(player);
-                                this.messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
-                                int messageSelect = this.rand.nextInt(messageList.size());
+                                messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
+                                int messageSelect = rand.nextInt(messageList.size());
                                 String Text = messageList.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
@@ -74,15 +72,15 @@ public class OnReturnJoin implements Listener {
     public Boolean checkPlayTime(Player player) {
         long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         long minutes = ticks / 20 / 60;
-        if (minutes >= main.getConfig().getInt("settings.returnTimeNeed"))
+        if (minutes >= main.config.getConfig().getInt("settings.returnTimeNeed"))
             return true;
         return false;
     }
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
         if (main.vaultEnabled) {
-            if (main.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
-                int money = main.getConfig().getInt("returnWelcomeRewards.vault.reward");
+            if (main.config.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
+                int money = main.config.getConfig().getInt("returnWelcomeRewards.vault.reward");
                 main.deposit(player, money);
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
@@ -92,19 +90,19 @@ public class OnReturnJoin implements Listener {
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {
-        if (main.getConfig().getBoolean("returnWelcomeRewards.commands.enable") == true) {
-            List<String> rewardCommands = this.main.getConfig().getStringList("returnWelcomeRewards.commands.rewardCommands");
-            ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+        if (main.config.getConfig().getBoolean("returnWelcomeRewards.commands.enable") == true) {
+            List<String> rewardCommands = main.config.getConfig().getStringList("returnWelcomeRewards.commands.rewardCommands");
+            ConsoleCommandSender console = main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
             if (rewardCommands.size() != 0) {
                 while (var9.hasNext()) {
                     String command = (String) var9.next();
                     command = command.replace("<player>", player.getName());
                     ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                    this.main.getServer().getPluginManager().callEvent(commandEvent);
+                    main.getServer().getPluginManager().callEvent(commandEvent);
                     if (!event.isCancelled()) {
-                        this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                            return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                        main.getServer().getScheduler().callSyncMethod(main, () -> {
+                            return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
                         });
                     }
                 }

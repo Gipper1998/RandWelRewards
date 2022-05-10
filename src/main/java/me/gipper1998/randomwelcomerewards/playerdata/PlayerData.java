@@ -1,20 +1,19 @@
-package me.gipper1998.randomwelcomerewards.data;
+package me.gipper1998.randomwelcomerewards.playerdata;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class PlayerData {
     RandomWelcomeRewards main;
-    DataManager mainData;
+    PlayerDataManager mainData;
     private int newWelcomes;
     private int returnWelcomes;
     private UUID playerUUID;
     private String playerName;
 
-    public PlayerData(RandomWelcomeRewards main, UUID playerUUID, DataManager mainData){
+    public PlayerData(RandomWelcomeRewards main, UUID playerUUID, PlayerDataManager mainData){
         this.playerUUID = playerUUID;
         this.main = main;
         this.mainData = mainData;

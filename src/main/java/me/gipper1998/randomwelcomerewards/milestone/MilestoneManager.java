@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.filemanager;
+package me.gipper1998.randomwelcomerewards.milestone;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.command.ConsoleCommandSender;
@@ -24,8 +24,8 @@ public class MilestoneManager {
         this.main = main;
         newWelcomeMilestonesLoader();
         returnWelcomeMilestonesLoader();
-        enableNew = main.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
-        enableReturn = main.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
+        enableNew = main.config.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
+        enableReturn = main.config.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
     }
 
     public void reloadMilestones(){
@@ -38,15 +38,17 @@ public class MilestoneManager {
     private void newWelcomeMilestonesLoader(){
         if (enableNew) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");
-            if (newWelcomeMilestonesSection == null)
+            if (newWelcomeMilestonesSection == null) {
                 main.consoleMessage("<prefix> &cNo milestones for the newWelcome section even though its enabled for some reason?");
+                return;
+            }
             Set<String> keys = newWelcomeMilestonesSection.getKeys(false);
             for (String key : keys) {
                 try {
                     int score = Integer.parseInt(key);
                     newWelcomeMilestones.add(score);
                 } catch (NumberFormatException e) {
-                    main.consoleMessage("<prefix> &cCan't resolve " + key + " as a valid score in the newWelcome Section.");
+                    main.consoleMessage("<prefix> &cCan't resolve milestone &6" + key + "&c as a valid score in the newWelcome Section.");
                 }
             }
         }
@@ -55,15 +57,17 @@ public class MilestoneManager {
     private void returnWelcomeMilestonesLoader(){
         if (enableReturn) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
-            if (returnWelcomeMilestonesSection == null)
+            if (returnWelcomeMilestonesSection == null) {
                 main.consoleMessage("<prefix> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
+                return;
+            }
             Set<String> keys = returnWelcomeMilestonesSection.getKeys(false);
             for (String key : keys) {
                 try {
                     int score = Integer.parseInt(key);
                     returnWelcomeMilestones.add(score);
                 } catch (NumberFormatException e) {
-                    main.consoleMessage("<prefix> &cCan't resolve " + key + " as a valid score in the newWelcome Section.");
+                    main.consoleMessage("<prefix> &cCan't resolve milestone &6" + key + "&c as a valid score in the newWelcome Section.");
                 }
             }
         }
@@ -79,7 +83,7 @@ public class MilestoneManager {
 
     public void checkNewWelcomeMilestone(Player player){
         if (enableNew) {
-            int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
+            int score = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
             boolean reward = isNewWelcomeMilestone(score);
             if (reward) {
                 if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".message")) {
@@ -115,7 +119,7 @@ public class MilestoneManager {
 
     public void checkReturnWelcomeMilestone(Player player) {
         if (enableReturn) {
-            int score = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+            int score = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
             boolean reward = isReturnWelcomeMilestone(score);
             if (reward) {
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")) {

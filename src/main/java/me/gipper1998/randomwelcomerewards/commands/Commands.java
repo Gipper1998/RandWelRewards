@@ -1,7 +1,7 @@
 package me.gipper1998.randomwelcomerewards.commands;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import me.gipper1998.randomwelcomerewards.data.Leaderboard;
+import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataLeaderboard;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -14,10 +14,10 @@ import java.util.*;
 
 public class Commands implements TabExecutor {
     private final RandomWelcomeRewards main;
-    public Leaderboard leaderboard;
+    public PlayerDataLeaderboard playerDataLeaderboard;
     public Commands (RandomWelcomeRewards main){
         this.main = main;
-        leaderboard = new Leaderboard(this.main);
+        playerDataLeaderboard = new PlayerDataLeaderboard(this.main);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class Commands implements TabExecutor {
         else if (args.length == 1){
             if (args[0].equalsIgnoreCase("reload")) {
                 if (hasPermission(commandSender,"randomwelcomerewards.reload)")) {
-                    main.reloadConfig();
+                    main.config.reloadConfig();
                     main.messages.reloadConfig();
-                    main.data.reloadConfig();
+                    main.playerData.reloadConfig();
                     main.milestones.reloadConfig();
                     main.milestoneManager.reloadMilestones();
                     if (commandSender instanceof ConsoleCommandSender)
@@ -67,9 +67,9 @@ public class Commands implements TabExecutor {
                     Player player = (Player) commandSender;
                     int newWelcome = 0;
                     int returnWelcome = 0;
-                    if (main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.data.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
-                        newWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-                        returnWelcome = main.data.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+                    if (main.playerData.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.playerData.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
+                        newWelcome = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
+                        returnWelcome = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
                     }
                     List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
                     for (int i = 0; i < scoreSheet.size(); i++) {
@@ -104,9 +104,9 @@ public class Commands implements TabExecutor {
                     }
                     int newWelcome = 0;
                     int returnWelcome = 0;
-                    if (main.data.getConfig().contains("players." + uuid + ".NewWelcomes") && main.data.getConfig().contains("players." + uuid + ".ReturnWelcomes")) {
-                        newWelcome = main.data.getConfig().getInt("players." + uuid + ".NewWelcomes");
-                        returnWelcome = main.data.getConfig().getInt("players." + uuid + ".ReturnWelcomes");
+                    if (main.playerData.getConfig().contains("players." + uuid + ".NewWelcomes") && main.playerData.getConfig().contains("players." + uuid + ".ReturnWelcomes")) {
+                        newWelcome = main.playerData.getConfig().getInt("players." + uuid + ".NewWelcomes");
+                        returnWelcome = main.playerData.getConfig().getInt("players." + uuid + ".ReturnWelcomes");
                     }
                     List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
                     for (int i = 0; i < scoreSheet.size(); i++) {
@@ -142,9 +142,9 @@ public class Commands implements TabExecutor {
                             }
                         }
                         if (commandSender instanceof Player)
-                            leaderboard.sendLeaderBoardStats((Player) commandSender, true, main.getConfig().getInt("settings.leaderboardLength"), false);
+                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), false);
                         else
-                            leaderboard.sendLeaderBoardStats((Player) commandSender, true, main.getConfig().getInt("settings.leaderboardLength"), true);
+                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), true);
                         for (int i = 0; i < bottomMessageList.size(); i++) {
                             if (bottomMessageList.get(i) == "")
                                 commandSender.sendMessage("");
@@ -179,9 +179,9 @@ public class Commands implements TabExecutor {
                             }
                         }
                         if (commandSender instanceof Player)
-                            leaderboard.sendLeaderBoardStats((Player) commandSender, false, main.getConfig().getInt("settings.leaderboardLength"), false);
+                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), false);
                         else
-                            leaderboard.sendLeaderBoardStats((Player) commandSender, false, main.getConfig().getInt("settings.leaderboardLength"), true);
+                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), true);
                         for (int i = 0; i < bottomMessageList.size(); i++) {
                             if (bottomMessageList.get(i) == "")
                                 commandSender.sendMessage("");
@@ -206,6 +206,8 @@ public class Commands implements TabExecutor {
                     main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
                 return true;
             }
+        }
+        else if (args.length >= 3){
         }
         main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
         return false;
@@ -235,9 +237,9 @@ public class Commands implements TabExecutor {
             else if (args[0].equalsIgnoreCase("leaderboards")){
                 List<String> secondArguments = new ArrayList<>();
                 if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
-                    secondArguments.add("newwelcomes");
+                    secondArguments.add("newWelcomes");
                 if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)"))
-                    secondArguments.add("returnwelcomes");
+                    secondArguments.add("returnWelcomes");
                 return secondArguments;
             }
             else

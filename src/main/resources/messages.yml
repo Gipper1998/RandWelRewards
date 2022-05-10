@@ -48,7 +48,7 @@ messages:
     - ""
     - "<player> &d&lWelcome &b&lStats"
     - "&e-------------------------"
-    - "&bNew Welcomes&6:     &9<newwelcomes>"
+    - "&bNew Welcomes&6:    &9<newwelcomes>"
     - "&bReturn Welcomes&6: &9<returnwelcomes>"
     - ""
 
@@ -58,20 +58,21 @@ messages:
       - ""
       - "&bNewWelcomes &aTopScore"
       - "&f------------------------"
+    bottomNewWelcomeBoard:
+      - "&f------------------------"
+      - ""
+
     topReturnWelcomeBoard:
       - ""
       - "&bReturnWelcomes &aTopScore"
       - "&f------------------------"
-    bottomNewWelcomeBoard:
-      - "&f------------------------"
-      - ""
     bottomReturnWelcomeBoard:
       - "&f------------------------"
       - ""
 
-  # This part is where you can customize the placeholders, use <position> for position, <name> for the players name, and <score> for their respective points
-  # This is used for both sections.
-    positionTile: "<position>. <name> <score>"
+    # This part is where you can customize the placeholders, use <position> for position, <name> for the players name, and <score> for their respective points
+    # This is used for both sections.
+    positionTile: "&6<position>. &b<name> &e<score>"
 
   # This is just what the plugin can do for now, best not to modify this unless you want to change the colors.
   menu:

@@ -23,37 +23,37 @@ public class FileSetup {
     }
 
     public void reloadConfig() {
-        if (this.dataConfigFile == null)
-            this.dataConfigFile = new File(this.main.getDataFolder(), name);
-        this.dataConfig = YamlConfiguration.loadConfiguration(this.dataConfigFile);
-        InputStream defConfigStream = this.main.getResource(name);
+        if (dataConfigFile == null)
+            dataConfigFile = new File(main.getDataFolder(), name);
+        this.dataConfig = YamlConfiguration.loadConfiguration(dataConfigFile);
+        InputStream defConfigStream = main.getResource(name);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
-            this.dataConfig.setDefaults(defConfig);
+            dataConfig.setDefaults(defConfig);
         }
     }
 
     public FileConfiguration getConfig() {
-        if (this.dataConfig == null)
+        if (dataConfig == null)
             reloadConfig();
-        return this.dataConfig;
+        return dataConfig;
     }
 
     public void saveConfig() {
-        if ((this.dataConfig == null) || (this.dataConfigFile == null))
+        if ((dataConfig == null) || (dataConfigFile == null))
             return;
         try {
-            getConfig().save(this.dataConfigFile);
+            getConfig().save(dataConfigFile);
         } catch (IOException e) {
             main.consoleMessage("<prefix> &cCould not load " + name + " folder.");
         }
     }
 
     public void saveDefaultConfig() {
-        if (this.dataConfigFile == null)
-            this.dataConfigFile = new File(this.main.getDataFolder(), name);
-        if (!this.dataConfigFile.exists())
-            this.main.saveResource(name, false);
+        if (dataConfigFile == null)
+            dataConfigFile = new File(this.main.getDataFolder(), name);
+        if (!dataConfigFile.exists())
+            main.saveResource(name, false);
     }
 
 }

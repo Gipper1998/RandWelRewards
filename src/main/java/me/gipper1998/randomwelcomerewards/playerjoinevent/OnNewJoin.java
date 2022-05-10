@@ -1,9 +1,7 @@
-package me.gipper1998.randomwelcomerewards.listeners;
+package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
-import me.gipper1998.randomwelcomerewards.utils.NewPlayer;
-import me.gipper1998.randomwelcomerewards.utils.WelcomePlayer;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -31,7 +29,7 @@ public class OnNewJoin implements Listener {
 
     @EventHandler
     public void onPlayerChat (AsyncPlayerChatEvent event){
-        if (main.getConfig().getBoolean("settings.enableNewWelcome")) {
+        if (main.config.getConfig().getBoolean("settings.enableNewWelcome")) {
             if (!event.isCancelled()) {
                 if (wp.messageContains(event.getMessage())) {
                     Player player = event.getPlayer();
@@ -41,13 +39,13 @@ public class OnNewJoin implements Listener {
                         while (var3.hasNext()) {
                             Entry<Player, NewPlayer> entry = (Entry) var3.next();
                             NewPlayer newPlayer = (NewPlayer) entry.getValue();
-                            Integer timeoutTime = this.main.getConfig().getInt("settings.newTime") * 1000;
+                            Integer timeoutTime = main.config.getConfig().getInt("settings.newTime") * 1000;
                             if (System.currentTimeMillis() - newPlayer.getJoinTime() > (long) timeoutTime) {
                                 wp.removeNew(newPlayer.getPlayer());
                             } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                                 newPlayer.addWelcomePlayer(player);
-                                this.messageList = main.messages.getConfig().getStringList("messages.newWelcomeMessages");
-                                int messageSelect = this.rand.nextInt(messageList.size());
+                                messageList = main.messages.getConfig().getStringList("messages.newWelcomeMessages");
+                                int messageSelect = rand.nextInt(messageList.size());
                                 String Text = messageList.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());
                                 if (!Text.equals("")) {
@@ -76,8 +74,8 @@ public class OnNewJoin implements Listener {
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
         if (main.vaultEnabled) {
-            if (main.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
-                int money = main.getConfig().getInt("newWelcomeRewards.vault.reward");
+            if (main.config.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
+                int money = main.config.getConfig().getInt("newWelcomeRewards.vault.reward");
                 main.deposit(player, money);
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
@@ -87,19 +85,19 @@ public class OnNewJoin implements Listener {
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {
-        if (main.getConfig().getBoolean("newWelcomeRewards.commands.enable") == true) {
-            List<String> rewardCommands = this.main.getConfig().getStringList("newWelcomeRewards.commands.rewardCommands");
-            ConsoleCommandSender console = this.main.getServer().getConsoleSender();
+        if (main.config.getConfig().getBoolean("newWelcomeRewards.commands.enable") == true) {
+            List<String> rewardCommands = main.config.getConfig().getStringList("newWelcomeRewards.commands.rewardCommands");
+            ConsoleCommandSender console = main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
             if (rewardCommands.size() != 0) {
                 while (var9.hasNext()) {
                     String command = (String) var9.next();
                     command = command.replace("<player>", player.getName());
                     ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
-                    this.main.getServer().getPluginManager().callEvent(commandEvent);
+                    main.getServer().getPluginManager().callEvent(commandEvent);
                     if (!event.isCancelled()) {
-                        this.main.getServer().getScheduler().callSyncMethod(this.main, () -> {
-                            return this.main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                        main.getServer().getScheduler().callSyncMethod(main, () -> {
+                            return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
                         });
                     }
                 }

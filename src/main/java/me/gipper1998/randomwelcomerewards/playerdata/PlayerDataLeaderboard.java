@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.data;
+package me.gipper1998.randomwelcomerewards.playerdata;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.configuration.ConfigurationSection;
@@ -6,14 +6,14 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class Leaderboard {
+public class PlayerDataLeaderboard {
     RandomWelcomeRewards main;
     private ArrayList<PlayerData> newWelcomeBoard= new ArrayList<>();
     private ConfigurationSection newWelcomeBoardData;
     private ArrayList<PlayerData> returnWelcomeBoard= new ArrayList<>();
     private ConfigurationSection returnWelcomeBoardData;
 
-    public Leaderboard(RandomWelcomeRewards main){
+    public PlayerDataLeaderboard(RandomWelcomeRewards main){
         this.main = main;
     }
 
@@ -61,9 +61,9 @@ public class Leaderboard {
     }
 
     private boolean setNewWelcomeBoardData(){
-        newWelcomeBoardData = main.data.getConfig().getConfigurationSection("players");
+        newWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (newWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c Getting the data for newWelcomes didn't work correctly, check to see if anythings in data.yml");
+            main.consoleMessage("<prefix>&c Getting the data for newWelcomes didn't work correctly, check to see if anythings in playerData.yml");
             return false;
         }
         Set<String> keys = newWelcomeBoardData.getKeys(false);
@@ -73,7 +73,7 @@ public class Leaderboard {
                 PlayerData temp = new PlayerData(main, uuid,main.dataManager);
                 newWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
-                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check data.yml incase theres an error.");
+                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");
                 return false;
             }
         }
@@ -85,9 +85,10 @@ public class Leaderboard {
     }
 
     private boolean setReturnWelcomeBoardData(){
-        returnWelcomeBoardData = main.data.getConfig().getConfigurationSection("players");
+        main.playerData.reloadConfig();
+        returnWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (returnWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in data.yml");
+            main.consoleMessage("<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in playerData.yml");
             return false;
         }
         Set<String> keys = returnWelcomeBoardData.getKeys(false);
@@ -97,7 +98,7 @@ public class Leaderboard {
                 PlayerData temp = new PlayerData(main, uuid,main.dataManager);
                 returnWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
-                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check data.yml incase theres an error.");
+                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");
                 return false;
             }
         }

@@ -3,7 +3,7 @@
 # This file is the heart of the plugin as it configures the listeners for when a player joins your server.
 # If you want to edit messages, open up the messages.yml and you can configure any messages availble.
 # If you want to add milestones after enabling or disabling them here, go to milestones.yml and follow the directions.
-# If you want to change the data for the players (not advised but accessible), go to data.yml and values can be configured.
+# If you want to change the data for the players (not advised but accessible), go to playerData.yml and values can be configured.
 # After any changes you make to this plugin, remember to reload the plugin or restart your server (if you edited more than one plugin).
 
 # Here is the main part of the plugin, where you can enable or disable the feature available here.
@@ -25,9 +25,10 @@ settings:
   # How much time a player has to welcome back a returning player (in seconds).
   returnTime: 10
 
+  # Length of the leaderboard when the player runs a command.
   leaderboardLength: 5
 
-   # What you want players to type to trigger the plugin.
+  # What you want players to type to trigger the plugin.
   triggeredNewWelcomeTexts:
     - "welcome"
     - "wel"

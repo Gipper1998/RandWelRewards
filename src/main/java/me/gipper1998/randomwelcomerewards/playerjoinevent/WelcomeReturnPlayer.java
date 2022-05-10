@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.utils;
+package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.entity.Player;
@@ -29,7 +29,7 @@ public class WelcomeReturnPlayer {
     }
 
     public Boolean messageContains(String message) {
-        List<String> welcomeText = this.main.getConfig().getStringList("settings.triggeredReturnWelcomeTexts");
+        List<String> welcomeText = main.config.getConfig().getStringList("settings.triggeredReturnWelcomeTexts");
         Iterator var3 = welcomeText.iterator();
         String string;
         do {

@@ -1,13 +1,13 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.data.DataManager;
+import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
-import me.gipper1998.randomwelcomerewards.filemanager.MilestoneManager;
-import me.gipper1998.randomwelcomerewards.listeners.OnNewJoin;
-import me.gipper1998.randomwelcomerewards.listeners.OnReturnJoin;
-import me.gipper1998.randomwelcomerewards.utils.WelcomePlayer;
-import me.gipper1998.randomwelcomerewards.utils.WelcomeReturnPlayer;
+import me.gipper1998.randomwelcomerewards.milestone.MilestoneManager;
+import me.gipper1998.randomwelcomerewards.playerjoinevent.OnNewJoin;
+import me.gipper1998.randomwelcomerewards.playerjoinevent.OnReturnJoin;
+import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomePlayer;
+import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomeReturnPlayer;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -22,31 +22,24 @@ import java.util.List;
 public class RandomWelcomeRewards extends JavaPlugin {
     public HashMap<String, List<String>> players;
     public boolean vaultEnabled = false;
+    private boolean holoEnabled = false;
     public Economy economy;
     public Chat chat = null;
-    public FileSetup data;
+    public FileSetup playerData;
     public FileSetup messages;
     public FileSetup milestones;
-    public DataManager dataManager;
+    public FileSetup config;
+    public PlayerDataManager dataManager;
     public MilestoneManager milestoneManager;
 
     @Override
     public void onEnable() {
         this.players = new HashMap();
-        this.data = new FileSetup(this, "data.yml");
-        this.messages = new FileSetup(this, "messages.yml");
-        this.milestones = new FileSetup(this, "milestones.yml");
-        this.dataManager = new DataManager(this);
-        this.milestoneManager = new MilestoneManager(this);
-        WelcomePlayer wp = new WelcomePlayer(this);
-        WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
+        fileSetups();
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
-        this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
-        this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
-        saveDefaultConfig();
         if (!registerVault())
             consoleMessage("<prefix> &cVault was not found, make sure rewards that uses vault is removed or disabled.");
-        if (vaultEnabled)
+        else
             consoleMessage("<prefix> &aVault found and hooked :D.");
         consoleMessage(messages.getConfig().getString("messages.startup"));
     }
@@ -55,6 +48,26 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public void onDisable() {
         consoleMessage(messages.getConfig().getString("messages.shutdown"));
         Bukkit.getPluginManager().disablePlugin(this);
+    }
+
+    public void fileSetups(){
+        this.playerData = new FileSetup(this, "playerData.yml");
+        this.messages = new FileSetup(this, "messages.yml");
+        this.milestones = new FileSetup(this, "milestones.yml");
+        this.config = new FileSetup(this, "config.yml");
+        this.dataManager = new PlayerDataManager(this);
+        this.milestoneManager = new MilestoneManager(this);
+        config.saveDefaultConfig();
+        playerData.saveDefaultConfig();
+        messages.saveDefaultConfig();
+        milestones.saveDefaultConfig();
+    }
+
+    public void registerPlayerEvents(){
+        WelcomePlayer wp = new WelcomePlayer(this);
+        WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
+        this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
+        this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
     }
 
     public boolean registerVault() {

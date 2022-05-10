@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.utils;
+package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
