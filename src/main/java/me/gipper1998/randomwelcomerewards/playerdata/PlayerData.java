@@ -6,8 +6,8 @@ import org.bukkit.Bukkit;
 import java.util.UUID;
 
 public class PlayerData {
-    RandomWelcomeRewards main;
-    PlayerDataManager mainData;
+    private RandomWelcomeRewards main;
+    private PlayerDataManager mainData;
     private int newWelcomes;
     private int returnWelcomes;
     private UUID playerUUID;

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 public class PlayerDataLeaderboard {
-    RandomWelcomeRewards main;
+    private RandomWelcomeRewards main;
     private ArrayList<PlayerData> newWelcomeBoard= new ArrayList<>();
     private ConfigurationSection newWelcomeBoardData;
     private ArrayList<PlayerData> returnWelcomeBoard= new ArrayList<>();

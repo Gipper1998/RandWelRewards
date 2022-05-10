@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class PlayerDataManager {
-    RandomWelcomeRewards main;
+    private RandomWelcomeRewards main;
 
     public PlayerDataManager(RandomWelcomeRewards main){
         this.main = main;
