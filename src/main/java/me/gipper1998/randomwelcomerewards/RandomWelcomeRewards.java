@@ -89,6 +89,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
             this.hologramManager = new HologramManager(this);
             consoleMessage("<prefix> &aVault found and hooked!!");
             hologramEnabled = true;
+            hologramManager.updateHolograms(this);
         }
         if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
             new PlaceholderManager(this).register();

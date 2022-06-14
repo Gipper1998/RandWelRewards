@@ -8,6 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +25,22 @@ public class HologramManager {
 
     private String path = "Holograms.";
 
+    private BukkitTask task;
+
     public HologramManager(RandomWelcomeRewards main){
         this.main = main;
         this.pdl = new PlayerDataLeaderboard(main);
-        int minutes = main.config.getConfig().getInt("hologramMinuteInterval");
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {
-            @Override
-            public void run() {
+    }
+
+    public void updateHolograms(RandomWelcomeRewards main){
+        int minutes = main.config.getConfig().getInt("settings.hologramMinuteInterval");
+        if (this.task != null)
+            this.task.cancel();
+        this.task = (new BukkitRunnable(){
+            public void run(){
                 loadHolograms();
             }
-        }, 0L, 20L * 60 * 600);
+        }).runTaskTimerAsynchronously(main, 0L, 20L * (long)60 * (long)minutes);
     }
 
     public void createHologram(String name, Boolean newWelcome, Location location){
@@ -43,12 +51,12 @@ public class HologramManager {
            else {
                main.getConfig().set(name + ".type", "returnWelcome");
            }
-           main.getConfig().set(path + name + ".world", location.getWorld().getName());
-           main.getConfig().set(path + name + ".x", location.getX());
-           main.getConfig().set(path + name + ".y", location.getY());
-           main.getConfig().set(path + name + ".z", location.getZ());
-           main.getConfig().set(path + name + ".pitch", location.getPitch());
-           main.getConfig().set(path + name + ".yaw", location.getYaw());
+           main.hologramData.getConfig().set(path + name + ".world", location.getWorld().getName());
+           main.hologramData.getConfig().set(path + name + ".x", location.getX());
+           main.hologramData.getConfig().set(path + name + ".y", location.getY());
+           main.hologramData.getConfig().set(path + name + ".z", location.getZ());
+           main.hologramData.getConfig().set(path + name + ".pitch", location.getPitch());
+           main.hologramData.getConfig().set(path + name + ".yaw", location.getYaw());
        } catch (Exception e){}
        loadHolograms();
        main.hologramData.saveConfig();
@@ -57,7 +65,7 @@ public class HologramManager {
     public void loadHolograms(){
         boolean isNewWelcome = false;
         hologramList.clear();
-        List<String> leaderBoard = pdl.sendLeaderBoardHologram(isNewWelcome, main.config.getConfig().getInt("settings.leaderboardLength"));
+        List<String> leaderBoard = pdl.sendLeaderBoardHologram(isNewWelcome, main.config.getConfig().getInt("settings.hologramLength"));
         ConfigurationSection hologramDataFile = main.hologramData.getConfig().getConfigurationSection("Holograms");
         if (hologramDataFile == null){
             main.consoleMessage("<prefix>&c Nothing in hologram folder");
@@ -95,15 +103,31 @@ public class HologramManager {
         }
     }
 
-    List<String> listHolograms(){
+    public boolean moveHologram(String name, Location location){
+        if (main.hologramData.getConfig().contains(path + name)){
+            DHAPI.moveHologram(name, location);
+            main.hologramData.getConfig().set(path + name + ".world", location.getWorld().getName());
+            main.hologramData.getConfig().set(path + name + ".x", location.getX());
+            main.hologramData.getConfig().set(path + name + ".y", location.getY());
+            main.hologramData.getConfig().set(path + name + ".z", location.getZ());
+            main.hologramData.getConfig().set(path + name + ".pitch", location.getPitch());
+            main.hologramData.getConfig().set(path + name + ".yaw", location.getYaw());
+            main.hologramData.saveConfig();
+            loadHolograms();
+            return true;
+        }
+        return false;
+    }
+
+    public List<String> listHolograms(){
         return hologramList;
     }
 
     public boolean deleteHologram(String name){
         if (main.hologramData.getConfig().contains(path + name)){
             main.hologramData.getConfig().set(path + name, null);
-            loadHolograms();
             main.hologramData.saveConfig();
+            loadHolograms();
             return true;
         }
         return false;

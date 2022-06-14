@@ -15,8 +15,10 @@ import java.util.UUID;
 
 
 public class Commands implements TabExecutor {
+
     private final RandomWelcomeRewards main;
-    public PlayerDataLeaderboard playerDataLeaderboard;
+    private PlayerDataLeaderboard playerDataLeaderboard;
+
     public Commands (RandomWelcomeRewards main){
         this.main = main;
         playerDataLeaderboard = new PlayerDataLeaderboard(this.main);
@@ -49,6 +51,7 @@ public class Commands implements TabExecutor {
                     main.messages.reloadConfig();
                     main.playerData.reloadConfig();
                     main.milestones.reloadConfig();
+                    main.hologramData.reloadConfig();
                     main.milestoneManager.reloadMilestones();
                     if (commandSender instanceof ConsoleCommandSender)
                         main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
@@ -210,7 +213,51 @@ public class Commands implements TabExecutor {
                 return true;
             }
         }
-        else if (args.length >= 3){
+
+        else if (args.length == 3){
+            if (args[0].equalsIgnoreCase("holograms")){
+                if (commandSender instanceof Player) {
+                    if (args[1].equalsIgnoreCase("create")) {
+                        if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")) {
+                            Player player = (Player) commandSender;
+                            if (args[1].equalsIgnoreCase("newWelcomes")) {
+                                main.hologramManager.createHologram(args[3], true, player.getLocation());
+                                return true;
+                            }
+                            else if (args[1].equalsIgnoreCase("returnWelcomes")){
+                                main.hologramManager.createHologram(args[3], false, player.getLocation());
+                                return true;
+                            }
+                            else {
+                                main.chatMessage("<prefix> &cThat option is not available", (Player) commandSender);
+                                return false;
+                            }
+                        }
+                    }
+                    else if (args[1].equalsIgnoreCase("delete")){
+                        if (main.hologramManager.deleteHologram(args[2])){
+                            main.chatMessage("hi", (Player) commandSender);
+                            return true;
+                        }
+                        main.chatMessage("<prefix> &cThat hologram does not exist!!", (Player) commandSender);
+                        return false;
+                    }
+                    else if (args[1].equalsIgnoreCase("moveHere")){
+                        Player player = (Player) commandSender;
+                        if (main.hologramManager.moveHologram(args[2], player.getLocation())){
+                            main.chatMessage("", player);
+                            return true;
+                        }
+                        else {
+                            main.chatMessage("<prefix> &cThat option is not available", (Player) commandSender);
+                            return false;
+                        }
+                    }
+                }
+                else {
+                    main.consoleMessage("<prefix> &cOnly a player can use this command");
+                }
+            }
         }
         main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
         return false;
@@ -224,29 +271,57 @@ public class Commands implements TabExecutor {
                 firstArguments.add("reload");
             if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)") || hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
                 firstArguments.add("leaderboards");
+            if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
+                firstArguments.add("holograms");
+            }
             firstArguments.add("stats");
             return firstArguments;
         }
         else if (args.length == 2){
-            if (args[0].equalsIgnoreCase("stats")){
-                if (hasPermission(commandSender, "randomwelcomerewards.stats.others")) {
-                    List<String> playerNames = new ArrayList<>();
-                    Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
-                    Bukkit.getServer().getOnlinePlayers().toArray(players);
-                    for (int i = 0; i < players.length; i++)
-                        playerNames.add(players[i].getName());
-                }
-            }
-            else if (args[0].equalsIgnoreCase("leaderboards")){
-                List<String> secondArguments = new ArrayList<>();
+            List<String> secondArguments = new ArrayList<>();
+            if (args[0].equalsIgnoreCase("leaderboards")){
                 if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
                     secondArguments.add("newWelcomes");
                 if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)"))
                     secondArguments.add("returnWelcomes");
                 return secondArguments;
             }
-            else
-                return null;
+            else if (args[0].equalsIgnoreCase("holograms")){
+                if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
+                    secondArguments.add("create");
+                    secondArguments.add("delete");
+                    secondArguments.add("moveHere");
+                    return secondArguments;
+
+                }
+            }
+        }
+        else if (args.length == 3){
+            List<String> thirdArguments = new ArrayList<>();
+            if (args[0].equalsIgnoreCase("holograms")){
+                if (hasPermission(commandSender, "randomwelcomerewards.holograms")) {
+                    if (args[1].equalsIgnoreCase("create")) {
+                        thirdArguments.add("newWelcomes");
+                        thirdArguments.add("returnWelcomes");
+                        return thirdArguments;
+                    } else if (args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("moveHere")) {
+                        return main.hologramManager.listHolograms();
+                    }
+                }
+            }
+        }
+        else if (args.length == 4){
+            List<String> fourthArguments = new ArrayList<>();
+            if (args[0].equalsIgnoreCase("holograms")){
+                if (hasPermission(commandSender, "randomwelcomerewards.holograms")) {
+                    if (args[1].equalsIgnoreCase("create")){
+                        if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
+                            fourthArguments.add("<name>");
+                            return fourthArguments;
+                        }
+                    }
+                }
+            }
         }
         return null;
     }

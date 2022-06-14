@@ -19,8 +19,6 @@ public class VaultManager {
     }
 
     public boolean registerVault() {
-        if (Bukkit.getPluginManager().getPlugin("Vault") == null)
-            return false;
         RegisteredServiceProvider<Economy> rsp = main.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null)
             return false;
