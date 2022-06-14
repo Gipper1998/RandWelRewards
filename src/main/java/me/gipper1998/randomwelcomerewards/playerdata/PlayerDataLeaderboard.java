@@ -4,10 +4,7 @@ import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 
 public class PlayerDataLeaderboard {
@@ -63,6 +60,47 @@ public class PlayerDataLeaderboard {
             }
         }
     }
+
+    public List<String> sendLeaderBoardHologram(boolean newWelcome, int length){
+        List<String> dataSend = new ArrayList<>();
+        if (newWelcome) {
+            if (setNewWelcomeBoardData()) {
+                setNewWelcomeOrder();
+                String message = main.messages.getConfig().getString("messages.leaderboards.positionTile");
+                int size = newWelcomeBoard.size();
+                if (size > length)
+                    size = length;
+                for (int i = 0; i < size; i++) {
+                    String temp = message.replaceAll("<position>", Integer.toString(i + 1));
+                    PlayerData tempPlayer = newWelcomeBoard.get(0);
+                    temp = temp.replaceAll("<name>", tempPlayer.getPlayerName());
+                    temp = temp.replaceAll("<score>", Integer.toString(tempPlayer.getNewWelcomes()));
+                    dataSend.add(temp);
+                    newWelcomeBoard.remove(0);
+                }
+            }
+            return dataSend;
+        }
+        else {
+            if (setReturnWelcomeBoardData()) {
+                setReturnWelcomeOrder();
+                String message = main.messages.getConfig().getString("messages.leaderboards.positionTile");
+                int size = returnWelcomeBoard.size();
+                if (size > length)
+                    size = length;
+                for (int i = 0; i < size; i++) {
+                    String temp = message.replaceAll("<position>", Integer.toString(i + 1));
+                    PlayerData tempPlayer = returnWelcomeBoard.get(0);
+                    temp = temp.replaceAll("<name>", tempPlayer.getPlayerName());
+                    temp = temp.replaceAll("<score>", Integer.toString(tempPlayer.getReturnWelcomes()));
+                    dataSend.add(temp);
+                    returnWelcomeBoard.remove(0);
+                }
+            }
+            return dataSend;
+        }
+    }
+
 
     private boolean setNewWelcomeBoardData(){
         newWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");

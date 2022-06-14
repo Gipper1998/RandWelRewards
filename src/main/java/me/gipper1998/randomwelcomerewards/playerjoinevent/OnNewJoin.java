@@ -2,7 +2,6 @@ package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
-import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -78,7 +77,7 @@ public class OnNewJoin implements Listener {
         if (main.vaultEnabled) {
             if (main.config.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
                 int money = main.config.getConfig().getInt("newWelcomeRewards.vault.reward");
-                main.deposit(player, money);
+                main.vaultManager.deposit(player, money);
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }

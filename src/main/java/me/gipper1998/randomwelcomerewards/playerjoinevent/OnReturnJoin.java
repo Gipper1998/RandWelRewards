@@ -85,7 +85,7 @@ public class OnReturnJoin implements Listener {
         if (main.vaultEnabled) {
             if (main.config.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
                 int money = main.config.getConfig().getInt("returnWelcomeRewards.vault.reward");
-                main.deposit(player, money);
+                main.vaultManager.deposit(player, money);
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }

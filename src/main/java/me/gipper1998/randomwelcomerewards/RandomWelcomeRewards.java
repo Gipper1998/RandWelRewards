@@ -1,6 +1,9 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
+import me.gipper1998.randomwelcomerewards.depmanager.HologramManager;
+import me.gipper1998.randomwelcomerewards.depmanager.PlaceholderManager;
+import me.gipper1998.randomwelcomerewards.depmanager.VaultManager;
 import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
 import me.gipper1998.randomwelcomerewards.milestone.MilestoneManager;
@@ -16,30 +19,35 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 public class RandomWelcomeRewards extends JavaPlugin {
     public HashMap<String, List<String>> players;
     public boolean vaultEnabled = false;
-    public Economy economy;
-    public Chat chat = null;
+
+    public boolean hologramEnabled = false;
+
+    public boolean placeholderEnabled = false;
+
+    public FileSetup hologramData;
     public FileSetup playerData;
     public FileSetup messages;
     public FileSetup milestones;
+
     public FileSetup config;
     public PlayerDataManager playerDataManager;
     public MilestoneManager milestoneManager;
+    public VaultManager vaultManager;
+    public HologramManager hologramManager;
 
     @Override
     public void onEnable() {
         this.players = new HashMap();
         fileSetups();
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
-        if (!registerVault())
-            consoleMessage("<prefix> &cVault was not found, make sure rewards that uses vault is removed or disabled.");
-        else
-            consoleMessage("<prefix> &aVault found and hooked :D.");
+        registerDependices();
         registerPlayerEvents();
         consoleMessage(messages.getConfig().getString("messages.startup"));
     }
@@ -55,6 +63,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.messages = new FileSetup(this, "messages.yml");
         this.milestones = new FileSetup(this, "milestones.yml");
         this.config = new FileSetup(this, "config.yml");
+        this.hologramData = new FileSetup(this, "hologramData.yml");
         this.playerDataManager = new PlayerDataManager(this);
         this.milestoneManager = new MilestoneManager(this);
         config.saveDefaultConfig();
@@ -70,23 +79,22 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
     }
 
-    public boolean registerVault() {
-        if (Bukkit.getPluginManager().getPlugin("Vault") == null)
-            return false;
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null)
-            return false;
-        economy = rsp.getProvider();
-        setupChat();
-        vaultEnabled = true;
-        return economy != null;
-    }
-
-    public boolean setupChat(){
-        RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
-        if (chatProvider != null)
-            chat = chatProvider.getProvider();
-        return (chat != null);
+    public void registerDependices(){
+        if(getServer().getPluginManager().getPlugin("Vault") != null){
+            this.vaultManager = new VaultManager(this);
+            consoleMessage("<prefix> &aVault found and hooked!!");
+            vaultEnabled = true;
+        }
+        if(getServer().getPluginManager().getPlugin("DecentHolograms") != null){
+            this.hologramManager = new HologramManager(this);
+            consoleMessage("<prefix> &aVault found and hooked!!");
+            hologramEnabled = true;
+        }
+        if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new PlaceholderManager(this).register();
+            consoleMessage("<prefix> &aPlaceholderAPI found and hooked!!");
+            placeholderEnabled = true;
+        }
     }
 
     public void consoleMessage (String message){
@@ -114,8 +122,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
     }
-
-    public void deposit(Player player, int money){ economy.depositPlayer(player, money); }
 
 }
 
