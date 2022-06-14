@@ -66,7 +66,7 @@ public class PlayerDataLeaderboard {
         if (newWelcome) {
             if (setNewWelcomeBoardData()) {
                 setNewWelcomeOrder();
-                String message = main.messages.getConfig().getString("messages.leaderboards.positionTile");
+                String message = main.messages.getConfig().getString("messages.holograms.positionTile");
                 int size = newWelcomeBoard.size();
                 if (size > length)
                     size = length;
@@ -84,7 +84,7 @@ public class PlayerDataLeaderboard {
         else {
             if (setReturnWelcomeBoardData()) {
                 setReturnWelcomeOrder();
-                String message = main.messages.getConfig().getString("messages.leaderboards.positionTile");
+                String message = main.messages.getConfig().getString("messages.holograms.positionTile");
                 int size = returnWelcomeBoard.size();
                 if (size > length)
                     size = length;
