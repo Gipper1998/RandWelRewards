@@ -15,6 +15,9 @@ messages:
   leaderboard-path: "<prefix> &cRetype the command with either newwelcomes or returnwelcomes as the next argument."
   commandReward: "<prefix> &dYou welcomed a player, here is your rewards!"
   vaultMoney: "&a$<money> has been added to your account!"
+  hologramCreated: "<prefix> &aThe hologram has been created!"
+  hologramMoved: "<prefix> &aThe hologram has been moved!"
+  hologramDelete: "<prefix> &aThe hologram has been deleted"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   # Note: putting <prefix> here will not work here.

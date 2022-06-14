@@ -222,10 +222,13 @@ public class Commands implements TabExecutor {
                             Player player = (Player) commandSender;
                             if (args[1].equalsIgnoreCase("newWelcomes")) {
                                 main.hologramManager.createHologram(args[3], true, player.getLocation());
+                                main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
                                 return true;
                             }
                             else if (args[1].equalsIgnoreCase("returnWelcomes")){
                                 main.hologramManager.createHologram(args[3], false, player.getLocation());
+                                main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
+
                                 return true;
                             }
                             else {
@@ -236,7 +239,7 @@ public class Commands implements TabExecutor {
                     }
                     else if (args[1].equalsIgnoreCase("delete")){
                         if (main.hologramManager.deleteHologram(args[2])){
-                            main.chatMessage("hi", (Player) commandSender);
+                            main.chatMessage(main.messages.getConfig().getString("messages.hologramDelete"), (Player) commandSender);
                             return true;
                         }
                         main.chatMessage("<prefix> &cThat hologram does not exist!!", (Player) commandSender);
@@ -245,7 +248,7 @@ public class Commands implements TabExecutor {
                     else if (args[1].equalsIgnoreCase("moveHere")){
                         Player player = (Player) commandSender;
                         if (main.hologramManager.moveHologram(args[2], player.getLocation())){
-                            main.chatMessage("", player);
+                            main.chatMessage(main.messages.getConfig().getString("messages.hologramMoved"), player);
                             return true;
                         }
                         else {
