@@ -26,6 +26,13 @@ public class HologramManager {
     public HologramManager(RandomWelcomeRewards main){
         this.main = main;
         this.pdl = new PlayerDataLeaderboard(main);
+        int minutes = main.config.getConfig().getInt("hologramMinuteInterval");
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {
+            @Override
+            public void run() {
+                loadHolograms();
+            }
+        }, 0L, 20L * 60 * 600);
     }
 
     public void createHologram(String name, Boolean newWelcome, Location location){
