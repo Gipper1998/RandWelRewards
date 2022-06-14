@@ -44,6 +44,7 @@ public class HologramManager {
            main.getConfig().set(path + name + ".yaw", location.getYaw());
        } catch (Exception e){}
        loadHolograms();
+       main.hologramData.saveConfig();
     }
 
     public void loadHolograms(){
@@ -91,8 +92,13 @@ public class HologramManager {
         return hologramList;
     }
 
-    public void deleteHologram(String name){
-        DHAPI.removeHologram(name);
-        hologramList.remove(name);
+    public boolean deleteHologram(String name){
+        if (main.hologramData.getConfig().contains(path + name)){
+            main.hologramData.getConfig().set(path + name, null);
+            loadHolograms();
+            main.hologramData.saveConfig();
+            return true;
+        }
+        return false;
     }
 }
