@@ -8,7 +8,7 @@ description: Generates a random welcome message by the player. This is based off
 commands:
   randomwelcomerewards:
     description: Command for all uses
-    aliases: [randwelrewards]
+    aliases: [randwelrewards, rwr]
 permissions:
   randomwelcomerewards.reload:
     description: Reload the plugin
