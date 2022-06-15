@@ -16,7 +16,8 @@ messages:
   vaultMoney: "&a$<money> has been added to your account!"
   hologramCreated: "<prefix> &aThe hologram has been created!"
   hologramMoved: "<prefix> &aThe hologram has been moved!"
-  hologramDelete: "<prefix> &aThe hologram has been deleted"
+  hologramDelete: "<prefix> &aThe hologram has been deleted."
+  statChange: "<prefix> &sThe stat has been changed!"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   # Note: putting <prefix> here will not work here.
@@ -106,6 +107,15 @@ messages:
       - "&3/&brandwelrewards &9holograms delete <name>"
       - "&3/&brandwelrewards &9holograms moveHere <name>"
       - "&e----------------------------------------"
+      - ""
+    setStats:
+      - ""
+      - "&e----------------------------------------"
+      - "<prefix>-&c&lSet Stats Menu"
+      - "&e----------------------------------------"
+      - "&3/&brandwelrewards setStat <player> <type> <point>"
+      - "&e----------------------------------------"
+      - ""
 
   # This is just what the plugin can do for now, best not to modify this unless you want to change the colors.
   menu:

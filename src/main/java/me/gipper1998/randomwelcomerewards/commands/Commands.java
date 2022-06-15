@@ -56,6 +56,10 @@ public class Commands implements TabExecutor {
                     return true;
                 }
             }
+            else if (args[0].equalsIgnoreCase("setStats")){
+                commandType(commandSender, args);
+                return false;
+            }
             else if (args[0].equalsIgnoreCase("stats")){
                 if (commandSender instanceof ConsoleCommandSender) {
                     main.consoleMessage("<prefix> &cOnly players can perform this command.");
@@ -123,6 +127,10 @@ public class Commands implements TabExecutor {
                     }
                 }
                 return true;
+            }
+            else if (args[0].equalsIgnoreCase("setStats")){
+                commandType(commandSender, args);
+                return false;
             }
             else if (args[0].equalsIgnoreCase("holograms")){
                 commandType(commandSender, args);
@@ -210,8 +218,56 @@ public class Commands implements TabExecutor {
                 return true;
             }
         }
+
         else if (args.length >= 3){
-            if (args[0].equalsIgnoreCase("holograms")){
+            if (args[0].equalsIgnoreCase("setStats") && hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
+                    Player player = Bukkit.getPlayer(args[1]);
+                    UUID uuid = main.playerDataManager.findPlayer(args[1]);
+                    if (uuid == null){
+                        if (commandSender instanceof Player)
+                            main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                        else
+                            main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                        return false;
+                    }
+                    if (args[2].equalsIgnoreCase("newWelcomes")) {
+                       if (main.playerDataManager.setWelcomePoint(player, true, Integer.parseInt(args[3]))) {
+                           if (commandSender instanceof Player)
+                               main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
+                           else
+                               main.consoleMessage(main.messages.getConfig().getString("messages.statChange"));
+                           return true;
+                       }
+                       else {
+                           if (commandSender instanceof Player)
+                               main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                           else
+                               main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                           return false;
+                       }
+                    }
+                    else if (args[2].equalsIgnoreCase("returnWelcomes")) {
+                        if (main.playerDataManager.setWelcomePoint(player, false, Integer.parseInt(args[3]))) {
+                            if (commandSender instanceof Player)
+                                main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
+                            else
+                                main.consoleMessage(main.messages.getConfig().getString("messages.statChange"));
+                            return true;
+                        }
+                        else {
+                            if (commandSender instanceof Player)
+                                main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                            else
+                                main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                            return false;
+                        }
+                    }
+                }
+                commandType(commandSender, args);
+                return false;
+            }
+            else if (args[0].equalsIgnoreCase("holograms") && hasPermission(commandSender, "randomwelcomerewards.holograms")){
                 if (commandSender instanceof Player) {
                     if (args[1].equalsIgnoreCase("create")) {
                         if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")) {
@@ -274,6 +330,9 @@ public class Commands implements TabExecutor {
             if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
                 firstArguments.add("holograms");
             }
+            if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                firstArguments.add("setStats");
+            }
             firstArguments.add("stats");
             return firstArguments;
         }
@@ -309,6 +368,13 @@ public class Commands implements TabExecutor {
                     }
                 }
             }
+            else if (args[0].equalsIgnoreCase("setStats")){
+                if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                    thirdArguments.add("newWelcomes");
+                    thirdArguments.add("returnWelcomes");
+                    return thirdArguments;
+                }
+            }
         }
         else if (args.length == 4){
             List<String> fourthArguments = new ArrayList<>();
@@ -320,6 +386,12 @@ public class Commands implements TabExecutor {
                             return fourthArguments;
                         }
                     }
+                }
+            }
+            else if (args[0].equalsIgnoreCase("setStats")){
+                if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                    fourthArguments.add("<number>");
+                    return fourthArguments;
                 }
             }
         }
@@ -349,6 +421,19 @@ public class Commands implements TabExecutor {
         }
         else if (args[0].equalsIgnoreCase("holograms")){
             arguments = main.messages.getConfig().getStringList("messages.commandMenu.holograms");
+            if (commandSender instanceof Player){
+                for (String i : arguments){
+                    main.chatMessage(i, (Player) commandSender);
+                }
+            }
+            else {
+                for (String i : arguments){
+                    main.consoleMessage(i);
+                }
+            }
+        }
+        else if (args[0].equalsIgnoreCase("setStats")){
+            arguments = main.messages.getConfig().getStringList("messages.commandMenu.setStats");
             if (commandSender instanceof Player){
                 for (String i : arguments){
                     main.chatMessage(i, (Player) commandSender);

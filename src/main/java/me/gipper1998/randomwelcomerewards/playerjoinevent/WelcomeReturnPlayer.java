@@ -40,8 +40,4 @@ public class WelcomeReturnPlayer {
         word = string;
         return true;
     }
-
-    public String getMessageContains(){
-        return word;
-    }
 }
