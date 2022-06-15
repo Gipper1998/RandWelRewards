@@ -87,7 +87,6 @@ public class HologramManager {
         }
     }
 
-
     public void createHologram(String name, Boolean newWelcome, Location location){
        try {
            if (newWelcome) {

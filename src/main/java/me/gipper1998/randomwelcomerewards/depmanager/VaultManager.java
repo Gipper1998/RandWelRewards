@@ -3,7 +3,6 @@ package me.gipper1998.randomwelcomerewards.depmanager;
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 

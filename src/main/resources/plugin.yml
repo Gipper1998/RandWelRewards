@@ -2,7 +2,7 @@ name: RandomWelcomeRewards
 version: '${project.version}'
 main: me.gipper1998.randomwelcomerewards.RandomWelcomeRewards
 api-version: 1.13
-softdepend: [ Vault ]
+softdepend: [ Vault, DecentHolograms, PlaceholderAPI ]
 authors: [ gipper1998 ]
 description: Generates a random welcome message by the player. This is based off of Ranulls version of welcoming a new player, but adds extra features and vault support.
 commands:
