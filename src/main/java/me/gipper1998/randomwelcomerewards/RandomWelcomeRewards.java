@@ -87,7 +87,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
         }
         if(getServer().getPluginManager().getPlugin("DecentHolograms") != null){
             this.hologramManager = new HologramManager(this);
-            consoleMessage("<prefix> &aVault found and hooked!!");
+            consoleMessage("<prefix> &aDecentHolograms found and hooked!!");
             hologramEnabled = true;
             hologramManager.updateHolograms(this);
         }
@@ -104,6 +104,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
             message = message.replaceAll("<prefix>", prefix);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
+        else
+            Bukkit.getConsoleSender().sendMessage("");
     }
 
     public void chatMessage(String message, Player player){
@@ -112,6 +114,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
             message = message.replaceAll("<prefix>", prefix);
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
+        else
+            player.sendMessage("");
     }
 
     public void vaultChat(String message, Player player, int money){

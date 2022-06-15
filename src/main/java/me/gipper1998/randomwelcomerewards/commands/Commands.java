@@ -29,19 +29,11 @@ public class Commands implements TabExecutor {
         if (args.length == 0) {
             List<String> menus = main.messages.getConfig().getStringList("messages.menu");
             for (int i = 0; i < menus.size(); i++) {
-                if (commandSender instanceof ConsoleCommandSender) {
-                    if (menus.get(i) == "")
-                        commandSender.sendMessage("");
-                    else
-                        main.consoleMessage(menus.get(i));
-                }
-                else {
-                    if (menus.get(i) == "")
-                        commandSender.sendMessage("");
-                    else
-                        main.chatMessage(menus.get(i), (Player) commandSender);
-                    }
-                }
+                if (commandSender instanceof ConsoleCommandSender)
+                    main.consoleMessage(menus.get(i));
+                else
+                    main.chatMessage(menus.get(i), (Player) commandSender);
+            }
             return true;
         }
         else if (args.length == 1){
@@ -53,6 +45,7 @@ public class Commands implements TabExecutor {
                     main.milestones.reloadConfig();
                     main.hologramData.reloadConfig();
                     main.milestoneManager.reloadMilestones();
+                    main.hologramManager.loadHolograms();
                     if (commandSender instanceof ConsoleCommandSender)
                         main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
                     else
@@ -63,7 +56,7 @@ public class Commands implements TabExecutor {
                     return true;
                 }
             }
-            if (args[0].equalsIgnoreCase("stats")){
+            else if (args[0].equalsIgnoreCase("stats")){
                 if (commandSender instanceof ConsoleCommandSender) {
                     main.consoleMessage("<prefix> &cOnly players can perform this command.");
                     return true;
@@ -91,12 +84,12 @@ public class Commands implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("leaderboards")){
-                if (commandSender instanceof Player)
-                    main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
-                else
-                    main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
-                return true;
+            else if (args[0].equalsIgnoreCase("leaderboards")){
+                commandType(commandSender, args);
+                return false;
+            } else if (args[0].equalsIgnoreCase("holograms")) {
+                commandType(commandSender, args);
+                return false;
             }
         }
         else if (args.length == 2){
@@ -131,7 +124,11 @@ public class Commands implements TabExecutor {
                 }
                 return true;
             }
-            if (args[0].equalsIgnoreCase("leaderboards")) {
+            else if (args[0].equalsIgnoreCase("holograms")){
+                commandType(commandSender, args);
+                return false;
+            }
+            else if (args[0].equalsIgnoreCase("leaderboards")) {
                 if (args[1].equalsIgnoreCase("newWelcomes")) {
                     if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.newwelcomes)")) {
                         List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topNewWelcomeBoard");
@@ -202,7 +199,7 @@ public class Commands implements TabExecutor {
                         return true;
                     }
                     else {
-                        main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                        commandType(commandSender, args);
                         return false;
                     }
                 }
@@ -213,22 +210,20 @@ public class Commands implements TabExecutor {
                 return true;
             }
         }
-
-        else if (args.length == 3){
+        else if (args.length >= 3){
             if (args[0].equalsIgnoreCase("holograms")){
                 if (commandSender instanceof Player) {
                     if (args[1].equalsIgnoreCase("create")) {
                         if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")) {
                             Player player = (Player) commandSender;
-                            if (args[1].equalsIgnoreCase("newWelcomes")) {
+                            if (args[2].equalsIgnoreCase("newWelcomes")) {
                                 main.hologramManager.createHologram(args[3], true, player.getLocation());
                                 main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
                                 return true;
                             }
-                            else if (args[1].equalsIgnoreCase("returnWelcomes")){
+                            else if (args[2].equalsIgnoreCase("returnWelcomes")){
                                 main.hologramManager.createHologram(args[3], false, player.getLocation());
                                 main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
-
                                 return true;
                             }
                             else {
@@ -252,7 +247,7 @@ public class Commands implements TabExecutor {
                             return true;
                         }
                         else {
-                            main.chatMessage("<prefix> &cThat option is not available", (Player) commandSender);
+                            main.chatMessage("<prefix> &cThat hologram does not exist!!", (Player) commandSender);
                             return false;
                         }
                     }
@@ -260,6 +255,8 @@ public class Commands implements TabExecutor {
                 else {
                     main.consoleMessage("<prefix> &cOnly a player can use this command");
                 }
+                commandType(commandSender, args);
+                return false;
             }
         }
         main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
@@ -333,5 +330,35 @@ public class Commands implements TabExecutor {
         if ((commandSender.hasPermission(permission) || commandSender.isOp() || commandSender instanceof ConsoleCommandSender))
             return true;
         return false;
+    }
+
+    private void commandType(CommandSender commandSender, String[] args){
+        List<String> arguments;
+        if (args[0].equalsIgnoreCase("leaderboards")){
+            arguments = main.messages.getConfig().getStringList("messages.commandMenu.leaderboards");
+            if (commandSender instanceof Player){
+                for (String i : arguments){
+                    main.chatMessage(i, (Player) commandSender);
+                }
+            }
+            else {
+                for (String i : arguments){
+                    main.consoleMessage(i);
+                }
+            }
+        }
+        else if (args[0].equalsIgnoreCase("holograms")){
+            arguments = main.messages.getConfig().getStringList("messages.commandMenu.holograms");
+            if (commandSender instanceof Player){
+                for (String i : arguments){
+                    main.chatMessage(i, (Player) commandSender);
+                }
+            }
+            else {
+                for (String i : arguments){
+                    main.consoleMessage(i);
+                }
+            }
+        }
     }
 }

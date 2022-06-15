@@ -12,7 +12,6 @@ messages:
   no-vault: "<prefix> &cNo vault reward given, possibly you don not have vault installed."
   dne: "<prefix> &cThat command does not exist here :(."
   no-player: "<prefix> &cThe player did not welcome another player :(."
-  leaderboard-path: "<prefix> &cRetype the command with either newwelcomes or returnwelcomes as the next argument."
   commandReward: "<prefix> &dYou welcomed a player, here is your rewards!"
   vaultMoney: "&a$<money> has been added to your account!"
   hologramCreated: "<prefix> &aThe hologram has been created!"
@@ -64,7 +63,6 @@ messages:
     bottomNewWelcomeBoard:
       - "&f------------------------"
       - ""
-
     topReturnWelcomeBoard:
       - ""
       - "&bReturnWelcomes &aTopScore"
@@ -89,6 +87,26 @@ messages:
     # This is used for both sections.
     positionTile: "&6<position>. &b<name> &e<score>"
 
+  commandMenu:
+    leaderboards:
+      - ""
+      - "&e----------------------------------------"
+      - "<prefix>-&c&lLeaderboard Menu"
+      - "&e----------------------------------------"
+      - "&3/&brandomwelcomerewards &9leaderboards newWelcomes"
+      - "&3/&brandomwelcomerewards &9leaderboards returnWelcomes"
+      - "&e----------------------------------------"
+      - ""
+    holograms:
+      - ""
+      - "&e----------------------------------------"
+      - "<prefix>-&c&lHologram Menu"
+      - "&e----------------------------------------"
+      - "&3/&brandwelrewards &9holograms create <type> <name>"
+      - "&3/&brandwelrewards &9holograms delete <name>"
+      - "&3/&brandwelrewards &9holograms moveHere <name>"
+      - "&e----------------------------------------"
+
   # This is just what the plugin can do for now, best not to modify this unless you want to change the colors.
   menu:
     - ""
@@ -97,5 +115,6 @@ messages:
     - "&3/&brandomwelcomerewards &9reload"
     - "&3/&brandomwelcomerewards &9stats"
     - "&3/&brandomwelcomerewards &9leaderboards"
+    - "&3/&brandomwelcomerewards &9holograms"
     - "&e----------------------------------------"
     - ""
