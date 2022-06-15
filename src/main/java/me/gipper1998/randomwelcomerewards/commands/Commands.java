@@ -222,7 +222,6 @@ public class Commands implements TabExecutor {
         else if (args.length >= 3){
             if (args[0].equalsIgnoreCase("setStats") && hasPermission(commandSender, "randomwelcomerewards.setstats")){
                 if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
-                    Player player = Bukkit.getPlayer(args[1]);
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
                         if (commandSender instanceof Player)
@@ -232,7 +231,7 @@ public class Commands implements TabExecutor {
                         return false;
                     }
                     if (args[2].equalsIgnoreCase("newWelcomes")) {
-                       if (main.playerDataManager.setWelcomePoint(player, true, Integer.parseInt(args[3]))) {
+                       if (main.playerDataManager.setWelcomePoint(uuid, true, Integer.parseInt(args[3]))) {
                            if (commandSender instanceof Player)
                                main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
                            else
@@ -248,7 +247,7 @@ public class Commands implements TabExecutor {
                        }
                     }
                     else if (args[2].equalsIgnoreCase("returnWelcomes")) {
-                        if (main.playerDataManager.setWelcomePoint(player, false, Integer.parseInt(args[3]))) {
+                        if (main.playerDataManager.setWelcomePoint(uuid, false, Integer.parseInt(args[3]))) {
                             if (commandSender instanceof Player)
                                 main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
                             else

@@ -34,21 +34,21 @@ public class PlayerDataManager {
         main.playerData.saveConfig();
     }
 
-    public boolean setWelcomePoint(Player player, boolean newPlayer, int point){
+    public boolean setWelcomePoint(UUID uuid, boolean newPlayer, int point){
         int newWelcome = 0;
         int returnWelcome = 0;
-        if (!main.playerData.getConfig().contains("players." + player.getUniqueId()))
+        if (!main.playerData.getConfig().contains("players." + uuid.toString()))
             return false;
-        if (main.playerData.getConfig().contains("players." + player.getUniqueId().toString() + ".NewWelcomes") && main.playerData.getConfig().contains("players." + player.getUniqueId().toString() + ".ReturnWelcomes")) {
-            newWelcome = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".NewWelcomes");
-            returnWelcome = main.playerData.getConfig().getInt("players." + player.getUniqueId().toString() + ".ReturnWelcomes");
+        if (main.playerData.getConfig().contains("players." + uuid.toString() + ".NewWelcomes") && main.playerData.getConfig().contains("players." + uuid.toString() + ".ReturnWelcomes")) {
+            newWelcome = main.playerData.getConfig().getInt("players." + uuid.toString() + ".NewWelcomes");
+            returnWelcome = main.playerData.getConfig().getInt("players." + uuid.toString() + ".ReturnWelcomes");
         }
         if (!newPlayer) {
-            main.playerData.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", (newWelcome));
-            main.playerData.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", point);
+            main.playerData.getConfig().set("players." + uuid.toString() + ".NewWelcomes", (newWelcome));
+            main.playerData.getConfig().set("players." + uuid.toString() + ".ReturnWelcomes", point);
         } else {
-            main.playerData.getConfig().set("players." + player.getUniqueId().toString() + ".NewWelcomes", point);
-            main.playerData.getConfig().set("players." + player.getUniqueId().toString() + ".ReturnWelcomes", (returnWelcome));
+            main.playerData.getConfig().set("players." + uuid.toString() + ".NewWelcomes", point);
+            main.playerData.getConfig().set("players." + uuid.toString() + ".ReturnWelcomes", (returnWelcome));
         }
         main.playerData.saveConfig();
         return true;
