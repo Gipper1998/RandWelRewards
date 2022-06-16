@@ -11,8 +11,8 @@ import me.gipper1998.randomwelcomerewards.playerjoinevent.OnNewJoin;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.OnReturnJoin;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomePlayer;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomeReturnPlayer;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -50,7 +50,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
         Bukkit.getPluginManager().disablePlugin(this);
     }
 
-    public void fileSetups(){
+    private void fileSetups(){
         this.playerData = new FileSetup(this, "playerData.yml");
         this.messages = new FileSetup(this, "messages.yml");
         this.milestones = new FileSetup(this, "milestones.yml");
@@ -65,14 +65,14 @@ public class RandomWelcomeRewards extends JavaPlugin {
         hologramData.saveDefaultConfig();
     }
 
-    public void registerPlayerEvents(){
+    private void registerPlayerEvents(){
         WelcomePlayer wp = new WelcomePlayer(this);
         WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
         this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
         this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
     }
 
-    public void registerDependices(){
+    private void registerDependices(){
         if(getServer().getPluginManager().getPlugin("Vault") != null){
             this.vaultManager = new VaultManager(this);
             consoleMessage("<prefix> &aVault found and hooked!!");
