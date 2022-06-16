@@ -17,7 +17,7 @@ messages:
   hologramCreated: "<prefix> &aThe hologram has been created!"
   hologramMoved: "<prefix> &aThe hologram has been moved!"
   hologramDelete: "<prefix> &aThe hologram has been deleted."
-  statChange: "<prefix> &sThe stat has been changed!"
+  statChange: "<prefix> &aThe stat has been changed!"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   # Note: putting <prefix> here will not work here.
