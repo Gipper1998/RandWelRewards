@@ -37,7 +37,7 @@ messages:
     - "&bWelcome &a<newplayer>&b to the server that all of us will never grow up to adulthood."
     - "&a<newplayer>&b, I have some unfortunate new, the cake &cWAS A LIE!!"
 
-  # These messages will come from the player, just specify the new player with "<returnplayer>"" and you should be good :D.
+  # These messages will come from the player, just specify the new player with "<returnplayer>" and you should be good :D.
   # Note: putting <prefix> here will not work here.
   returnWelcomeMessages:
     - "&bWelcome back &a<returnplayer>&b, we totally didn't miss you at all."
