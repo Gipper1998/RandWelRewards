@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OnReturnJoin implements Listener {
     private RandomWelcomeRewards main;
@@ -57,6 +59,9 @@ public class OnReturnJoin implements Listener {
                                     main.playerDataManager.addWelcomePoint(player, false);
                                 }
                             }
+                            if (message.contains("#")){
+                                message = main.hexConverter(message);
+                            }
                             event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
                             main.milestoneManager.checkReturnWelcomeMilestone(player);
                         }
@@ -90,7 +95,7 @@ public class OnReturnJoin implements Listener {
             }
         }
         else
-            main.consoleMessage("<prefix> &cVault was not found, please disable vault rewards in the config.");
+            main.consoleMessage(main.messages.getConfig().getString("messages.noVault"));
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {

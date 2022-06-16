@@ -105,7 +105,7 @@ public class PlayerDataLeaderboard {
     private boolean setNewWelcomeBoardData(){
         newWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (newWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c Getting the data for newWelcomes didn't work correctly, check to see if anythings in playerData.yml");
+            main.consoleMessage(main.messages.getConfig().getString("messages.setLeaderboardNewError"));
             return false;
         }
         Set<String> keys = newWelcomeBoardData.getKeys(false);
@@ -115,7 +115,9 @@ public class PlayerDataLeaderboard {
                 PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
                 newWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
-                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");
+                String message = main.messages.getConfig().getString("leaderBoardUUIDError");
+                message = message.replaceAll("<uuid>", key);
+                main.consoleMessage(message);
                 return false;
             }
         }
@@ -129,7 +131,7 @@ public class PlayerDataLeaderboard {
     private boolean setReturnWelcomeBoardData(){
         returnWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (returnWelcomeBoardData == null) {
-            main.consoleMessage("<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in playerData.yml");
+            main.consoleMessage(main.messages.getConfig().getString("messages.setLeaderboardReturnError"));
             return false;
         }
         Set<String> keys = returnWelcomeBoardData.getKeys(false);
@@ -139,7 +141,9 @@ public class PlayerDataLeaderboard {
                 PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
                 returnWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
-                main.consoleMessage("<prefix> &cCan't resolve UUID: " + key + " into the system, check playerData.yml incase theres an error.");
+                String message = main.messages.getConfig().getString("leaderBoardUUIDError");
+                message = message.replaceAll("<uuid>", key);
+                main.consoleMessage(message);
                 return false;
             }
         }

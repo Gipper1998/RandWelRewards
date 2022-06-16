@@ -1,23 +1,31 @@
 # RandomWelcomeRewards Messages.yml File.
 
-# Messages that can be configurable are right here, they can also be color coded using the & symbol.
+# Messages that can be configurable are right here, they can also be color coded using the "&" symbol.
+# Messages can also be configurable using hex color codes by using "#" in the beginning. It will act like a solid gradient.
 messages:
   # This is the main prefix of the plugin, change it however you like.
   prefix: "&e&l[&a&lRand&d&lWel&b&lRewards&e&l]&r"
+
   # For most of the messages, use <prefix> to put the prefix wherever you want.
-  startup: "<prefix> &aGood to go!"
-  shutdown: "<prefix> &cShutting down."
-  no-perms: "<prefix> &cYou do not have permission to use this command."
-  has-reload: "<prefix> &aPlugin Reloaded."
-  no-vault: "<prefix> &cNo vault reward given, possibly you don not have vault installed."
+  startUp: "<prefix> &aGood to go!"
+  shutDown: "<prefix> &cShutting down."
+  noPerms: "<prefix> &cYou do not have permission to use this command."
+  hasReload: "<prefix> &aPlugin Reloaded."
   dne: "<prefix> &cThat command does not exist here :(."
-  no-player: "<prefix> &cThe player did not welcome another player :(."
+  noPlayer: "<prefix> &cThe player did not welcome another player :(."
   commandReward: "<prefix> &dYou welcomed a player, here is your rewards!"
   vaultMoney: "&a$<money> has been added to your account!"
+  noVault: "<prefix> &cVault was not found, please remove money where the command triggers."
+  noHolograms: "<prefix> &cNo holograms were loaded, must be nothing in there or badly configured ones."
   hologramCreated: "<prefix> &aThe hologram has been created!"
   hologramMoved: "<prefix> &aThe hologram has been moved!"
   hologramDelete: "<prefix> &aThe hologram has been deleted."
+  hologramDNE: "<prefix>&c The hologram does not exist."
   statChange: "<prefix> &aThe stat has been changed!"
+  playersOnly: "<prefix> &cOnly a player can use this command."
+  setLeaderboardNewError: "<prefix>&c Getting the data for newWelcomes didn't work correctly, check to see if anythings in playerData.yml"
+  setLeaderboardReturnError: "<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in playerData.yml"
+  leaderBoardUUIDError: "<prefix> &cCan't resolve UUID: &d<uuid> &cinto the system, check playerData.yml incase theres an error."
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   # Note: putting <prefix> here will not work here.

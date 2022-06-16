@@ -47,12 +47,12 @@ public class Commands implements TabExecutor {
                     main.milestoneManager.reloadMilestones();
                     main.hologramManager.loadHolograms();
                     if (commandSender instanceof ConsoleCommandSender)
-                        main.consoleMessage(main.messages.getConfig().getString("messages.has-reload"));
+                        main.consoleMessage(main.messages.getConfig().getString("messages.hasReload"));
                     else
-                        main.chatMessage(main.messages.getConfig().getString("messages.has-reload"), (Player) commandSender);
+                        main.chatMessage(main.messages.getConfig().getString("messages.hasReload"), (Player) commandSender);
                     return true;
                 } else {
-                    main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
                     return true;
                 }
             }
@@ -101,7 +101,7 @@ public class Commands implements TabExecutor {
                 if (hasPermission(commandSender,"randomwelcomerewards.stats.others)")) {
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
-                        main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                        main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
                         return false;
                     }
                     int newWelcome = 0;
@@ -170,7 +170,7 @@ public class Commands implements TabExecutor {
                         return true;
                     }
                     else {
-                        main.chatMessage(main.messages.getConfig().getString("messages.no-perms"), (Player) commandSender);
+                        main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
                         return false;
                     }
                 }
@@ -225,9 +225,9 @@ public class Commands implements TabExecutor {
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
                         if (commandSender instanceof Player)
-                            main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                            main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
                         else
-                            main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                            main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
                         return false;
                     }
                     if (args[2].equalsIgnoreCase("newWelcomes")) {
@@ -241,9 +241,9 @@ public class Commands implements TabExecutor {
                        }
                        else {
                            if (commandSender instanceof Player)
-                               main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                               main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
                            else
-                               main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                               main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
                            return false;
                        }
                     }
@@ -258,9 +258,9 @@ public class Commands implements TabExecutor {
                         }
                         else {
                             if (commandSender instanceof Player)
-                                main.chatMessage(main.messages.getConfig().getString("messages.no-player"), (Player) commandSender);
+                                main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
                             else
-                                main.consoleMessage(main.messages.getConfig().getString("messages.no-player"));
+                                main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
                             return false;
                         }
                     }
@@ -294,7 +294,7 @@ public class Commands implements TabExecutor {
                             main.chatMessage(main.messages.getConfig().getString("messages.hologramDelete"), (Player) commandSender);
                             return true;
                         }
-                        main.chatMessage("<prefix> &cThat hologram does not exist!!", (Player) commandSender);
+                        main.chatMessage(main.messages.getConfig().getString("messages.hologramDNE"), (Player) commandSender);
                         return false;
                     }
                     else if (args[1].equalsIgnoreCase("moveHere")){
@@ -304,13 +304,13 @@ public class Commands implements TabExecutor {
                             return true;
                         }
                         else {
-                            main.chatMessage("<prefix> &cThat hologram does not exist!!", (Player) commandSender);
+                            main.chatMessage(main.messages.getConfig().getString("messages.hologramDNE"), (Player) commandSender);
                             return false;
                         }
                     }
                 }
                 else {
-                    main.consoleMessage("<prefix> &cOnly a player can use this command");
+                    main.consoleMessage(main.messages.getConfig().getString("messages.playersOnly"));
                 }
                 commandType(commandSender, args);
                 return false;

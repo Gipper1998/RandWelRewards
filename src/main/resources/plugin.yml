@@ -25,3 +25,10 @@ permissions:
   randomwelcomerewards.leaderboards.returnwelcomes:
     description: Check the leaderboards for return welcomes.
     default: true
+  randomwelcomerewards.setstats:
+    description: Set the stat for the player.
+    default: false
+  randomwelcomerewards.holograms:
+    description: Set holograms to show the current scores.
+    default: false
+  

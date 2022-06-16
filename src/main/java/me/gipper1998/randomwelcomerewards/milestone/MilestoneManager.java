@@ -96,7 +96,7 @@ public class MilestoneManager {
                         main.vaultManager.deposit(player, money);
                         main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
                     } else
-                        main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
+                        main.consoleMessage(main.messages.getConfig().getString("messages.noVault"));
                 }
                 if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".commands")) {
                     List<String> rewardCommands = main.milestones.getConfig().getStringList("milestoneForNewWelcomes." + score + ".commands");
@@ -133,7 +133,7 @@ public class MilestoneManager {
                         main.vaultManager.deposit(player, money);
                         main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
                     } else
-                        main.consoleMessage("<prefix> &cVault was not found, please remove money where the command triggers.");
+                        main.consoleMessage(main.messages.getConfig().getString("messages.noVault"));
                 }
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".commands")) {
                     List<String> rewardCommands = main.milestones.getConfig().getStringList("milestoneForReturnWelcomes." + score + ".commands");

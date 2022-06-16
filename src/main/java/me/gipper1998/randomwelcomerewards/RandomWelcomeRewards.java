@@ -132,20 +132,18 @@ public class RandomWelcomeRewards extends JavaPlugin {
         }
     }
 
-    public static String hexConverter(String message) {
+    public String hexConverter(String message) {
         Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
         Matcher matcher = pattern.matcher(message);
         while (matcher.find()) {
             String hexCode = message.substring(matcher.start(), matcher.end());
             String replaceSharp = hexCode.replace('#', 'x');
-
             char[] ch = replaceSharp.toCharArray();
-            StringBuilder builder = new StringBuilder("");
+            StringBuilder stringBuilder = new StringBuilder("");
             for (char c : ch) {
-                builder.append("&" + c);
+                stringBuilder.append("&" + c);
             }
-
-            message = message.replace(hexCode, builder.toString());
+            message = message.replace(hexCode, stringBuilder.toString());
             matcher = pattern.matcher(message);
         }
         return message;

@@ -51,7 +51,7 @@ public class HologramManager {
         hologramList.clear();
         ConfigurationSection hologramDataFile = main.hologramData.getConfig().getConfigurationSection("Holograms");
         if (hologramDataFile == null){
-            main.consoleMessage("<prefix>&c Nothing in hologram folder");
+            main.consoleMessage(main.messages.getConfig().getString("messages.noHolograms"));
             return;
         }
         Set<String> keys = hologramDataFile.getKeys(false);

@@ -68,8 +68,7 @@ public class PlayerDataManager {
         ConfigurationSection playerDataBoard = main.playerData.getConfig().getConfigurationSection("players");
         List<UUID> uuids = new ArrayList<>();
         if (playerDataBoard == null) {
-            main.consoleMessage("<preifx> &cNo milestones for the newWelcome section even though its enabled for some reason?");
-                return null;
+            return null;
         }
         Set<String> keys = playerDataBoard.getKeys(false);
         for (String key : keys) {
