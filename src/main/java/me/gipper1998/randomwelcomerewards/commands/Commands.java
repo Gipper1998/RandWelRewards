@@ -232,6 +232,7 @@ public class Commands implements TabExecutor {
                     }
                     if (args[2].equalsIgnoreCase("newWelcomes")) {
                        if (main.playerDataManager.setWelcomePoint(uuid, true, Integer.parseInt(args[3]))) {
+                           main.milestoneManager.checkNewWelcomeMilestone(Bukkit.getPlayer(uuid));
                            if (commandSender instanceof Player)
                                main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
                            else
@@ -248,6 +249,7 @@ public class Commands implements TabExecutor {
                     }
                     else if (args[2].equalsIgnoreCase("returnWelcomes")) {
                         if (main.playerDataManager.setWelcomePoint(uuid, false, Integer.parseInt(args[3]))) {
+                            main.milestoneManager.checkReturnWelcomeMilestone(Bukkit.getPlayer(uuid));
                             if (commandSender instanceof Player)
                                 main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
                             else
