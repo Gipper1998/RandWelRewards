@@ -18,6 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RandomWelcomeRewards extends JavaPlugin {
     public HashMap<String, List<String>> players;
@@ -95,6 +97,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
         if (message != "") {
             String prefix = messages.getConfig().getString("messages.prefix");
             message = message.replaceAll("<prefix>", prefix);
+            if (message.contains("#")){
+                message = hexConverter(message);
+            }
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
         else
@@ -105,6 +110,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
         if (message != "") {
             String prefix = messages.getConfig().getString("messages.prefix");
             message = message.replaceAll("<prefix>", prefix);
+            if (message.contains("#")){
+                message = hexConverter(message);
+            }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
         else
@@ -117,8 +125,30 @@ public class RandomWelcomeRewards extends JavaPlugin {
             String cash = Integer.toString(money);
             message = message.replaceAll("<money>", cash);
             message = message.replaceAll("<prefix>", prefix);
+            if (message.contains("#")){
+                message = hexConverter(message);
+            }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
+    }
+
+    public static String hexConverter(String message) {
+        Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()) {
+            String hexCode = message.substring(matcher.start(), matcher.end());
+            String replaceSharp = hexCode.replace('#', 'x');
+
+            char[] ch = replaceSharp.toCharArray();
+            StringBuilder builder = new StringBuilder("");
+            for (char c : ch) {
+                builder.append("&" + c);
+            }
+
+            message = message.replace(hexCode, builder.toString());
+            matcher = pattern.matcher(message);
+        }
+        return message;
     }
 
 }
