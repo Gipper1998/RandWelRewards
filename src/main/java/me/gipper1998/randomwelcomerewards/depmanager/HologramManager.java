@@ -37,13 +37,14 @@ public class HologramManager {
     public void updateHolograms(RandomWelcomeRewards main){
         createFirstLoadHolograms();
         int minutes = main.config.getConfig().getInt("settings.hologramMinuteInterval");
+        int interval = 60 * minutes;
         if (this.task != null)
             this.task.cancel();
         this.task = (new BukkitRunnable(){
             public void run(){
                 loadHolograms();
             }
-        }).runTaskTimerAsynchronously(main, 0L, 20L * (long)60 * (long)minutes);
+        }).runTaskTimerAsynchronously(main, 0L, 20L * (long) interval);
     }
 
     public void createFirstLoadHolograms(){
