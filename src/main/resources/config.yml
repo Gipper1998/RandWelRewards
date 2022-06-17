@@ -25,14 +25,8 @@ settings:
   # How much time a player has to welcome back a returning player (in seconds).
   returnTime: 10
 
-  # How much time will the holograms refresh (in minutes). NOTE: Does require a restart (or server reload) to work.
-  hologramMinuteInterval: 5
-
   # Length of the leaderboard when the player runs a command (mainly just how many people can be on display).
   leaderboardLength: 5
-
-  # Length of the holograms (mainly just how many people can be on display).
-  hologramLength: 5
 
   # What you want players to type to trigger the plugin.
   triggeredNewWelcomeTexts:

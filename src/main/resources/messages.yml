@@ -81,18 +81,6 @@ messages:
     # This is used for both sections.
     positionTile: "&6<position>. &b<name> &e<score>"
 
-  holograms:
-    newWelcomeBoard:
-      - "&bNewWelcomes &aTopScore"
-      - "&f------------------------"
-    returnWelcomeBoard:
-      - "&bReturnWelcomes &aTopScore"
-      - "&f------------------------"
-
-    # This part is where you can customize the placeholders, use <position> for position, <name> for the players name, and <score> for their respective points
-    # This is used for both sections.
-    positionTile: "&6<position>. &b<name> &e<score>"
-
   commandMenu:
     leaderboards:
       - ""
@@ -101,16 +89,6 @@ messages:
       - "&e----------------------------------------"
       - "&3/&brandomwelcomerewards &9leaderboards newWelcomes"
       - "&3/&brandomwelcomerewards &9leaderboards returnWelcomes"
-      - "&e----------------------------------------"
-      - ""
-    holograms:
-      - ""
-      - "&e----------------------------------------"
-      - "<prefix>-&c&lHologram Menu"
-      - "&e----------------------------------------"
-      - "&3/&brandwelrewards &9holograms create <type> <name>"
-      - "&3/&brandwelrewards &9holograms delete <name>"
-      - "&3/&brandwelrewards &9holograms moveHere <name>"
       - "&e----------------------------------------"
       - ""
     setStats:
