@@ -132,6 +132,7 @@ messages:
     - "<prefix>-&c&lMenu"
     - "&3/&brandomwelcomerewards &9reload"
     - "&3/&brandomwelcomerewards &9stats"
+    - "&3/&brandomwelcomerewards &9setstats"
     - "&3/&brandomwelcomerewards &9leaderboards"
     - "&3/&brandomwelcomerewards &9holograms"
     - "&e----------------------------------------"
