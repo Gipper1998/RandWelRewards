@@ -19,12 +19,6 @@ permissions:
   randomwelcomerewards.stats.others:
     description: See other players records if they are online
     default: false
-  randomwelcomerewards.leaderboards.newwelcomes:
-    description: Check the leaderboards for new welcomes.
-    default: true
-  randomwelcomerewards.leaderboards.returnwelcomes:
-    description: Check the leaderboards for return welcomes.
-    default: true
   randomwelcomerewards.setstats:
     description: Set the stat for the player.
     default: false

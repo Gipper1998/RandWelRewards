@@ -31,8 +31,9 @@ public class Commands implements TabExecutor {
             for (int i = 0; i < menus.size(); i++) {
                 if (commandSender instanceof ConsoleCommandSender)
                     main.consoleMessage(menus.get(i));
-                else
+                else {
                     main.chatMessage(menus.get(i), (Player) commandSender);
+                }
             }
             return true;
         }
@@ -57,6 +58,10 @@ public class Commands implements TabExecutor {
                 }
             }
             else if (args[0].equalsIgnoreCase("setStats")){
+                if (!hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
+                }
                 commandType(commandSender, args);
                 return false;
             }
@@ -92,15 +97,19 @@ public class Commands implements TabExecutor {
                 commandType(commandSender, args);
                 return false;
             } else if (args[0].equalsIgnoreCase("holograms")) {
+                if (!hasPermission(commandSender, "randomwelcomerewards.holograms")){
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
+                }
                 commandType(commandSender, args);
                 return false;
             }
         }
-        else if (args.length == 2){
+        else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("stats")) {
-                if (hasPermission(commandSender,"randomwelcomerewards.stats.others)")) {
+                if (hasPermission(commandSender, "randomwelcomerewards.stats.others)")) {
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
-                    if (uuid == null){
+                    if (uuid == null) {
                         main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
                         return false;
                     }
@@ -125,102 +134,84 @@ public class Commands implements TabExecutor {
                                 main.chatMessage(message, (Player) commandSender);
                         }
                     }
+                } else {
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
                 }
-                return true;
             }
-            else if (args[0].equalsIgnoreCase("setStats")){
+            else if (args[0].equalsIgnoreCase("setStats")) {
+                if (!hasPermission(commandSender, "randomwelcomerewards.setstats")) {
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
+                }
                 commandType(commandSender, args);
                 return false;
-            }
-            else if (args[0].equalsIgnoreCase("holograms")){
+            } else if (args[0].equalsIgnoreCase("holograms")) {
+                if (!hasPermission(commandSender, "randomwelcomerewards.holograms")) {
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
+                }
                 commandType(commandSender, args);
                 return false;
-            }
-            else if (args[0].equalsIgnoreCase("leaderboards")) {
+            } else if (args[0].equalsIgnoreCase("leaderboards")) {
                 if (args[1].equalsIgnoreCase("newWelcomes")) {
-                    if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.newwelcomes)")) {
-                        List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topNewWelcomeBoard");
-                        List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomNewWelcomeBoard");
-                        for (int i = 0; i < topMessageList.size(); i++) {
-                            if (topMessageList.get(i) == "")
-                                commandSender.sendMessage("");
-                            else {
-                                String message = topMessageList.get(i);
-                                if (commandSender instanceof ConsoleCommandSender)
-                                    main.consoleMessage(message);
-                                else
-                                    main.chatMessage(message, (Player) commandSender);
-                            }
-                        }
-                        if (commandSender instanceof Player)
-                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), false);
+                    List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topNewWelcomeBoard");
+                    List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomNewWelcomeBoard");
+                    for (int i = 0; i < topMessageList.size(); i++) {
+                        String message = topMessageList.get(i);
+                        if (commandSender instanceof ConsoleCommandSender)
+                            main.consoleMessage(message);
                         else
-                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), true);
-                        for (int i = 0; i < bottomMessageList.size(); i++) {
-                            if (bottomMessageList.get(i) == "")
-                                commandSender.sendMessage("");
-                            else {
-                                String message = bottomMessageList.get(i);
-                                if (commandSender instanceof ConsoleCommandSender)
-                                    main.consoleMessage(message);
-                                else
-                                    main.chatMessage(message, (Player) commandSender);
-                            }
-                        }
-                        return true;
+                            main.chatMessage(message, (Player) commandSender);
                     }
-                    else {
-                        main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
-                        return false;
-                    }
-                }
-                else if (args[1].equalsIgnoreCase("returnWelcomes")){
-                    if (hasPermission(commandSender,"randomwelcomerewards.leaderboards.returnwelcomes)")){
-                        List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topReturnWelcomeBoard");
-                        List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomReturnWelcomeBoard");
-                        for (int i = 0; i < topMessageList.size(); i++) {
-                            if (topMessageList.get(i) == "")
-                                commandSender.sendMessage("");
-                            else {
-                                String message = topMessageList.get(i);
-                                if (commandSender instanceof ConsoleCommandSender)
-                                    main.consoleMessage(message);
-                                else
-                                    main.chatMessage(message, (Player) commandSender);
-                            }
-                        }
-                        if (commandSender instanceof Player)
-                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), false);
+                    if (commandSender instanceof Player)
+                        playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), false);
+                    else
+                        playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), true);
+                    for (int i = 0; i < bottomMessageList.size(); i++) {
+                        String message = bottomMessageList.get(i);
+                        if (commandSender instanceof ConsoleCommandSender)
+                            main.consoleMessage(message);
                         else
-                            playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), true);
-                        for (int i = 0; i < bottomMessageList.size(); i++) {
-                            if (bottomMessageList.get(i) == "")
-                                commandSender.sendMessage("");
-                            else {
-                                String message = bottomMessageList.get(i);
-                                if (commandSender instanceof ConsoleCommandSender)
-                                    main.consoleMessage(message);
-                                else
-                                    main.chatMessage(message, (Player) commandSender);
-                            }
-                        }
-                        return true;
+                            main.chatMessage(message, (Player) commandSender);
                     }
-                    else {
-                        commandType(commandSender, args);
-                        return false;
-                    }
+                    return true;
                 }
-                if (commandSender instanceof Player)
-                    main.chatMessage(main.messages.getConfig().getString("messages.leaderboard-path"), (Player) commandSender);
-                else
-                    main.consoleMessage(main.messages.getConfig().getString("messages.leaderboard-path"));
-                return true;
+                else if (args[1].equalsIgnoreCase("returnWelcomes")) {
+                    List<String> topMessageList = main.messages.getConfig().getStringList("messages.leaderboards.topReturnWelcomeBoard");
+                    List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomReturnWelcomeBoard");
+                    for (int i = 0; i < topMessageList.size(); i++) {
+                        String message = topMessageList.get(i);
+                        if (commandSender instanceof ConsoleCommandSender)
+                            main.consoleMessage(message);
+                        else
+                            main.chatMessage(message, (Player) commandSender);
+                    }
+                    if (commandSender instanceof Player)
+                        playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), false);
+                    else
+                        playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), true);
+                    for (int i = 0; i < bottomMessageList.size(); i++) {
+                        String message = bottomMessageList.get(i);
+                        if (commandSender instanceof ConsoleCommandSender)
+                            main.consoleMessage(message);
+                        else
+                            main.chatMessage(message, (Player) commandSender);
+                    }
+                    return true;
+
+                } else {
+                    commandType(commandSender, args);
+                    return false;
+                }
             }
         }
-
         else if (args.length >= 3){
-            if (args[0].equalsIgnoreCase("setStats") && hasPermission(commandSender, "randomwelcomerewards.setstats")){
+            if (args[0].equalsIgnoreCase("setStats")){
+                if (!hasPermission(commandSender, "randomwelcomerewards.setstats")){
+                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                    return false;
+                }
                 if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
@@ -268,8 +259,12 @@ public class Commands implements TabExecutor {
                 commandType(commandSender, args);
                 return false;
             }
-            else if (args[0].equalsIgnoreCase("holograms") && hasPermission(commandSender, "randomwelcomerewards.holograms")){
+            else if (args[0].equalsIgnoreCase("holograms")){
                 if (commandSender instanceof Player) {
+                    if (!hasPermission(commandSender, "randomwelcomerewards.holograms")){
+                        main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
+                        return false;
+                    }
                     if (args[1].equalsIgnoreCase("create")) {
                         if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")) {
                             Player player = (Player) commandSender;
@@ -326,8 +321,7 @@ public class Commands implements TabExecutor {
             List<String> firstArguments = new ArrayList<>();
             if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.reload"))
                 firstArguments.add("reload");
-            if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.returnwelcomes)") || hasPermission(commandSender, "randomwelcomerewards.leaderboards.newwelcomes)"))
-                firstArguments.add("leaderboards");
+            firstArguments.add("leaderboards");
             if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
                 firstArguments.add("holograms");
             }
