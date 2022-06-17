@@ -14,14 +14,10 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RandomWelcomeRewards extends JavaPlugin {
-    public HashMap<String, List<String>> players;
     public boolean vaultEnabled = false;
     public boolean placeholderEnabled = false;
     public FileSetup playerData;
@@ -34,7 +30,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.players = new HashMap();
         fileSetups();
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
         registerSoftDependManagers();
