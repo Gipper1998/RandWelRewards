@@ -1,9 +1,8 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.depmanager.HologramManager;
-import me.gipper1998.randomwelcomerewards.depmanager.PlaceholderManager;
-import me.gipper1998.randomwelcomerewards.depmanager.VaultManager;
+import me.gipper1998.randomwelcomerewards.softdependmanagers.PlaceholderManager;
+import me.gipper1998.randomwelcomerewards.softdependmanagers.VaultManager;
 import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
 import me.gipper1998.randomwelcomerewards.milestone.MilestoneManager;
@@ -24,9 +23,7 @@ import java.util.regex.Pattern;
 public class RandomWelcomeRewards extends JavaPlugin {
     public HashMap<String, List<String>> players;
     public boolean vaultEnabled = false;
-    public boolean hologramEnabled = false;
     public boolean placeholderEnabled = false;
-    public FileSetup hologramData;
     public FileSetup playerData;
     public FileSetup messages;
     public FileSetup milestones;
@@ -34,14 +31,13 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public PlayerDataManager playerDataManager;
     public MilestoneManager milestoneManager;
     public VaultManager vaultManager;
-    public HologramManager hologramManager;
 
     @Override
     public void onEnable() {
         this.players = new HashMap();
         fileSetups();
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
-        registerDependices();
+        registerSoftDependManagers();
         registerPlayerEvents();
         consoleMessage(messages.getConfig().getString("messages.startUp"));
     }
@@ -57,14 +53,12 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.messages = new FileSetup(this, "messages.yml");
         this.milestones = new FileSetup(this, "milestones.yml");
         this.config = new FileSetup(this, "config.yml");
-        this.hologramData = new FileSetup(this, "hologramData.yml");
         this.playerDataManager = new PlayerDataManager(this);
         this.milestoneManager = new MilestoneManager(this);
         config.saveDefaultConfig();
         playerData.saveDefaultConfig();
         messages.saveDefaultConfig();
         milestones.saveDefaultConfig();
-        hologramData.saveDefaultConfig();
     }
 
     private void registerPlayerEvents(){
@@ -74,21 +68,15 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
     }
 
-    private void registerDependices(){
+    private void registerSoftDependManagers(){
         if(getServer().getPluginManager().getPlugin("Vault") != null){
             this.vaultManager = new VaultManager(this);
-            consoleMessage("<prefix> &aVault found and hooked!!");
+            consoleMessage(messages.getConfig().getString("messages.vaultHooked"));
             vaultEnabled = true;
-        }
-        if(getServer().getPluginManager().getPlugin("DecentHolograms") != null){
-            this.hologramManager = new HologramManager(this);
-            consoleMessage("<prefix> &aDecentHolograms found and hooked!!");
-            hologramEnabled = true;
-            hologramManager.updateHolograms(this);
         }
         if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
             new PlaceholderManager(this).register();
-            consoleMessage("<prefix> &aPlaceholderAPI found and hooked!!");
+            consoleMessage(messages.getConfig().getString("messages.papiHooked"));
             placeholderEnabled = true;
         }
     }

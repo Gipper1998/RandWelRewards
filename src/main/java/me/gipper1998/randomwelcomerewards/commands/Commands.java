@@ -44,9 +44,7 @@ public class Commands implements TabExecutor {
                     main.messages.reloadConfig();
                     main.playerData.reloadConfig();
                     main.milestones.reloadConfig();
-                    main.hologramData.reloadConfig();
                     main.milestoneManager.reloadMilestones();
-                    main.hologramManager.loadHolograms();
                     if (commandSender instanceof ConsoleCommandSender)
                         main.consoleMessage(main.messages.getConfig().getString("messages.hasReload"));
                     else
@@ -96,13 +94,6 @@ public class Commands implements TabExecutor {
             else if (args[0].equalsIgnoreCase("leaderboards")){
                 commandType(commandSender, args);
                 return false;
-            } else if (args[0].equalsIgnoreCase("holograms")) {
-                if (!hasPermission(commandSender, "randomwelcomerewards.holograms")){
-                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
-                    return false;
-                }
-                commandType(commandSender, args);
-                return false;
             }
         }
         else if (args.length == 2) {
@@ -141,13 +132,6 @@ public class Commands implements TabExecutor {
             }
             else if (args[0].equalsIgnoreCase("setStats")) {
                 if (!hasPermission(commandSender, "randomwelcomerewards.setstats")) {
-                    main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
-                    return false;
-                }
-                commandType(commandSender, args);
-                return false;
-            } else if (args[0].equalsIgnoreCase("holograms")) {
-                if (!hasPermission(commandSender, "randomwelcomerewards.holograms")) {
                     main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
                     return false;
                 }
@@ -259,57 +243,6 @@ public class Commands implements TabExecutor {
                 commandType(commandSender, args);
                 return false;
             }
-            else if (args[0].equalsIgnoreCase("holograms")){
-                if (commandSender instanceof Player) {
-                    if (!hasPermission(commandSender, "randomwelcomerewards.holograms")){
-                        main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
-                        return false;
-                    }
-                    if (args[1].equalsIgnoreCase("create")) {
-                        if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")) {
-                            Player player = (Player) commandSender;
-                            if (args[2].equalsIgnoreCase("newWelcomes")) {
-                                main.hologramManager.createHologram(args[3], true, player.getLocation());
-                                main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
-                                return true;
-                            }
-                            else if (args[2].equalsIgnoreCase("returnWelcomes")){
-                                main.hologramManager.createHologram(args[3], false, player.getLocation());
-                                main.chatMessage(main.messages.getConfig().getString("messages.hologramCreated"), player);
-                                return true;
-                            }
-                            else {
-                                main.chatMessage("<prefix> &cThat option is not available", (Player) commandSender);
-                                return false;
-                            }
-                        }
-                    }
-                    else if (args[1].equalsIgnoreCase("delete")){
-                        if (main.hologramManager.deleteHologram(args[2])){
-                            main.chatMessage(main.messages.getConfig().getString("messages.hologramDelete"), (Player) commandSender);
-                            return true;
-                        }
-                        main.chatMessage(main.messages.getConfig().getString("messages.hologramDNE"), (Player) commandSender);
-                        return false;
-                    }
-                    else if (args[1].equalsIgnoreCase("moveHere")){
-                        Player player = (Player) commandSender;
-                        if (main.hologramManager.moveHologram(args[2], player.getLocation())){
-                            main.chatMessage(main.messages.getConfig().getString("messages.hologramMoved"), player);
-                            return true;
-                        }
-                        else {
-                            main.chatMessage(main.messages.getConfig().getString("messages.hologramDNE"), (Player) commandSender);
-                            return false;
-                        }
-                    }
-                }
-                else {
-                    main.consoleMessage(main.messages.getConfig().getString("messages.playersOnly"));
-                }
-                commandType(commandSender, args);
-                return false;
-            }
         }
         main.chatMessage(main.messages.getConfig().getString("messages.dne"), (Player) commandSender);
         return false;
@@ -322,9 +255,6 @@ public class Commands implements TabExecutor {
             if (hasPermission(commandSender, "randomwelcomerewards.leaderboards.reload"))
                 firstArguments.add("reload");
             firstArguments.add("leaderboards");
-            if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
-                firstArguments.add("holograms");
-            }
             if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
                 firstArguments.add("setStats");
             }
@@ -340,30 +270,10 @@ public class Commands implements TabExecutor {
                     secondArguments.add("returnWelcomes");
                 return secondArguments;
             }
-            else if (args[0].equalsIgnoreCase("holograms")){
-                if (hasPermission(commandSender, "randomwelcomerewards.holograms")){
-                    secondArguments.add("create");
-                    secondArguments.add("delete");
-                    secondArguments.add("moveHere");
-                    return secondArguments;
-
-                }
-            }
         }
         else if (args.length == 3){
             List<String> thirdArguments = new ArrayList<>();
-            if (args[0].equalsIgnoreCase("holograms")){
-                if (hasPermission(commandSender, "randomwelcomerewards.holograms")) {
-                    if (args[1].equalsIgnoreCase("create")) {
-                        thirdArguments.add("newWelcomes");
-                        thirdArguments.add("returnWelcomes");
-                        return thirdArguments;
-                    } else if (args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("moveHere")) {
-                        return main.hologramManager.listHolograms();
-                    }
-                }
-            }
-            else if (args[0].equalsIgnoreCase("setStats")){
+            if (args[0].equalsIgnoreCase("setStats")){
                 if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
                     thirdArguments.add("newWelcomes");
                     thirdArguments.add("returnWelcomes");
@@ -373,17 +283,7 @@ public class Commands implements TabExecutor {
         }
         else if (args.length == 4){
             List<String> fourthArguments = new ArrayList<>();
-            if (args[0].equalsIgnoreCase("holograms")){
-                if (hasPermission(commandSender, "randomwelcomerewards.holograms")) {
-                    if (args[1].equalsIgnoreCase("create")){
-                        if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
-                            fourthArguments.add("<name>");
-                            return fourthArguments;
-                        }
-                    }
-                }
-            }
-            else if (args[0].equalsIgnoreCase("setStats")){
+            if (args[0].equalsIgnoreCase("setStats")){
                 if (hasPermission(commandSender, "randomwelcomerewards.setstats")){
                     fourthArguments.add("<number>");
                     return fourthArguments;
@@ -403,19 +303,6 @@ public class Commands implements TabExecutor {
         List<String> arguments;
         if (args[0].equalsIgnoreCase("leaderboards")){
             arguments = main.messages.getConfig().getStringList("messages.commandMenu.leaderboards");
-            if (commandSender instanceof Player){
-                for (String i : arguments){
-                    main.chatMessage(i, (Player) commandSender);
-                }
-            }
-            else {
-                for (String i : arguments){
-                    main.consoleMessage(i);
-                }
-            }
-        }
-        else if (args[0].equalsIgnoreCase("holograms")){
-            arguments = main.messages.getConfig().getStringList("messages.commandMenu.holograms");
             if (commandSender instanceof Player){
                 for (String i : arguments){
                     main.chatMessage(i, (Player) commandSender);

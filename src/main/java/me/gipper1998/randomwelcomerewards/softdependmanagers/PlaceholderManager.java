@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.depmanager;
+package me.gipper1998.randomwelcomerewards.softdependmanagers;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
@@ -42,7 +42,7 @@ public class PlaceholderManager extends PlaceholderExpansion {
         else if (identifier.equals("returnweclome_score")){
             return Integer.toString(main.playerData.getConfig().getInt("players." + p.getUniqueId() + ".ReturnWelcomes"));
         }
-        else if (identifier.equals("top")){
+        else if (identifier.contains("top")){
             String[] temp = identifier.split("_");
             String welcomeType = temp[1];
             String dataType = temp[2];
@@ -51,10 +51,10 @@ public class PlaceholderManager extends PlaceholderExpansion {
             if (welcomeType.equals("newwelcome")){
                 List<String> data = pdl.sendLeaderBoardPAPIRanks(true, Integer.parseInt(position));
                 if (data != null){
-                    if (dataType.equalsIgnoreCase("amount")){
+                    if (dataType.equalsIgnoreCase("player")){
                         return data.get(0);
                     }
-                    else if (dataType.equalsIgnoreCase("player")){
+                    else if (dataType.equalsIgnoreCase("amount")){
                         return data.get(1);
                     }
                     else {
@@ -62,21 +62,24 @@ public class PlaceholderManager extends PlaceholderExpansion {
                     }
                 }
                 else {
-                    return null;
+                    return "";
                 }
             }
             else if (welcomeType.equals("returnwelcome")){
                 List<String> data = pdl.sendLeaderBoardPAPIRanks(false, Integer.parseInt(position));
                 if (data != null){
-                    if (dataType.equalsIgnoreCase("amount")){
+                    if (dataType.equalsIgnoreCase("player")){
                         return data.get(0);
                     }
-                    else if (dataType.equalsIgnoreCase("player")){
+                    else if (dataType.equalsIgnoreCase("amount")){
                         return data.get(1);
                     }
                     else {
                         return null;
                     }
+                }
+                else {
+                    return "";
                 }
             }
             else {

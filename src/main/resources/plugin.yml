@@ -13,16 +13,10 @@ permissions:
   randomwelcomerewards.reload:
     description: Reload the plugin
     default: false
-  randomwelcomerewards.stats:
-    description: Gives the players current record
-    default: true
   randomwelcomerewards.stats.others:
     description: See other players records if they are online
     default: false
   randomwelcomerewards.setstats:
     description: Set the stat for the player.
-    default: false
-  randomwelcomerewards.holograms:
-    description: Set holograms to show the current scores.
     default: false
   

@@ -66,7 +66,6 @@ public class PlayerDataManager {
 
     public UUID findPlayer(String playerName){
         ConfigurationSection playerDataBoard = main.playerData.getConfig().getConfigurationSection("players");
-        List<UUID> uuids = new ArrayList<>();
         if (playerDataBoard == null) {
             return null;
         }

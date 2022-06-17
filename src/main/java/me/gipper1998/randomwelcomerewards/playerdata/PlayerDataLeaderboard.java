@@ -61,85 +61,6 @@ public class PlayerDataLeaderboard {
         }
     }
 
-    public List<String> sendLeaderBoardPAPIRanks(boolean newWelcome, int position){
-        int rank = position - 1;
-        List<String> sendStats = new ArrayList<>();
-        if (newWelcome) {
-            if (setNewWelcomeBoardData()) {
-                setNewWelcomeOrder();
-                if (newWelcomeBoard.size() < position) {
-                    return null;
-                } else {
-                    PlayerData tempPlayer = newWelcomeBoard.get(rank);
-                    sendStats.add(0, tempPlayer.getPlayerName());
-                    sendStats.add(1, Integer.toString(tempPlayer.getNewWelcomes()));
-                    for (PlayerData i : newWelcomeBoard){
-                        newWelcomeBoard.remove(i);
-                    }
-                    return sendStats;
-                }
-            }
-        }
-        else {
-            if (setReturnWelcomeBoardData()) {
-                setReturnWelcomeOrder();
-                if (returnWelcomeBoard.size() < rank) {
-                    return null;
-                } else {
-                    PlayerData tempPlayer = returnWelcomeBoard.get(rank);
-                    sendStats.add(tempPlayer.getPlayerName());
-                    sendStats.add(Integer.toString(tempPlayer.getNewWelcomes()));
-                    for (PlayerData i : returnWelcomeBoard){
-                        returnWelcomeBoard.remove(i);
-                    }
-                    return sendStats;
-                }
-            }
-        }
-        return null;
-    }
-
-    public List<String> sendLeaderBoardHologram(boolean newWelcome, int length){
-        List<String> dataSend = new ArrayList<>();
-        if (newWelcome) {
-            if (setNewWelcomeBoardData()) {
-                setNewWelcomeOrder();
-                String message = main.messages.getConfig().getString("messages.holograms.positionTile");
-                int size = newWelcomeBoard.size();
-                if (size > length)
-                    size = length;
-                for (int i = 0; i < size; i++) {
-                    String temp = message.replaceAll("<position>", Integer.toString(i + 1));
-                    PlayerData tempPlayer = newWelcomeBoard.get(0);
-                    temp = temp.replaceAll("<name>", tempPlayer.getPlayerName());
-                    temp = temp.replaceAll("<score>", Integer.toString(tempPlayer.getNewWelcomes()));
-                    dataSend.add(temp);
-                    newWelcomeBoard.remove(0);
-                }
-            }
-            return dataSend;
-        }
-        else {
-            if (setReturnWelcomeBoardData()) {
-                setReturnWelcomeOrder();
-                String message = main.messages.getConfig().getString("messages.holograms.positionTile");
-                int size = returnWelcomeBoard.size();
-                if (size > length)
-                    size = length;
-                for (int i = 0; i < size; i++) {
-                    String temp = message.replaceAll("<position>", Integer.toString(i + 1));
-                    PlayerData tempPlayer = returnWelcomeBoard.get(0);
-                    temp = temp.replaceAll("<name>", tempPlayer.getPlayerName());
-                    temp = temp.replaceAll("<score>", Integer.toString(tempPlayer.getReturnWelcomes()));
-                    dataSend.add(temp);
-                    returnWelcomeBoard.remove(0);
-                }
-            }
-            return dataSend;
-        }
-    }
-
-
     private boolean setNewWelcomeBoardData(){
         newWelcomeBoardData = main.playerData.getConfig().getConfigurationSection("players");
         if (newWelcomeBoardData == null) {
@@ -190,6 +111,44 @@ public class PlayerDataLeaderboard {
 
     private void setReturnWelcomeOrder(){
         Collections.sort(returnWelcomeBoard, (o1, o2) -> o1.getReturnWelcomes() > o2.getReturnWelcomes() ? -1 : 1);
+    }
+
+    public List<String> sendLeaderBoardPAPIRanks(boolean newWelcome, int position){
+        int rank = position - 1;
+        List<String> sendStats = new ArrayList<>();
+        if (newWelcome) {
+            if (setNewWelcomeBoardData()) {
+                setNewWelcomeOrder();
+                if (newWelcomeBoard.size() < position) {
+                    return null;
+                } else {
+                    PlayerData tempPlayer = newWelcomeBoard.get(rank);
+                    sendStats.add(tempPlayer.getPlayerName());
+                    sendStats.add(Integer.toString(tempPlayer.getNewWelcomes()));
+                    for (PlayerData i : newWelcomeBoard){
+                        newWelcomeBoard.remove(i);
+                    }
+                    return sendStats;
+                }
+            }
+        }
+        else {
+            if (setReturnWelcomeBoardData()) {
+                setReturnWelcomeOrder();
+                if (returnWelcomeBoard.size() < rank) {
+                    return null;
+                } else {
+                    PlayerData tempPlayer = returnWelcomeBoard.get(rank);
+                    sendStats.add(tempPlayer.getPlayerName());
+                    sendStats.add(Integer.toString(tempPlayer.getReturnWelcomes()));
+                    for (PlayerData i : returnWelcomeBoard){
+                        returnWelcomeBoard.remove(i);
+                    }
+                    return sendStats;
+                }
+            }
+        }
+        return null;
     }
 
 }
