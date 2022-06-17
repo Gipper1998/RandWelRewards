@@ -61,6 +61,44 @@ public class PlayerDataLeaderboard {
         }
     }
 
+    public List<String> sendLeaderBoardPAPIRanks(boolean newWelcome, int position){
+        int rank = position - 1;
+        List<String> sendStats = new ArrayList<>();
+        if (newWelcome) {
+            if (setNewWelcomeBoardData()) {
+                setNewWelcomeOrder();
+                if (newWelcomeBoard.size() < position) {
+                    return null;
+                } else {
+                    PlayerData tempPlayer = newWelcomeBoard.get(rank);
+                    sendStats.add(0, tempPlayer.getPlayerName());
+                    sendStats.add(1, Integer.toString(tempPlayer.getNewWelcomes()));
+                    for (PlayerData i : newWelcomeBoard){
+                        newWelcomeBoard.remove(i);
+                    }
+                    return sendStats;
+                }
+            }
+        }
+        else {
+            if (setReturnWelcomeBoardData()) {
+                setReturnWelcomeOrder();
+                if (returnWelcomeBoard.size() < rank) {
+                    return null;
+                } else {
+                    PlayerData tempPlayer = returnWelcomeBoard.get(rank);
+                    sendStats.add(tempPlayer.getPlayerName());
+                    sendStats.add(Integer.toString(tempPlayer.getNewWelcomes()));
+                    for (PlayerData i : returnWelcomeBoard){
+                        returnWelcomeBoard.remove(i);
+                    }
+                    return sendStats;
+                }
+            }
+        }
+        return null;
+    }
+
     public List<String> sendLeaderBoardHologram(boolean newWelcome, int length){
         List<String> dataSend = new ArrayList<>();
         if (newWelcome) {
