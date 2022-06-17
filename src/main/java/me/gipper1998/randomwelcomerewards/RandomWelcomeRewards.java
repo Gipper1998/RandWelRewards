@@ -43,12 +43,12 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
         registerDependices();
         registerPlayerEvents();
-        consoleMessage(messages.getConfig().getString("messages.startup"));
+        consoleMessage(messages.getConfig().getString("messages.startUp"));
     }
 
     @Override
     public void onDisable() {
-        consoleMessage(messages.getConfig().getString("messages.shutdown"));
+        consoleMessage(messages.getConfig().getString("messages.shutDown"));
         Bukkit.getPluginManager().disablePlugin(this);
     }
 
