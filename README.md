@@ -57,7 +57,7 @@ The permission to allow the player to change the stat of another player.
   
 ## Final Notes
 If anyone has any questions, issues, or problems regarding this plugin. Please let me know and I'll get back to you
-as soon as possible
+as soon as possible, thank you and enjoy seeing those funny messages!!
 
 
   
