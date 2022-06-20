@@ -48,13 +48,21 @@ Reloads the plugin.
 default: false
   
 ## Permissions
-### randomwelcomerewards.reload
+### - randomwelcomerewards.reload
 The permission for a player to reload the plugin.
-### randomwelcomerewards.stats.others
+### - randomwelcomerewards.stats.others
 The permission to allow the player to look at other players stats.
-### randomwelcomerewards.setstats
+### - randomwelcomerewards.setstats
 The permission to allow the player to change the stat of another player.
   
+## PAPI Placeholders
+### - %randwelrewards_newwelcome_score%
+Returns the players current New Welcome points.
+- %randwelrewards_return_welcome_score%
+## Returns the players current Return Welcome points.
+- %randwelrewards_top_<newwelcome/returnwelcome>_<name/amount>_<position>
+Returns either the players name or amount based on either newwelcome points or returnwelcome points at that position (Mainly used for leaderboards).
+
 ## Final Notes
 If anyone has any questions, issues, or problems regarding this plugin. Please let me know and I'll get back to you
 as soon as possible, thank you and enjoy seeing those funny messages!!
