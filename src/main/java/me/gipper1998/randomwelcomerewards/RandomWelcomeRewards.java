@@ -1,8 +1,8 @@
 package me.gipper1998.randomwelcomerewards;
 
 import me.gipper1998.randomwelcomerewards.commands.Commands;
-import me.gipper1998.randomwelcomerewards.softdependmanagers.PlaceholderManager;
-import me.gipper1998.randomwelcomerewards.softdependmanagers.VaultManager;
+import me.gipper1998.randomwelcomerewards.softdependmanager.PlaceholderManager;
+import me.gipper1998.randomwelcomerewards.softdependmanager.VaultManager;
 import me.gipper1998.randomwelcomerewards.playerdata.PlayerDataManager;
 import me.gipper1998.randomwelcomerewards.filemanager.FileSetup;
 import me.gipper1998.randomwelcomerewards.milestone.MilestoneManager;

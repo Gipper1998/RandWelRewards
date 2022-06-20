@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.softdependmanagers;
+package me.gipper1998.randomwelcomerewards.softdependmanager;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import net.milkbowl.vault.chat.Chat;

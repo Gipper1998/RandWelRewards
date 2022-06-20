@@ -1,4 +1,4 @@
-package me.gipper1998.randomwelcomerewards.softdependmanagers;
+package me.gipper1998.randomwelcomerewards.softdependmanager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
