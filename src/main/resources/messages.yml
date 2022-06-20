@@ -2,6 +2,10 @@
 
 # Messages that can be configurable are right here, they can also be color coded using the "&" symbol.
 # Messages can also be configurable using hex color codes by using "#" in the beginning. It will act like a solid gradient.
+# An example for each configuration can be viewed here.
+# For basic chat color codes, view here: https://www.digminecraft.com/lists/color_list_pc.php
+# Note: The format used by "§" is replicated here using "&" for simplicity.
+
 messages:
   # This is the main prefix of the plugin, change it however you like.
   prefix: "#FF0000&l[#FF5F00R#FFBF00a#DFFF00n#7FFF00d#1FFF00W#00FF3Fe#00FF9Fl#00FEFFR#009FFFe#003FFFw#1F00FFa#7F00FFr#DF00FFd#FF00BFs#FF005F&l]&r"

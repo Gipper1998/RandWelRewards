@@ -11,7 +11,7 @@ public class PlayerData {
     private int returnWelcomes;
     private String playerName;
 
-    public PlayerData(RandomWelcomeRewards main, UUID playerUUID, PlayerDataManager mainData){
+    public PlayerData(UUID playerUUID, PlayerDataManager mainData){
         this.playerName = Bukkit.getOfflinePlayer(playerUUID).getName();
         this.newWelcomes = mainData.getNewWelcomes(playerUUID);
         this.returnWelcomes = mainData.getReturnWelcomes(playerUUID);

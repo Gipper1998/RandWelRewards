@@ -71,7 +71,7 @@ public class PlayerDataLeaderboard {
         for (String key : keys) {
             try {
                 UUID uuid = UUID.fromString(key);
-                PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
+                PlayerData temp = new PlayerData(uuid, main.playerDataManager);
                 newWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
                 String message = main.messages.getConfig().getString("leaderBoardUUIDError");
@@ -97,7 +97,7 @@ public class PlayerDataLeaderboard {
         for (String key : keys) {
             try {
                 UUID uuid = UUID.fromString(key);
-                PlayerData temp = new PlayerData(main, uuid, main.playerDataManager);
+                PlayerData temp = new PlayerData(uuid, main.playerDataManager);
                 returnWelcomeBoard.add(temp);
             } catch (NumberFormatException e) {
                 String message = main.messages.getConfig().getString("leaderBoardUUIDError");

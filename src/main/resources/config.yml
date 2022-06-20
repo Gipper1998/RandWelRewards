@@ -1,14 +1,14 @@
 # RandomWelcomeRewards Config.yml File
 
 # This file is the heart of the plugin as it configures the listeners for when a player joins your server.
-# If you want to edit messages, open up the messages.yml and you can configure any messages availble.
-# If you want to add milestones after enabling or disabling them here, go to milestones.yml and follow the directions.
+# If you want to edit messages, open up the messages.yml file and you can configure any messages availble.
+# If you want to add milestones after enabling them here, go to the milestones.yml file and follow the directions.
 # If you want to change the data for the players (not advised but accessible), go to playerData.yml and values can be configured.
-# After any changes you make to this plugin, remember to reload the plugin or restart your server (if you edited more than one plugin).
+# After any changes you make to this plugin, remember to reload the plugin or restart the server (if you edited more than one plugin).
 
 # Here is the main part of the plugin, where you can enable or disable the feature available here.
-# Enabling newWelcome will allow players to welcome new player :D, same for returnWelcome.
-# Enabling milestones will activate what is in the milestones.yml
+# Enabling newWelcome will allow players to welcome new player, same for returnWelcome.
+# Enabling milestones will activate what is in the milestones.yml.
 # Note: if you disable one of the milestones, that particular milestone will not perform.
 settings:
   enableNewWelcome: true
@@ -20,7 +20,7 @@ settings:
   newTime: 10
 
   # How much time will it take to be considered a returning player (in minutes).
-  returnTimeNeed: 30
+  returnTimeNeed: 15
 
   # How much time a player has to welcome back a returning player (in seconds).
   returnTime: 10
@@ -41,7 +41,7 @@ settings:
     - "welback"
 
 # Rewards when welcoming a new player. It will give all the rewards available.
-# Use <player> to target the player welcoming the new player if commands is enabled.
+# Use <player> to target the player welcoming the new player if commands are enabled.
 newWelcomeRewards:
   vault:
     enable: true
