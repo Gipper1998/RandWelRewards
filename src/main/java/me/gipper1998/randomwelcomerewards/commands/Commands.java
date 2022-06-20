@@ -127,6 +127,7 @@ public class Commands implements TabExecutor {
                             main.chatMessage(message, (Player) commandSender);
                         }
                     }
+                    return true;
                 } else {
                     main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
                     return false;
