@@ -29,8 +29,9 @@ public class Commands implements TabExecutor {
         if (args.length == 0) {
             List<String> menus = main.messages.getConfig().getStringList("messages.menu");
             for (int i = 0; i < menus.size(); i++) {
-                if (commandSender instanceof ConsoleCommandSender)
+                if (commandSender instanceof ConsoleCommandSender) {
                     main.consoleMessage(menus.get(i));
+                }
                 else {
                     main.chatMessage(menus.get(i), (Player) commandSender);
                 }
@@ -45,10 +46,12 @@ public class Commands implements TabExecutor {
                     main.playerData.reloadConfig();
                     main.milestones.reloadConfig();
                     main.milestoneManager.reloadMilestones();
-                    if (commandSender instanceof ConsoleCommandSender)
+                    if (commandSender instanceof ConsoleCommandSender) {
                         main.consoleMessage(main.messages.getConfig().getString("messages.hasReload"));
-                    else
+                    }
+                    else {
                         main.chatMessage(main.messages.getConfig().getString("messages.hasReload"), (Player) commandSender);
+                    }
                     return true;
                 } else {
                     main.chatMessage(main.messages.getConfig().getString("messages.noPerms"), (Player) commandSender);
@@ -78,8 +81,9 @@ public class Commands implements TabExecutor {
                     }
                     List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
                     for (int i = 0; i < scoreSheet.size(); i++) {
-                        if (scoreSheet.get(i) == "")
+                        if (scoreSheet.get(i) == "") {
                             player.sendMessage("");
+                        }
                         else {
                             String message = scoreSheet.get(i);
                             message = message.replaceAll("<player>", player.getName());
@@ -112,17 +116,15 @@ public class Commands implements TabExecutor {
                     }
                     List<String> scoreSheet = main.messages.getConfig().getStringList("messages.scoreSheet");
                     for (int i = 0; i < scoreSheet.size(); i++) {
-                        if (scoreSheet.get(i) == "")
-                            commandSender.sendMessage("");
+                        String message = scoreSheet.get(i);
+                        message = message.replaceAll("<player>", Bukkit.getOfflinePlayer(uuid).getName());
+                        message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
+                        message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
+                        if (commandSender instanceof ConsoleCommandSender) {
+                            main.consoleMessage(message);
+                        }
                         else {
-                            String message = scoreSheet.get(i);
-                            message = message.replaceAll("<player>", Bukkit.getOfflinePlayer(uuid).getName());
-                            message = message.replaceAll("<newwelcomes>", Integer.toString(newWelcome));
-                            message = message.replaceAll("<returnwelcomes>", Integer.toString(returnWelcome));
-                            if (commandSender instanceof ConsoleCommandSender)
-                                main.consoleMessage(message);
-                            else
-                                main.chatMessage(message, (Player) commandSender);
+                            main.chatMessage(message, (Player) commandSender);
                         }
                     }
                 } else {
@@ -143,21 +145,27 @@ public class Commands implements TabExecutor {
                     List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomNewWelcomeBoard");
                     for (int i = 0; i < topMessageList.size(); i++) {
                         String message = topMessageList.get(i);
-                        if (commandSender instanceof ConsoleCommandSender)
+                        if (commandSender instanceof ConsoleCommandSender) {
                             main.consoleMessage(message);
-                        else
+                        }
+                        else {
                             main.chatMessage(message, (Player) commandSender);
+                        }
                     }
-                    if (commandSender instanceof Player)
+                    if (commandSender instanceof Player) {
                         playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), false);
-                    else
+                    }
+                    else {
                         playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, true, main.config.getConfig().getInt("settings.leaderboardLength"), true);
+                    }
                     for (int i = 0; i < bottomMessageList.size(); i++) {
                         String message = bottomMessageList.get(i);
-                        if (commandSender instanceof ConsoleCommandSender)
+                        if (commandSender instanceof ConsoleCommandSender) {
                             main.consoleMessage(message);
-                        else
+                        }
+                        else {
                             main.chatMessage(message, (Player) commandSender);
+                        }
                     }
                     return true;
                 }
@@ -166,10 +174,12 @@ public class Commands implements TabExecutor {
                     List<String> bottomMessageList = main.messages.getConfig().getStringList("messages.leaderboards.bottomReturnWelcomeBoard");
                     for (int i = 0; i < topMessageList.size(); i++) {
                         String message = topMessageList.get(i);
-                        if (commandSender instanceof ConsoleCommandSender)
+                        if (commandSender instanceof ConsoleCommandSender) {
                             main.consoleMessage(message);
-                        else
+                        }
+                        else {
                             main.chatMessage(message, (Player) commandSender);
+                        }
                     }
                     if (commandSender instanceof Player)
                         playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), false);
@@ -177,10 +187,12 @@ public class Commands implements TabExecutor {
                         playerDataLeaderboard.sendLeaderBoardStats((Player) commandSender, false, main.config.getConfig().getInt("settings.leaderboardLength"), true);
                     for (int i = 0; i < bottomMessageList.size(); i++) {
                         String message = bottomMessageList.get(i);
-                        if (commandSender instanceof ConsoleCommandSender)
+                        if (commandSender instanceof ConsoleCommandSender) {
                             main.consoleMessage(message);
-                        else
+                        }
+                        else {
                             main.chatMessage(message, (Player) commandSender);
+                        }
                     }
                     return true;
 
@@ -199,43 +211,53 @@ public class Commands implements TabExecutor {
                 if (args[2].equalsIgnoreCase("newWelcomes") || args[2].equalsIgnoreCase("returnWelcomes")){
                     UUID uuid = main.playerDataManager.findPlayer(args[1]);
                     if (uuid == null){
-                        if (commandSender instanceof Player)
+                        if (commandSender instanceof Player) {
                             main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
-                        else
+                        }
+                        else {
                             main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
+                        }
                         return false;
                     }
                     if (args[2].equalsIgnoreCase("newWelcomes")) {
                        if (main.playerDataManager.setWelcomePoint(uuid, true, Integer.parseInt(args[3]))) {
                            main.milestoneManager.checkNewWelcomeMilestone(Bukkit.getPlayer(uuid));
-                           if (commandSender instanceof Player)
+                           if (commandSender instanceof Player) {
                                main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
-                           else
+                           }
+                           else {
                                main.consoleMessage(main.messages.getConfig().getString("messages.statChange"));
+                           }
                            return true;
                        }
                        else {
-                           if (commandSender instanceof Player)
+                           if (commandSender instanceof Player) {
                                main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
-                           else
+                           }
+                           else {
                                main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
+                           }
                            return false;
                        }
                     }
                     else if (args[2].equalsIgnoreCase("returnWelcomes")) {
                         if (main.playerDataManager.setWelcomePoint(uuid, false, Integer.parseInt(args[3]))) {
                             main.milestoneManager.checkReturnWelcomeMilestone(Bukkit.getPlayer(uuid));
-                            if (commandSender instanceof Player)
+                            if (commandSender instanceof Player) {
                                 main.chatMessage(main.messages.getConfig().getString("messages.statChange"), (Player) commandSender);
-                            else
+                            }
+                            else {
                                 main.consoleMessage(main.messages.getConfig().getString("messages.statChange"));
+                            }
                             return true;
                         }
                         else {
-                            if (commandSender instanceof Player)
+                            if (commandSender instanceof Player) {
                                 main.chatMessage(main.messages.getConfig().getString("messages.noPlayer"), (Player) commandSender);
-                            else
+                            }
+                            else {
                                 main.consoleMessage(main.messages.getConfig().getString("messages.noPlayer"));
+                            }
                             return false;
                         }
                     }

@@ -1,7 +1,6 @@
 package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
-import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -15,8 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class OnReturnJoin implements Listener {
     private RandomWelcomeRewards main;
@@ -62,7 +59,7 @@ public class OnReturnJoin implements Listener {
                             if (message.contains("#")){
                                 message = main.hexConverter(message);
                             }
-                            event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
+                            event.setMessage(main.returnChatEventFormat(message));
                             main.milestoneManager.checkReturnWelcomeMilestone(player);
                         }
                         return;

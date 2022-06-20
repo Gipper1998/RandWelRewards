@@ -2,7 +2,6 @@ package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class OnNewJoin implements Listener {
     private RandomWelcomeRewards main;
@@ -63,7 +60,7 @@ public class OnNewJoin implements Listener {
                             if (message.contains("#")){
                                 message = main.hexConverter(message);
                             }
-                            event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
+                            event.setMessage(main.returnChatEventFormat(message));
                         }
                         return;
                     }
@@ -74,8 +71,9 @@ public class OnNewJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent player){
-        if (!player.getPlayer().hasPlayedBefore())
+        if (!player.getPlayer().hasPlayedBefore()) {
             wp.addNew(player.getPlayer());
+        }
     }
 
     public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
@@ -86,8 +84,9 @@ public class OnNewJoin implements Listener {
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }
-        else
+        else {
             main.consoleMessage(main.messages.getConfig().getString("messages.noVault"));
+        }
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {

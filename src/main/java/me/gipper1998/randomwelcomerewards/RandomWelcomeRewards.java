@@ -10,8 +10,8 @@ import me.gipper1998.randomwelcomerewards.playerjoinevent.OnNewJoin;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.OnReturnJoin;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomePlayer;
 import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomeReturnPlayer;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.regex.Matcher;
@@ -85,8 +85,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
             }
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
-        else
+        else {
             Bukkit.getConsoleSender().sendMessage("");
+        }
     }
 
     public void chatMessage(String message, Player player){
@@ -98,8 +99,9 @@ public class RandomWelcomeRewards extends JavaPlugin {
             }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
-        else
+        else {
             player.sendMessage("");
+        }
     }
 
     public void vaultChat(String message, Player player, int money){
@@ -113,7 +115,11 @@ public class RandomWelcomeRewards extends JavaPlugin {
             }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
+        else {
+            player.sendMessage("");
+        }
     }
+    public String returnChatEventFormat(String string){ return ChatColor.translateAlternateColorCodes('&', string); }
 
     public String hexConverter(String message) {
         Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
