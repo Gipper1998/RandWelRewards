@@ -55,7 +55,7 @@ The permission to allow the player to change the stat of another player.
 Returns the players current New Welcome points.
 ### - %randwelrewards_return_welcome_score%
 Returns the players current Return Welcome points.
-### - %randwelrewards_top_<newwelcome/returnwelcome>_<name/amount>_<position>
+### - %randwelrewards_top_<newwelcome/returnwelcome>_<name/amount>_<position>%
 Returns either the players name or amount based on either newwelcome points or returnwelcome points at that position (Mainly used for leaderboards).
 ## Final Notes
 If anyone has any questions, issues, or problems regarding this plugin. Please let me know and I'll get back to you
