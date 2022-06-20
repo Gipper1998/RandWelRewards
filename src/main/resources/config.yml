@@ -46,6 +46,9 @@ newWelcomeRewards:
   vault:
     enable: true
     reward: 100
+  sound:
+    enable: true
+    playSound: "Block_ANVIL_USE"
   commands:
     enable: true
     rewardCommands:
@@ -55,6 +58,9 @@ returnWelcomeRewards:
   vault:
     enable: true
     reward: 10
+  sound:
+    enable: true
+    playSound: "Block_ANVIL_USE"
   commands:
     enable: false
     rewardCommands:

@@ -1,6 +1,7 @@
 package me.gipper1998.randomwelcomerewards.milestone;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
+import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -22,10 +23,9 @@ public class MilestoneManager {
 
     public MilestoneManager(RandomWelcomeRewards main){
         this.main = main;
-        newWelcomeMilestonesLoader();
-        returnWelcomeMilestonesLoader();
         enableNew = main.config.getConfig().getBoolean("settings.enableNewWelcomeMilestones");
         enableReturn = main.config.getConfig().getBoolean("settings.enableReturnWelcomeMilestones");
+        reloadMilestones();
     }
 
     public void reloadMilestones(){
@@ -90,6 +90,13 @@ public class MilestoneManager {
                     String message = main.milestones.getConfig().getString("milestoneForNewWelcomes." + score + ".message");
                     main.chatMessage(message, player);
                 }
+                if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score +".playSound")){
+                    try {
+                        player.playSound(player.getLocation(), Sound.valueOf(main.milestones.getConfig().getString(("milestoneForNewWelcomes." + score +".playSound")).toUpperCase()), 1, 1);
+                    } catch (Exception e){
+                        main.consoleMessage(main.messages.getConfig().getString("messages.noSound"));
+                    }
+                }
                 if (main.milestones.getConfig().contains("milestoneForNewWelcomes." + score + ".money")) {
                     if (main.vaultEnabled) {
                         int money = main.milestones.getConfig().getInt("milestoneForNewWelcomes." + score + ".money");
@@ -126,6 +133,13 @@ public class MilestoneManager {
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".message")) {
                     String message = main.milestones.getConfig().getString("milestoneForReturnWelcomes." + score + ".message");
                     main.chatMessage(message, player);
+                }
+                if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score +".playSound")){
+                    try {
+                        player.playSound(player.getLocation(), Sound.valueOf(main.milestones.getConfig().getString(("milestoneForReturnWelcomes." + score +".playSound")).toUpperCase()), 1, 1);
+                    } catch (Exception e){
+                        main.consoleMessage(main.messages.getConfig().getString("messages.noSound"));
+                    }
                 }
                 if (main.milestones.getConfig().contains("milestoneForReturnWelcomes." + score + ".money")) {
                     if (main.vaultEnabled) {

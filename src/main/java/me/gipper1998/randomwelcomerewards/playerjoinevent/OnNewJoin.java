@@ -2,6 +2,7 @@ package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
+import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,12 +52,13 @@ public class OnNewJoin implements Listener {
                                 if (!Text.equals("")) {
                                     message = "";
                                     message = Text;
-                                    vaultRewards(player, event);
+                                    vaultRewards(player);
                                     commandRewards(player, event);
+                                    playSound(player);
                                     main.playerDataManager.addWelcomePoint(player, true);
+                                    main.milestoneManager.checkNewWelcomeMilestone(player);
                                 }
                             }
-                            main.milestoneManager.checkNewWelcomeMilestone(player);
                             if (message.contains("#")){
                                 message = main.hexConverter(message);
                             }
@@ -76,7 +78,7 @@ public class OnNewJoin implements Listener {
         }
     }
 
-    public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
+    public void vaultRewards(Player player) {
         if (main.vaultEnabled) {
             if (main.config.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
                 int money = main.config.getConfig().getInt("newWelcomeRewards.vault.reward");
@@ -108,6 +110,14 @@ public class OnNewJoin implements Listener {
                 }
                 main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
             }
+        }
+    }
+
+    public void playSound(Player player){
+        if (main.config.getConfig().getBoolean("newWelcomeRewards.sound.enable") == true){
+            try {
+                player.playSound(player.getLocation(), Sound.valueOf(main.config.getConfig().getString("newWelcomeRewards.sound.playSound").toUpperCase()), 1, 1);
+            } catch (Exception e){ main.consoleMessage(main.messages.getConfig().getString("messages.noSound")); }
         }
     }
 }

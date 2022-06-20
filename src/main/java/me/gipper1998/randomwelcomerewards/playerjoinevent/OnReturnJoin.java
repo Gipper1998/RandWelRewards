@@ -1,6 +1,7 @@
 package me.gipper1998.randomwelcomerewards.playerjoinevent;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
+import org.bukkit.Sound;
 import org.bukkit.Statistic;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -51,16 +52,17 @@ public class OnReturnJoin implements Listener {
                                 if (!Text.equals("")) {
                                     message = "";
                                     message = Text;
-                                    vaultRewards(player, event);
+                                    vaultRewards(player);
                                     commandRewards(player, event);
+                                    playSound(player);
                                     main.playerDataManager.addWelcomePoint(player, false);
+                                    main.milestoneManager.checkReturnWelcomeMilestone(player);
                                 }
                             }
                             if (message.contains("#")){
                                 message = main.hexConverter(message);
                             }
                             event.setMessage(main.returnChatEventFormat(message));
-                            main.milestoneManager.checkReturnWelcomeMilestone(player);
                         }
                         return;
                     }
@@ -83,7 +85,7 @@ public class OnReturnJoin implements Listener {
         return false;
     }
 
-    public void vaultRewards(Player player, AsyncPlayerChatEvent event) {
+    public void vaultRewards(Player player) {
         if (main.vaultEnabled) {
             if (main.config.getConfig().getBoolean("returnWelcomeRewards.vault.enable") == true) {
                 int money = main.config.getConfig().getInt("returnWelcomeRewards.vault.reward");
@@ -114,6 +116,14 @@ public class OnReturnJoin implements Listener {
                 }
                 main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
             }
+        }
+    }
+
+    public void playSound(Player player){
+        if (main.config.getConfig().getBoolean("returnWelcomeRewards.sound.enable") == true){
+            try {
+                player.playSound(player.getLocation(), Sound.valueOf(main.config.getConfig().getString("returnWelcomeRewards.sound.playSound").toUpperCase()), 1, 1);
+            } catch (Exception e){ main.consoleMessage(main.messages.getConfig().getString("messages.noSound")); }
         }
     }
 }

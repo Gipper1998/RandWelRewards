@@ -4,6 +4,7 @@
 # To add a new milestone you need these conditions:
 # 5: (the number of times the player has welcomed a new or returning player).
 #   money: 100 (If you have vault, have money deposited to their account, if you don't want to use vault, this line can be removed).
+#   playSound: "ui.toast.challenge_complete" (If you want sound effects, add them here. If you don't want sound to play, you can remove this line).
 #   commands:  (If you want to use commands, use the following example below, note that the only placeholder availble is "<player>", if you don't want to use commands, this line can be removed).
 #     - "give <player> diamond 1"
 #   message: (Type in a message here, you can use the "<prefix>" placeholder here, this just send a private message to the player, this line can also be removed if you don't want to use it).
@@ -13,6 +14,7 @@
 milestoneForNewWelcomes:
   5:
     money: 100
+    playSound: "ui_toast_challenge_complete"
     commands:
       - "give <player> diamond 1"
     message: "<prefix> &aCongrats on welcoming 5 new players, heres some extra bonuses!!!"
@@ -22,6 +24,7 @@ milestoneForNewWelcomes:
 milestoneForReturnWelcomes:
   10:
     money: 1
+    playSound: "ui_toast_challenge_complete"
     commands:
       - "give <player> dirt 1"
     message: "<prefix> &aCongrats on welcoming back 5 new players, heres some extra bonuses!!!"
