@@ -42,13 +42,14 @@ settings:
 
 # Rewards when welcoming a new player. It will give all the rewards available.
 # Use <player> to target the player welcoming the new player if commands are enabled.
+# If you want to use a different sound, use this list and type it exactly as it spells: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
 newWelcomeRewards:
   vault:
     enable: true
     reward: 100
   sound:
     enable: true
-    playSound: "Block_ANVIL_USE"
+    playSound: "BLOCK_ANVIL_USE"
   commands:
     enable: true
     rewardCommands:
@@ -60,7 +61,7 @@ returnWelcomeRewards:
     reward: 10
   sound:
     enable: true
-    playSound: "Block_ANVIL_USE"
+    playSound: "BLOCK_ANVIL_USE"
   commands:
     enable: false
     rewardCommands:

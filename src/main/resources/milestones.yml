@@ -10,11 +10,12 @@
 #   message: (Type in a message here, you can use the "<prefix>" placeholder here, this just send a private message to the player, this line can also be removed if you don't want to use it).
 # And that is it, you can add as many milestones as you want as long as you follow the example above.
 # Just remember to put it in the correct milestone category like the ones below.
+# If you want to use a different sound, use this list and type it exactly as it spells: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
 
 milestoneForNewWelcomes:
   5:
     money: 100
-    playSound: "ui_toast_challenge_complete"
+    playSound: "UI_TOAST_CHALLENGE_COMPLETE"
     commands:
       - "give <player> diamond 1"
     message: "<prefix> &aCongrats on welcoming 5 new players, heres some extra bonuses!!!"
@@ -24,10 +25,10 @@ milestoneForNewWelcomes:
 milestoneForReturnWelcomes:
   10:
     money: 1
-    playSound: "ui_toast_challenge_complete"
+    playSound: "UI_TOAST_CHALLENGE_COMPLETE"
     commands:
       - "give <player> dirt 1"
-    message: "<prefix> &aCongrats on welcoming back 5 new players, heres some extra bonuses!!!"
+    message: "<prefix> &aCongrats on welcoming back 15 new players, heres some extra bonuses!!!"
   25:
     money: 1
     commands:
