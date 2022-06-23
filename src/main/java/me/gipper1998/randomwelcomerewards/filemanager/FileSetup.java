@@ -23,8 +23,9 @@ public class FileSetup {
     }
 
     public void reloadConfig() {
-        if (dataConfigFile == null)
+        if (dataConfigFile == null) {
             dataConfigFile = new File(main.getDataFolder(), name);
+        }
         this.dataConfig = YamlConfiguration.loadConfiguration(dataConfigFile);
         InputStream defConfigStream = main.getResource(name);
         if (defConfigStream != null) {
@@ -34,14 +35,16 @@ public class FileSetup {
     }
 
     public FileConfiguration getConfig() {
-        if (dataConfig == null)
+        if (dataConfig == null) {
             reloadConfig();
+        }
         return dataConfig;
     }
 
     public void saveConfig() {
-        if ((dataConfig == null) || (dataConfigFile == null))
+        if ((dataConfig == null) || (dataConfigFile == null)) {
             return;
+        }
         try {
             getConfig().save(dataConfigFile);
         } catch (IOException e) {
@@ -50,10 +53,12 @@ public class FileSetup {
     }
 
     public void saveDefaultConfig() {
-        if (dataConfigFile == null)
+        if (dataConfigFile == null) {
             dataConfigFile = new File(this.main.getDataFolder(), name);
-        if (!dataConfigFile.exists())
+        }
+        if (!dataConfigFile.exists()) {
             main.saveResource(name, false);
+        }
     }
 
 }

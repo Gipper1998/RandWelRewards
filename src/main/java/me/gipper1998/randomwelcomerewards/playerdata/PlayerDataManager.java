@@ -72,8 +72,9 @@ public class PlayerDataManager {
             try {
                 UUID uuid = UUID.fromString(key);
                 String tempName = Bukkit.getOfflinePlayer(uuid).getName();
-                if (tempName.equalsIgnoreCase(playerName))
+                if (tempName.equalsIgnoreCase(playerName)) {
                     return uuid;
+                }
             }
             catch (NumberFormatException e){
                 return null;

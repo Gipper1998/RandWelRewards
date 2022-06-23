@@ -15,8 +15,7 @@ import java.util.UUID;
 
 
 public class Commands implements TabExecutor {
-
-    private final RandomWelcomeRewards main;
+    private RandomWelcomeRewards main;
     private PlayerDataLeaderboard playerDataLeaderboard;
 
     public Commands (RandomWelcomeRewards main){

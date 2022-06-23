@@ -9,7 +9,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 public class VaultManager {
     private Economy economy;
     private Chat chat;
-
     private RandomWelcomeRewards main;
 
     public VaultManager(RandomWelcomeRewards main){

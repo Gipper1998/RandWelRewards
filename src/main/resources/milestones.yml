@@ -23,8 +23,8 @@ milestoneForNewWelcomes:
     money: 200
 
 milestoneForReturnWelcomes:
-  10:
-    money: 1
+  15:
+    money: 100
     playSound: "UI_TOAST_CHALLENGE_COMPLETE"
     commands:
       - "give <player> dirt 1"

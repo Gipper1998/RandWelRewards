@@ -50,10 +50,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
         this.config = new FileSetup(this, "config.yml");
         this.playerDataManager = new PlayerDataManager(this);
         this.milestoneManager = new MilestoneManager(this);
-        config.saveDefaultConfig();
-        playerData.saveDefaultConfig();
-        messages.saveDefaultConfig();
-        milestones.saveDefaultConfig();
     }
 
     private void registerPlayerEvents(){

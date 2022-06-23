@@ -80,8 +80,9 @@ public class OnReturnJoin implements Listener {
     public Boolean checkPlayTime(Player player) {
         long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         long minutes = ticks / 20 / 60;
-        if (minutes >= main.config.getConfig().getInt("settings.returnTimeNeed"))
+        if (minutes >= main.config.getConfig().getInt("settings.returnTimeNeed")) {
             return true;
+        }
         return false;
     }
 
@@ -93,8 +94,9 @@ public class OnReturnJoin implements Listener {
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
             }
         }
-        else
+        else {
             main.consoleMessage(main.messages.getConfig().getString("messages.noVault"));
+        }
     }
 
     public void commandRewards(Player player, AsyncPlayerChatEvent event) {
