@@ -21,45 +21,7 @@ https://dev.bukkit.org/projects/vault
 #### PlaceholderAPI
 PlaceholderAPI can be used to project the top welcoming points a player has or their current score on a hologram plugin 
 (like HolographicDisplays, GHolos, DecentHolograms, etc..). You can find the latest version of PlaceholderAPI here: https://www.spigotmc.org/resources/placeholderapi.6245/
-### Languages
-The only language this plugin comes with is English, however, everything is fully translatable in the "messages.yml." Just to remember
-to reload the plugin for the changes to take effect.
-### Hex Color Support
-Not only can use the "&" color placeholder, but you can also use hex colors, the "messages.yml" file will show what you
-need to do, otherwise its pretty simple.
-## Commands
-### /randwelrewards stats
-Shows the players new and return welcome points they have.
-default: true
-### /randwelrewards leaderboards <type>
-Displays the current ranking of either type, this can be used if you don't want to use holograms.
-default: true
-### /randwelrewards stats <playername>
-Shows the players new and return welcome points another player has.
-default: false
-### /randwelrewards setstats <playername> <type> <amount>
-Set the player stat for either type in game.
-default: false
-### /randwelrewards reload
-Reloads the plugin.
-default: false
-## Permissions
-### - randomwelcomerewards.reload
-The permission for a player to reload the plugin.
-### - randomwelcomerewards.stats.others
-The permission to allow the player to look at other players stats.
-### - randomwelcomerewards.setstats
-The permission to allow the player to change the stat of another player.
-## PAPI Placeholders
-### - %randwelrewards_newwelcome_score%
-Returns the players current New Welcome points.
-### - %randwelrewards_return_welcome_score%
-Returns the players current Return Welcome points.
-### - %randwelrewards_top_<newwelcome/returnwelcome>_<name/amount>_<position>%
-Returns either the players name or amount based on either newwelcome points or returnwelcome points at that position (Mainly used for leaderboards).
 ## Final Notes
 If anyone has any questions, issues, or problems regarding this plugin. Please let me know and I'll get back to you
-as soon as possible, thank you and enjoy seeing those funny messages!!
-
-
-  
+as soon as possible, for more information regarding commands, permissions, and placeholders, check out the spigot page here:
+thank you and enjoy seeing those funny messages!!
