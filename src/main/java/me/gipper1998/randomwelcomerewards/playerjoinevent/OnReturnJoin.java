@@ -59,9 +59,6 @@ public class OnReturnJoin implements Listener {
                                     main.milestoneManager.checkReturnWelcomeMilestone(player);
                                 }
                             }
-                            if (message.contains("#")){
-                                message = main.hexConverter(message);
-                            }
                             event.setMessage(main.returnChatEventFormat(message));
                         }
                         return;
@@ -80,10 +77,7 @@ public class OnReturnJoin implements Listener {
     public Boolean checkPlayTime(Player player) {
         long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         long minutes = ticks / 20 / 60;
-        if (minutes >= main.config.getConfig().getInt("settings.returnTimeNeed")) {
-            return true;
-        }
-        return false;
+        return (minutes >= main.config.getConfig().getInt("settings.returnTimeNeed"));
     }
 
     public void vaultRewards(Player player) {

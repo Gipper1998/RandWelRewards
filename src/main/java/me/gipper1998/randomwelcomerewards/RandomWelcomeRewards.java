@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 
 public class RandomWelcomeRewards extends JavaPlugin {
     public boolean vaultEnabled = false;
-    public boolean placeholderEnabled = false;
     public FileSetup playerData;
     public FileSetup messages;
     public FileSetup milestones;
@@ -31,7 +30,7 @@ public class RandomWelcomeRewards extends JavaPlugin {
     @Override
     public void onEnable() {
         fileSetups();
-        this.getCommand("randomwelcomerewards").setExecutor(new Commands(this));
+        registerCommands();
         registerSoftDependManagers();
         registerPlayerEvents();
         consoleMessage(messages.getConfig().getString("messages.startUp"));
@@ -41,6 +40,10 @@ public class RandomWelcomeRewards extends JavaPlugin {
     public void onDisable() {
         consoleMessage(messages.getConfig().getString("messages.shutDown"));
         Bukkit.getPluginManager().disablePlugin(this);
+    }
+
+    public void registerCommands() {
+        getCommand("randomwelcomerewards").setExecutor(new Commands(this));
     }
 
     private void fileSetups(){
@@ -55,8 +58,8 @@ public class RandomWelcomeRewards extends JavaPlugin {
     private void registerPlayerEvents(){
         WelcomePlayer wp = new WelcomePlayer(this);
         WelcomeReturnPlayer wrp = new WelcomeReturnPlayer(this);
-        this.getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
-        this.getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
+        getServer().getPluginManager().registerEvents(new OnNewJoin(this, wp), this);
+        getServer().getPluginManager().registerEvents(new OnReturnJoin(this, wrp), this);
     }
 
     private void registerSoftDependManagers(){
@@ -68,7 +71,6 @@ public class RandomWelcomeRewards extends JavaPlugin {
         if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
             new PlaceholderManager(this).register();
             consoleMessage(messages.getConfig().getString("messages.papiHooked"));
-            placeholderEnabled = true;
         }
     }
 
@@ -115,7 +117,12 @@ public class RandomWelcomeRewards extends JavaPlugin {
             player.sendMessage("");
         }
     }
-    public String returnChatEventFormat(String string){ return ChatColor.translateAlternateColorCodes('&', string); }
+    public String returnChatEventFormat(String string){
+        if (string.contains("#")){
+            hexConverter(string);
+        }
+        return ChatColor.translateAlternateColorCodes('&', string);
+    }
 
     public String hexConverter(String message) {
         Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");

@@ -59,9 +59,6 @@ public class OnNewJoin implements Listener {
                                     main.milestoneManager.checkNewWelcomeMilestone(player);
                                 }
                             }
-                            if (message.contains("#")){
-                                message = main.hexConverter(message);
-                            }
                             event.setMessage(main.returnChatEventFormat(message));
                         }
                         return;
