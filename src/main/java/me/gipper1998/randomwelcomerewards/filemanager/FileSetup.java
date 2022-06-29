@@ -48,7 +48,7 @@ public class FileSetup {
         try {
             getConfig().save(dataConfigFile);
         } catch (IOException e) {
-            main.consoleMessage("<prefix> &cCould not load " + name + " folder.");
+            main.consoleMessage(main.messages.getConfig().getString("messages.fileFail").replaceAll("<file>", name));
         }
     }
 

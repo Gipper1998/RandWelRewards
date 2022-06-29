@@ -20,8 +20,6 @@ public class OnNewJoin implements Listener {
     private RandomWelcomeRewards main;
     private WelcomePlayer wp;
     private Random rand;
-    private List<String> messageList;
-
     public OnNewJoin(RandomWelcomeRewards main, WelcomePlayer wp){
         this.main = main;
         this.wp = wp;
@@ -45,7 +43,7 @@ public class OnNewJoin implements Listener {
                                 wp.removeNew(newPlayer.getPlayer());
                             } else if (!newPlayer.getPlayer().equals(player) && !newPlayer.hasPlayer(player)) {
                                 newPlayer.addWelcomePlayer(player);
-                                messageList = main.messages.getConfig().getStringList("messages.newWelcomeMessages");
+                                List<String> messageList = main.messages.getConfig().getStringList("messages.newWelcomeMessages");
                                 int messageSelect = rand.nextInt(messageList.size());
                                 String Text = messageList.get(messageSelect).replaceAll("<newplayer>", newPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());

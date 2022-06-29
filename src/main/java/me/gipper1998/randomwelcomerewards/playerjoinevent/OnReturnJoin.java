@@ -20,7 +20,6 @@ public class OnReturnJoin implements Listener {
     private RandomWelcomeRewards main;
     private WelcomeReturnPlayer wrp;
     private Random rand;
-    private List<String> messageList;
 
     public OnReturnJoin(RandomWelcomeRewards main, WelcomeReturnPlayer wrp){
         this.main = main;
@@ -45,7 +44,7 @@ public class OnReturnJoin implements Listener {
                                 wrp.removeNew(returnPlayer.getPlayer());
                             } else if (!returnPlayer.getPlayer().equals(player) && !returnPlayer.hasPlayer(player)) {
                                 returnPlayer.addReturnPlayer(player);
-                                messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
+                                List<String> messageList = main.messages.getConfig().getStringList("messages.returnWelcomeMessages");
                                 int messageSelect = rand.nextInt(messageList.size());
                                 String Text = messageList.get(messageSelect).replaceAll("<returnplayer>", returnPlayer.getPlayer().getName());
                                 Text = Text.replaceAll("<player>", player.getDisplayName());

@@ -1,8 +1,6 @@
 package me.gipper1998.randomwelcomerewards.playerdata;
 
-import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 import org.bukkit.Bukkit;
-
 import java.util.UUID;
 
 public class PlayerData {

@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentMap;
 public class WelcomePlayer {
     private RandomWelcomeRewards main;
     private ConcurrentMap<Player, NewPlayer> newPlayers = new ConcurrentHashMap();
-    private String word;
 
     public WelcomePlayer(RandomWelcomeRewards main) {
         this.main = main;
@@ -37,7 +36,6 @@ public class WelcomePlayer {
                 return false;
             string = (String)var3.next();
         } while(!message.toLowerCase().contains(string.toLowerCase()));
-        word = string;
         return true;
     }
 }

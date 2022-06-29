@@ -28,6 +28,11 @@ messages:
   setLeaderboardReturnError: "<prefix>&c Getting the data for returnWelcomes didn't work correctly, check to see if anythings in playerData.yml"
   leaderBoardUUIDError: "<prefix> &cCan't resolve UUID: &d<uuid> &cinto the system, check playerData.yml incase theres an error."
   noSound: "<prefix> &cA sound could not be played, must be either mistyped or doesn't exist."
+  fileFail: "<prefix> &cFile <file> did not load correctly."
+  newMilestoneFail: "<prefix> &cFail to load return milestone <key>, check &dmilestones.yml&c file for wrong formatting or mistypes and try again."
+  noNewMilestone: "<prefix> &cNew Milestones were enabled, but nothings there for some reason?"
+  returnMilestoneFail: "<prefix> &cFail to load return milestone <key>, check &dmilestones.yml&c file for wrong formatting or mistypes and try again."
+  noReturnMilestone: "<prefix> &cReturn Milestones were enabled, but nothings there for some reason?"
 
   # These messages will come from the player, just specify the new player with "<newplayer>"" and you should be good :D.
   # Note: putting <prefix> here will not work here.

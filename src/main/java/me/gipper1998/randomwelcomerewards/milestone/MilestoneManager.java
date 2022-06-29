@@ -39,7 +39,7 @@ public class MilestoneManager {
         if (enableNew) {
             newWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForNewWelcomes");
             if (newWelcomeMilestonesSection == null) {
-                main.consoleMessage("<prefix> &cNo milestones for the newWelcome section even though its enabled for some reason?");
+                main.consoleMessage(main.messages.getConfig().getString("main.noNewMilestone"));
                 return;
             }
             Set<String> keys = newWelcomeMilestonesSection.getKeys(false);
@@ -48,7 +48,7 @@ public class MilestoneManager {
                     int score = Integer.parseInt(key);
                     newWelcomeMilestones.add(score);
                 } catch (NumberFormatException e) {
-                    main.consoleMessage("<prefix> &cCan't resolve milestone &6" + key + "&c as a valid score in the newWelcome Section.");
+                    main.consoleMessage(main.messages.getConfig().getString("messages.newMilestoneFail").replaceAll("<key>", key));
                 }
             }
         }
@@ -58,7 +58,7 @@ public class MilestoneManager {
         if (enableReturn) {
             returnWelcomeMilestonesSection = main.milestones.getConfig().getConfigurationSection("milestoneForReturnWelcomes");
             if (returnWelcomeMilestonesSection == null) {
-                main.consoleMessage("<prefix> &cNo milestones for the returnWelcome section even though its enabled for some reason?");
+                main.consoleMessage(main.messages.getConfig().getString("main.noReturnMilestone"));
                 return;
             }
             Set<String> keys = returnWelcomeMilestonesSection.getKeys(false);
@@ -67,7 +67,7 @@ public class MilestoneManager {
                     int score = Integer.parseInt(key);
                     returnWelcomeMilestones.add(score);
                 } catch (NumberFormatException e) {
-                    main.consoleMessage("<prefix> &cCan't resolve milestone &6" + key + "&c as a valid score in the newWelcome Section.");
+                    main.consoleMessage(main.messages.getConfig().getString("messages.returnMilestoneFail").replaceAll("<key>", key));
                 }
             }
         }
