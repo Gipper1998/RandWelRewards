@@ -15,15 +15,15 @@ public class NewPlayer {
     }
 
     public Player getPlayer(){
-        return this.player;
+        return player;
     }
     public Long getJoinTime(){
-        return this.joinTime;
+        return joinTime;
     }
     public void addWelcomePlayer(Player player){
-        this.welcomePlayers.add(player);
+        welcomePlayers.add(player);
     }
     public boolean hasPlayer(Player player){
-        return this.welcomePlayers.contains(player);
+        return welcomePlayers.contains(player);
     }
 }

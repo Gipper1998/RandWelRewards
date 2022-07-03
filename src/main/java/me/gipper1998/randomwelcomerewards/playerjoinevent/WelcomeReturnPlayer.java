@@ -16,15 +16,15 @@ public class WelcomeReturnPlayer {
     }
 
     public ConcurrentMap<Player, ReturnPlayer> getReturnPlayers() {
-        return this.returnPlayers;
+        return returnPlayers;
     }
 
     public void addNew(Player player) {
-        this.returnPlayers.put(player, new ReturnPlayer(player));
+        returnPlayers.put(player, new ReturnPlayer(player));
     }
 
     public void removeNew(Player player) {
-        this.returnPlayers.remove(player);
+        returnPlayers.remove(player);
     }
 
     public Boolean messageContains(String message) {

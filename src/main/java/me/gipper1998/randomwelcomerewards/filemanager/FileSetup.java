@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 
 public class FileSetup {
 
-    private final RandomWelcomeRewards main;
+    private RandomWelcomeRewards main;
     private FileConfiguration dataConfig = null;
     private File dataConfigFile = null;
     private String name;

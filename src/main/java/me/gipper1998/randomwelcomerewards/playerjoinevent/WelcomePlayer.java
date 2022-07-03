@@ -16,19 +16,19 @@ public class WelcomePlayer {
     }
 
     public ConcurrentMap<Player, NewPlayer> getNewPlayers() {
-        return this.newPlayers;
+        return newPlayers;
     }
 
     public void addNew(Player player) {
-        this.newPlayers.put(player, new NewPlayer(player));
+        newPlayers.put(player, new NewPlayer(player));
     }
 
     public void removeNew(Player player) {
-        this.newPlayers.remove(player);
+        newPlayers.remove(player);
     }
 
     public Boolean messageContains(String message) {
-        List<String> welcomeText = this.main.config.getConfig().getStringList("settings.triggeredNewWelcomeTexts");
+        List<String> welcomeText = main.config.getConfig().getStringList("settings.triggeredNewWelcomeTexts");
         Iterator var3 = welcomeText.iterator();
         String string;
         do {

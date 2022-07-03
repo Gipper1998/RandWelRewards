@@ -1,7 +1,9 @@
-package me.gipper1998.randomwelcomerewards.playerjoinevent;
+package me.gipper1998.randomwelcomerewards.playerjoinevent.listener;
 
 import me.gipper1998.randomwelcomerewards.RandomWelcomeRewards;
 
+import me.gipper1998.randomwelcomerewards.playerjoinevent.NewPlayer;
+import me.gipper1998.randomwelcomerewards.playerjoinevent.WelcomePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -51,7 +53,7 @@ public class OnNewJoin implements Listener {
                                     message = "";
                                     message = Text;
                                     vaultRewards(player);
-                                    commandRewards(player, event);
+                                    commandRewards(player);
                                     playSound(player);
                                     main.playerDataManager.addWelcomePoint(player, true);
                                     main.milestoneManager.checkNewWelcomeMilestone(player);
@@ -73,9 +75,9 @@ public class OnNewJoin implements Listener {
         }
     }
 
-    public void vaultRewards(Player player) {
+    private void vaultRewards(Player player) {
         if (main.vaultEnabled) {
-            if (main.config.getConfig().getBoolean("newWelcomeRewards.vault.enable") == true) {
+            if (main.config.getConfig().getBoolean("newWelcomeRewards.vault.enable")) {
                 int money = main.config.getConfig().getInt("newWelcomeRewards.vault.reward");
                 main.vaultManager.deposit(player, money);
                 main.vaultChat(main.messages.getConfig().getString("messages.vaultMoney"), player, money);
@@ -86,8 +88,8 @@ public class OnNewJoin implements Listener {
         }
     }
 
-    public void commandRewards(Player player, AsyncPlayerChatEvent event) {
-        if (main.config.getConfig().getBoolean("newWelcomeRewards.commands.enable") == true) {
+    private void commandRewards(Player player) {
+        if (main.config.getConfig().getBoolean("newWelcomeRewards.commands.enable")) {
             List<String> rewardCommands = main.config.getConfig().getStringList("newWelcomeRewards.commands.rewardCommands");
             ConsoleCommandSender console = main.getServer().getConsoleSender();
             Iterator var9 = rewardCommands.iterator();
@@ -97,19 +99,17 @@ public class OnNewJoin implements Listener {
                     command = command.replace("<player>", player.getName());
                     ServerCommandEvent commandEvent = new ServerCommandEvent(console, command);
                     main.getServer().getPluginManager().callEvent(commandEvent);
-                    if (!event.isCancelled()) {
-                        main.getServer().getScheduler().callSyncMethod(main, () -> {
-                            return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
-                        });
-                    }
+                    main.getServer().getScheduler().callSyncMethod(this.main, () -> {
+                        return main.getServer().dispatchCommand(commandEvent.getSender(), commandEvent.getCommand());
+                    });
                 }
                 main.chatMessage(main.messages.getConfig().getString("messages.commandReward"), player);
             }
         }
     }
 
-    public void playSound(Player player){
-        if (main.config.getConfig().getBoolean("newWelcomeRewards.sound.enable") == true){
+    private void playSound(Player player){
+        if (main.config.getConfig().getBoolean("newWelcomeRewards.sound.enable")){
             try {
                 player.playSound(player.getLocation(), Sound.valueOf(main.config.getConfig().getString("newWelcomeRewards.sound.playSound").toUpperCase()), 1, 1);
             } catch (Exception e){ main.consoleMessage(main.messages.getConfig().getString("messages.noSound")); }
