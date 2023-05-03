@@ -13,7 +13,7 @@ start welcoming new players in a funnt way while also earning rewards along side
 The API is built off of 1.18, but should be able to go up towards 1.13 and beyond. If theres enough requests, I can upload a 1.12 and below version (more than likely up to
 1.8). However, it will get limited updates and not much support from me since the native version of this plugin is 1.13 and beyond.
 ### Dependicies
-No Dependices are required for this plugin, just drag and drop into the plugins and restart your server.
+No Dependices are required for this plugin, just drag and drop into the plugins folder and restart your server.
 ### Soft Dependicies
 #### Vault
 Vault can be used to give in-game currency and usually helps with most chat permission plugins. You can download the latest version of vault through here: 
