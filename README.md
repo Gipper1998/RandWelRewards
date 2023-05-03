@@ -12,6 +12,11 @@ start welcoming new players in a funnt way while also earning rewards along side
 ### Server Version
 The API is built off of 1.18, but should be able to go up towards 1.13 and beyond. If theres enough requests, I can upload a 1.12 and below version (more than likely up to
 1.8). However, it will get limited updates and not much support from me since the native version of this plugin is 1.13 and beyond.
+### Permissions
+#### Admin 
+randomwelcomerewards.reload 
+randomwelcomerewards.setstats
+randomwelcomerewards.stats.others
 ### Dependicies
 No Dependices are required for this plugin, just drag and drop into the plugins folder and restart your server.
 ### Soft Dependicies
